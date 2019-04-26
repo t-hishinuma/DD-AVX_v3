@@ -1,0 +1,13 @@
+GPATH
+GRTAGS
+GTAGS
+*~
+*.pz
+*.so
+*.log*
+*.o
+*.out
+*.swp
+*.swo
+*.ir
+*.d
