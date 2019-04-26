@@ -3,8 +3,6 @@ stages:
       
 build:
     stage: build
-    tags:
-        - sw-sc1
     script:
         - make
         - ls
