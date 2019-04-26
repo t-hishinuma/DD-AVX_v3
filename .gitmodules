@@ -1,0 +1,3 @@
+[submodule "submodules/QD"]
+	path = submodules/QD
+	url = https://github.com/aoki-t/QD.git
