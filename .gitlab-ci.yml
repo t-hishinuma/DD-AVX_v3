@@ -1,0 +1,15 @@
+stages:
+    - build
+      
+build:
+    stage: build
+    tags:
+        - sw-sc1
+    script:
+        - make
+        - ls
+        - ls lib/
+        - ls lib/qd
+        - ls lib/qd/include
+        - ls lib/qd/lib/
+
