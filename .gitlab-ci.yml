@@ -3,6 +3,8 @@ stages:
       
 build:
     stage: build
+    tags:
+        - hishinuma-ci
     script:
         - make
         - ls
