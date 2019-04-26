@@ -1,0 +1,3 @@
+[submodule "lib/qd-library"]
+	path = lib/qd-library
+	url = https://bitbucket.org/njet/qd-library.git
