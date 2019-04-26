@@ -9,7 +9,7 @@ QD_INCLUDE=$(QD_DIR)/include
 
 TARGET=$(QD_DIR)/src/.libs/libqd.a
 
-INSTALL_DIR=lib/qd
+INSTALL_DIR=../lib/qd
 
 
 
@@ -25,9 +25,9 @@ $(MAKEFILE): $(CONFIGURE)
 
 $(CONFIGURE):
 	git submodule update -i
-	chmod -R 755 submodules
+	chmod -R 755 $(QD_DIR)
 
 install:  
 	mkdir -p $(INSTALL_DIR)
-	cp -r $(QD_LIB) $(INSTALL_DIR)
+	cp -r $(QD_LIB) $(INSTALL_DIR)/lib
 	cp -r $(QD_INCLUDE) $(INSTALL_DIR)
