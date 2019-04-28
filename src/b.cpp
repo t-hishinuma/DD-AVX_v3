@@ -1,7 +1,8 @@
 #include<stdio.h>
 #include"a.hpp"
-int goma(){
 
-	printf("hello world\n");
+int gomafu(){
+
+	printf("hello world gomafu\n");
 	return 1;
 }

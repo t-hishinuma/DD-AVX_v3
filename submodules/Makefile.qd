@@ -1,5 +1,7 @@
 QD_DIR= QD/
-QD_OPT= CXX=g++ CXXFLAGS=-O3\ -fopenmp\ -std=c++11 FC=gfortran FCFLAGS=-m64 --enable-fma --enable-shared=yes
+QD_OPT =  CXX=g++ CXXFLAGS=-O3\ -fopenmp\ -std=c++11
+QD_OPT += FC=gfortran FCFLAGS=-m64
+QD_OPT += --enable-fma --enable-shared=yes --enable-inline
 
 MAKEFILE=$(QD_DIR)/Makefile
 CONFIGURE=$(QD_DIR)/configure
@@ -7,27 +9,29 @@ CONFIGURE=$(QD_DIR)/configure
 QD_LIB=$(QD_DIR)/src/.libs
 QD_INCLUDE=$(QD_DIR)/include
 
-TARGET=$(QD_DIR)/src/.libs/libqd.a
+QD_TARGET=$(QD_DIR)/src/.libs/libqd.a
 
-INSTALL_DIR=../lib/qd
-
+QD_INSTALL_DIR=../lib/
+QD_INCLUDE_DIR=../include/
 
 
 #####################################
 
-all: $(TARGET)
+all: $(QD_TARGET)
 
-$(TARGET): $(MAKEFILE)
-	$(MAKE) -C $(QD_DIR) -j
+$(QD_TARGET): $(MAKEFILE)
+	- cd $(QD_DIR); make clean; cd ..
+	cd $(QD_DIR); make -j; cd ..
 
 $(MAKEFILE): $(CONFIGURE)
-	cd $(QD_DIR); ./configure $(QD_OPT)
+	cd $(QD_DIR); ./configure $(QD_OPT); cd ..
+	chmod -R 755 $(QD_DIR)
 
 $(CONFIGURE):
 	git submodule update -i
 	chmod -R 755 $(QD_DIR)
 
 install:  
-	mkdir -p $(INSTALL_DIR)
-	cp -r $(QD_LIB) $(INSTALL_DIR)/lib
-	cp -r $(QD_INCLUDE) $(INSTALL_DIR)
+	mkdir -p $(QD_INSTALL_DIR)
+	cp -r $(QD_LIB) $(QD_INSTALL_DIR)/qd_lib
+	cp -r $(QD_INCLUDE)/qd $(QD_INCLUDE_DIR)/qd_include
