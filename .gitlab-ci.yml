@@ -62,7 +62,7 @@ test_run:
     tags:
         - hishinuma-ci
     script:
-        - cd test; test run;
+        - cd test; make run;
     artifacts:
         paths:
             - test_build/
