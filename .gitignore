@@ -13,3 +13,4 @@ GTAGS
 *.d
 lib/qd/
 include/qd
+libqd*

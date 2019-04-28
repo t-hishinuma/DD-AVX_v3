@@ -14,7 +14,7 @@ SRCS2=src/b.cpp
 $(TARGET): $(QD_LIB) src/obj/a.o 
 	g++ $(LIBFLAGS) $(QD_LINK) src/obj/a.o src/obj/b.o -o $(TARGET)
 
-src/obj/a.o: src/a.cpp src/b.cpp
+src/obj/a.o: src/a.cpp src/b.cpp $(QD_LIB)
 	mkdir -p src/obj
 	g++ $(CXXFLAGS) $(QD_LINK) -c $(SRCS) -I./include -o src/obj/a.o
 	g++ $(CXXFLAGS) $(QD_LINK) -c $(SRCS2) -I./include -o src/obj/b.o
