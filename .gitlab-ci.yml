@@ -1,8 +1,8 @@
 stages:
     - build
     - install
-    - test_build
-    - test
+    - build_test
+    - run_test
       
 before_script:
   - mkdir -p ~/lib/dd_avx
@@ -34,7 +34,7 @@ install_lib:
     script:
         - make install
     dependencies:
-        - "build"
+        - "build_lib"
     artifacts:
         paths:
             - ~/lib/dd_avx/
@@ -43,13 +43,13 @@ install_lib:
 ###################################################
 
 test_build:
-    stage: test_build
+    stage: build_test
     tags:
         - hishinuma-ci
     script:
         - cd test; make;
     dependencies:
-        - "install"
+        - "install_lib"
     artifacts:
         paths:
             - test/
@@ -58,7 +58,7 @@ test_build:
 ###################################################
 
 test_run:
-    stage: test
+    stage: run_test
     tags:
         - hishinuma-ci
     script:
