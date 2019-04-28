@@ -1,8 +1,5 @@
 DD_AVX_DIR+=$(HOME)/lib/dd_avx/
 
-TARGET=lib/libdd-avx.so
-QD_LIB=./lib/libqd.a
-
 all:
 	git submodule update -i
 	$(MAKE) -C submodules -f Makefile.qd
