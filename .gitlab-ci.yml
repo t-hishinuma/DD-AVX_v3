@@ -18,9 +18,11 @@ build:
             - lib/
         expire_in: 1day
 
-build:
+test:
     stage: test
     tags:
         - hishinuma-ci
     script:
         - cd test; make
+    dependencies:
+        - "build"
