@@ -1,8 +1,15 @@
 stages:
     - build
+    - test_build
     - test
       
-build:
+before_script:
+  - mkdir -p ~/lib/dd_avx
+  - export LD_LIBRARY_PATH=~/lib/dd_avx
+
+###################################################
+
+build_lib:
     stage: build
     tags:
         - hishinuma-ci
@@ -10,7 +17,6 @@ build:
         - make
         - ls
         - ls lib/
-        - ls lib/qd
         - ls include/qd/
     artifacts:
         paths:
@@ -18,11 +24,41 @@ build:
             - lib/
         expire_in: 1day
 
-test:
+install_lib:
+    stage: install
+    tags:
+        - hishinuma-ci
+    script:
+        - make install
+    dependencies:
+        - "build_lib"
+    artifacts:
+        paths:
+            - ~/lib/dd_avx/
+        expire_in: 1day
+
+###################################################
+
+test_build:
+    stage: test_build
+    tags:
+        - hishinuma-ci
+    script:
+        - cd test; make;
+    artifacts:
+        paths:
+            - test/
+        expire_in: 1day
+
+###################################################
+
+test_run:
     stage: test
     tags:
         - hishinuma-ci
     script:
-        - cd test; make
-    dependencies:
-        - "build"
+        - cd test; test run;
+    artifacts:
+        paths:
+            - test_build/
+        expire_in: 1day
