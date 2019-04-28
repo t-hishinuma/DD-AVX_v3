@@ -1,5 +1,5 @@
 stages:
-    - build
+    - test
       
 build:
     stage: build
@@ -10,6 +10,16 @@ build:
         - ls
         - ls lib/
         - ls lib/qd
-        - ls lib/qd/include
-        - ls lib/qd/lib/
+        - ls include/qd/
+    artifacts:
+        paths:
+            - include/
+            - lib/
+        expire_in: 1day
 
+build:
+    stage: test
+    tags:
+        - hishinuma-ci
+    script:
+        - cd test; make

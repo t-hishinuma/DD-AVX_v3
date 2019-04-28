@@ -33,5 +33,5 @@ $(CONFIGURE):
 
 install:  
 	mkdir -p $(QD_INSTALL_DIR)
-	cp -r $(QD_LIB) $(QD_INSTALL_DIR)/qd_lib
-	cp -r $(QD_INCLUDE)/qd $(QD_INCLUDE_DIR)/qd_include
+	cp -r $(QD_LIB) $(QD_INSTALL_DIR)/qd
+	cp -r $(QD_INCLUDE)/qd $(QD_INCLUDE_DIR)/qd

@@ -9,8 +9,8 @@ LIBFLAGS=-shared
 SRCS=src/a.cpp 
 SRCS2=src/b.cpp 
  
-$(TARGET): $(QD_LIB) src/obj/a.o
-	g++ $(LIBFLAGS) src/obj/a.o lib/qd_lib/libqd.a src/obj/b.o -o $(TARGET)
+$(TARGET): $(QD_LIB) src/obj/a.o 
+	g++ $(LIBFLAGS) src/obj/a.o lib/qd/libqd.a src/obj/b.o -o $(TARGET)
 
 src/obj/a.o: src/a.cpp src/b.cpp
 	mkdir -p src/obj

@@ -11,4 +11,5 @@ GTAGS
 *.swo
 *.ir
 *.d
-lib/qd/*
+lib/qd/
+include/qd
