@@ -40,3 +40,4 @@ install:
 
 clean:
 	- cd $(QD_DIR); make clean; cd ..
+	- rm ../include/qd
