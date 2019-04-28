@@ -1,5 +1,6 @@
 stages:
     - build
+    - install
     - test_build
     - test
       
@@ -24,14 +25,16 @@ build_lib:
             - lib/
         expire_in: 1day
 
+###################################################
+
 install_lib:
-    stage: build
+    stage: install
     tags:
         - hishinuma-ci
     script:
         - make install
     dependencies:
-        - "build_lib"
+        - "build"
     artifacts:
         paths:
             - ~/lib/dd_avx/
@@ -45,6 +48,8 @@ test_build:
         - hishinuma-ci
     script:
         - cd test; make;
+    dependencies:
+        - "install"
     artifacts:
         paths:
             - test/
