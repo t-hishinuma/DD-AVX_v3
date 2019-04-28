@@ -1,4 +1,6 @@
-QD_DIR= QD/
+QD_DIR=./QD
+DD_AVX_DIR+=$(HOME)/lib/dd_avx/
+
 QD_OPT =  CXX=g++ CXXFLAGS=-O3\ -fopenmp\ -std=c++11
 QD_OPT += FC=gfortran FCFLAGS=-m64
 QD_OPT += --enable-fma --enable-shared=yes --enable-inline
@@ -32,6 +34,8 @@ $(CONFIGURE):
 	chmod -R 755 $(QD_DIR)
 
 install:  
-	mkdir -p $(QD_INSTALL_DIR)
-	cp -r $(QD_LIB) $(QD_INSTALL_DIR)/qd
+	- mkdir -p $(QD_INSTALL_DIR)
+	- mkdir -p $(DD_INCLUDE_DIR)/include
+	cp -r $(QD_LIB)/*.a $(QD_INSTALL_DIR)
+	cp -r $(QD_LIB)/*.so* $(QD_INSTALL_DIR)
 	cp -r $(QD_INCLUDE)/qd $(QD_INCLUDE_DIR)/qd

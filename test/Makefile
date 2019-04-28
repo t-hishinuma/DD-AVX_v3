@@ -1,8 +1,12 @@
+DD_AVX_DIR?=$(HOME)/lib/dd_avx/
+
+RPATH=-Wl,-rpath,$(DD_AVX_DIR)/lib 
+LIB=-I$(DD_AVX_DIR)/include -L$(DD_AVX_DIR)/lib -ldd-avx 
 
 all: run
 
 build:
-	g++ -O3 -I../include -I../lib/qd_include/ -L../lib -ldd-avx -std=c++11 test.cpp -o test.o
-
+	g++ $(RPATH) $(LIB) test.cpp -o test.o
 run: build
-	export LD_LIBRARY_PATH=$(LD_LIBRARY_PATY):~/Work/DD-AVX/DD-AVX/lib/;./test.o
+	./test.o
+
