@@ -16,3 +16,8 @@ clean:
 	- rm -rf  $(DD_AVX_DIR)
 	- rm -rf include/qd
 	- $(MAKE) -C submodules -f Makefile.qd clean
+
+clean_lib:
+	- rm -rf src/obj
+	- rm -rf ./lib/*
+	- rm -rf  $(DD_AVX_DIR)

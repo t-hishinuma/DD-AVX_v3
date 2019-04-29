@@ -1,15 +1,18 @@
-/* Copyright (C) T.Hishinuma, All rights reserved.*/
-/* 2016/12/06*/
 #ifndef DD_AVX_HPP
 #define DD_AVX_HPP
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include<vector>
 #include<omp.h>
-#include <DD-AVX_Config.hpp>
-#include <DD-AVX_MACRO_Scalar.hpp>
+#include"qd/dd_real.h"
+#include"dd_vector.hpp"
 
+extern int goma();
+extern int gomafu();
+
+#if 0
 #if USE_AVX==1
 	#include <DD-AVX_MACRO_AVX.hpp>
 #elif USE_SSE2==1
@@ -386,4 +389,5 @@ extern void DD_AVX_TSpMV(D_Matrix A, DD_Vector vx, DD_Vector vy);
 extern void DD_AVX_TSpMV_CRS_D(D_Matrix A, D_Vector vx, D_Vector vy);
 extern void DD_AVX_TSpMV_CRS_DD(D_Matrix A, DD_Vector vx, DD_Vector vy);
 
+#endif
 #endif

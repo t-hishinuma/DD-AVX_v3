@@ -1,9 +1,9 @@
-#include<stdio.h>
-#include"a.hpp"
+#include"DD-AVX.hpp"
 
 int goma(){
 
-	dd_real a = 1.5;
+	//DD_AVX::dd_scalar a = 1.5;
+	dd_real a = 2.0;
 	a = cos(a);
 
 	printf("hello world %f\n",a.x[0]);
