@@ -69,7 +69,7 @@ scalar:
             - test_build/
         expire_in: 1day
 
-test_run:
+vector:
     stage: run_test
     tags:
         - hishinuma-ci
@@ -81,7 +81,7 @@ test_run:
         expire_in: 1day
 ###################################################
 
-doc:
+make_doc:
     stage: doc
     tags:
         - hishinuma-ci
@@ -90,4 +90,5 @@ doc:
         - cd doc/; doxygen ./Doxyfile; cd -
         - mv doc/html /public/dd_avx
     dependencies:
-        - "run_test"
+        - "scalar"
+        - "vector"
