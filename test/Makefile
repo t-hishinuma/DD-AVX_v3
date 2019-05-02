@@ -5,7 +5,7 @@ all:
 run_scalar:
 	$(MAKE) -C scalar run
 
-run_vectorr:
+run_vector:
 	$(MAKE) -C vector run
 
 clean:
