@@ -1,8 +1,13 @@
-all:
+all: 
 	$(MAKE) -C scalar
+	$(MAKE) -C vector
 
-run:
+run_scalar:
 	$(MAKE) -C scalar run
 
+run_vectorr:
+	$(MAKE) -C vector run
+
 clean:
-	$(MAKE) -C scalar clean
+	- $(MAKE) -C scalar clean
+	- $(MAKE) -C vector clean

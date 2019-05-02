@@ -11,3 +11,5 @@ build:
 run: build
 	./test.o
 
+clean:
+	- rm test.o

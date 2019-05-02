@@ -1,14 +1,14 @@
 TARGET=../lib/libdd-avx.so
 QD_LINK=-I../include/ -L../lib/ -lqd
 
-CXXFLAGS+=-O3 -std=c++11 -lm -g -Wall -Wno-unused-variable -fPIC 
+CXXFLAGS+=-O3 -std=c++17 -lm -g -Wall -Wno-unused-variable -fPIC 
 LIBFLAGS=-shared
 
 SRCS =$(notdir $(wildcard ./*.cpp))
-SRCS+=$(notdir $(wildcard ./goma/*.cpp))
+SRCS+=$(notdir $(wildcard ./vector/*.cpp))
 
 vpath %.cpp ./
-vpath %.cpp ./goma
+vpath %.cpp ./vector
 
 OBJDIR=obj/
 OBJS=$(addprefix $(OBJDIR)/, $(SRCS:.cpp=.o))
@@ -16,7 +16,7 @@ OBJS=$(addprefix $(OBJDIR)/, $(SRCS:.cpp=.o))
 all: $(TARGET)
 
 $(TARGET): $(OBJS) 
-	g++ $(CXXFLAGS) $(LIBFLAGS) $(QD_LINK) obj/a.o obj/b.o -o $(TARGET)
+	g++ $(CXXFLAGS) $(LIBFLAGS) $(QD_LINK) $(OBJS) -o $(TARGET)
 
 $(OBJDIR)/%.o: %.cpp 
 	mkdir -p obj

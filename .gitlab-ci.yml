@@ -3,6 +3,7 @@ stages:
     - install
     - build_test
     - run_test
+    - doc
       
 before_script:
   - mkdir -p ~/lib/dd_avx
@@ -47,7 +48,7 @@ test_build:
     tags:
         - hishinuma-ci
     script:
-        - cd test; make;
+        - cd test; make clean; make
     dependencies:
         - "install_lib"
     artifacts:
@@ -57,13 +58,36 @@ test_build:
 
 ###################################################
 
+scalar:
+    stage: run_test
+    tags:
+        - hishinuma-ci
+    script:
+        - cd test; make run_scalar;
+    artifacts:
+        paths:
+            - test_build/
+        expire_in: 1day
+
 test_run:
     stage: run_test
     tags:
         - hishinuma-ci
     script:
-        - cd test; make run;
+        - cd test; make run_vector;
     artifacts:
         paths:
             - test_build/
         expire_in: 1day
+###################################################
+
+doc:
+    stage: doc
+    tags:
+        - hishinuma-ci
+    script:
+        - rm -rf /public/dd_avx/
+        - cd doc/; doxygen ./Doxyfile; cd -
+        - mv doc/html /public/dd_avx
+    dependencies:
+        - "run_test"

@@ -9,9 +9,6 @@
 #include"qd/dd_real.h"
 #include"dd_vector.hpp"
 
-extern int goma();
-extern int gomafu();
-
 #if 0
 #if USE_AVX==1
 	#include <DD-AVX_MACRO_AVX.hpp>
