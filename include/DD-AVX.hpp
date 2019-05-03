@@ -5,9 +5,20 @@
 #include <stdlib.h>
 #include <math.h>
 #include<vector>
+#include<algorithm>
+#include<iostream>
+
 #include<omp.h>
+
 #include"qd/dd_real.h"
-#include"dd_vector.hpp"
+#include"./dd_vector.hpp"
+#include"./d_vector.hpp"
+
+#if USE_AVX2==1
+	#include"./AVX2_core.hpp"
+#endif
+
+using d_real = double;
 
 #if 0
 #if USE_AVX==1

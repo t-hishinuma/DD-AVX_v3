@@ -1,14 +1,17 @@
 TARGET=../lib/libdd-avx.so
 QD_LINK=-I../include/ -L../lib/ -lqd
 
-CXXFLAGS+=-O3 -std=c++17 -lm -g -Wall -Wno-unused-variable -fPIC 
+CXXFLAGS+=-O3 -std=c++17 -fopenmp -lm -g -Wall -Wno-unused-variable -fPIC 
+CXXFLAGS+= -DUSE_AVX2 -mavx2 -mfma
 LIBFLAGS=-shared
 
 SRCS =$(notdir $(wildcard ./*.cpp))
 SRCS+=$(notdir $(wildcard ./vector/*.cpp))
+SRCS+=$(notdir $(wildcard ./vector/basic_op/*.cpp))
 
 vpath %.cpp ./
 vpath %.cpp ./vector
+vpath %.cpp ./vector/basic_op/
 
 OBJDIR=obj/
 OBJS=$(addprefix $(OBJDIR)/, $(SRCS:.cpp=.o))

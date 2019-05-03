@@ -6,10 +6,14 @@ LIB=-I$(DD_AVX_DIR)/include -L$(DD_AVX_DIR)/lib -ldd-avx -lqd
 all: build
 
 build: 
-	g++ $(RPATH) $(LIB) vector.cpp -o vector.o
+	g++ $(RPATH) $(LIB) vector_std.cpp -o vector_std.o
+	g++ $(RPATH) $(LIB) vector_copy.cpp -o vector_copy.o
+	g++ $(RPATH) $(LIB) vector_copy.cpp -o vector_add.o
 
 run: build
-	./vector.o
+	./vector_std.o
+	./vector_copy.o
+	./vector_add.o
 
 clean:
-	- rm vector.o
+	- rm vector_std.o vector_copy.o vector_add.o

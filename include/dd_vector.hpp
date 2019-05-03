@@ -1,5 +1,6 @@
-#ifndef DD_AVX_VEC_HPP
-#define DD_AVX_VEC_HPP
+#ifndef DD_VECTOR_HPP
+#define DD_VECTOR_HPP
+#include<./d_vector.hpp>
 
 template<typename T>
 class dd_real_vector_ref
@@ -18,24 +19,20 @@ public:
 		return dd_real(*dd_hi_iter, *dd_lo_iter);
 	}
 
-    void operator=(dd_real c)
-	{
+    void operator=(dd_real c){
 		*dd_hi_iter = c.x[0];
 	   	*dd_lo_iter = c.x[1];
 	}
 
-    operator dd_real()
-	{
+    operator dd_real(){
 		return dd_real(*dd_hi_iter, *dd_lo_iter);
 	}
 };
-
 
 class dd_real_vector{
 
 	private:
 		long N=0;
-		double memsize=0;
 
 	public:
 		std::vector<double> hi;
@@ -47,21 +44,18 @@ class dd_real_vector{
 			N=n;
  			hi.resize(N);
  			lo.resize(N);
-			memsize = N * sizeof(double) * 2;
 		}
 
 		dd_real_vector(long n, double val){
 			N=n;
 			hi.resize(N, val);
 			lo.resize(N, 0.0);
-			memsize = N * sizeof(double) * 2;
 		}
 
 		dd_real_vector(long n, dd_real val){
 			N=n;
 			hi.resize(N, val.x[0]);
 			lo.resize(N, val.x[1]);
-			memsize = N * sizeof(double) * 2;
 		}
 
 		dd_real_vector_ref<double> operator[](long n) {
@@ -69,8 +63,7 @@ class dd_real_vector{
 		}
 
 //--getinfo---------------------------------------
-		long size(){return N;};
-		double mem_size(){return memsize;};
+		long size() const{return N;};
 
 		double* data(){return hi.data();};
 		double* hi_data(){return hi.data();};
@@ -83,118 +76,78 @@ class dd_real_vector{
 			return tmp;
 		};
 
-//--print---------------------------------------
+//--I/O---------------------------------------
 		void print_all(){ for(int i=0; i<N; i++) std::cout << hi[i] << ", " << lo[i] << std::endl; }
-
 		void print(long i){ std::cout << hi[i] << ", " << lo[i] << std::endl;}
 
+		void input(const char* filename);
+		void input_mm(FILE *file);
+		void input_plane(FILE *file);
+		void output_mm(const char *filename);
+		void output_plane(const char *filename);
+
 //--allocate, free---------------------------------------
-		void resize(long n);
-		void resize(long n, double val);
-		void resize(long n, dd_real val);
-		void push_back(const double val);
-		void push_back(const dd_real val);
+		void resize(long n){
+			N=n;
+			hi.resize(N);
+			lo.resize(N);
+		}
 
-		void clear();
-		void erase();
-	
+		void resize(long n, double val){
+			N=n;
+			hi.resize(N, val);
+			lo.resize(N, 0.0);
+		};
+
+		void resize(long n, dd_real val){
+			N=n;
+			hi.resize(N, val.x[0]);
+			lo.resize(N, val.x[1]);
+		};
+
+		void push_back(const double val){
+			N=N+1;
+			hi.push_back(val);
+			lo.push_back(0.0);
+		}
+
+		void push_back(const dd_real val){
+			N=N+1;
+			hi.resize(val.x[0]);
+			lo.resize(val.x[1]);
+		}
+
+		void clear(){
+			N=0;
+			hi.clear();
+			lo.clear();
+		}
+
+//--copy---------------------------------------
+		void copy(const dd_real_vector& vec);
+		void copy(const d_real_vector& vec);
+		void copy(const std::vector<double>& vec);
+		void copy(const std::vector<dd_real>& vec);
+
+		dd_real_vector& operator=(const dd_real_vector& vec);
+		dd_real_vector& operator=(const d_real_vector& vec);
+		dd_real_vector& operator=(const std::vector<double>& vec);
+		dd_real_vector& operator=(const std::vector<dd_real>& vec);
+
+//--comparision---------------------------------------
+
+		bool operator==(const dd_real_vector& vec);
+		bool operator==(const d_real_vector& vec);
+		bool operator==(const std::vector<double>& vec);
+		bool operator==(const std::vector<dd_real>& vec);
+
+		bool operator!=(const dd_real_vector& vec);
+		bool operator!=(const d_real_vector& vec);
+		bool operator!=(const std::vector<double>& vec);
+		bool operator!=(const std::vector<dd_real>& vec);
+
+//--comparision---------------------------------------
+		void add(const dd_real_vector& vec1, const dd_real_vector& vec2);
+
 };
-
 #endif
-// template<typename T>
-// class Complex_vector {
-// public:
-//     std::vector<T> real;
-//     std::vector<T> imag;
-//
-//     }
-// };
-//
-//
-// #include <iostream>
-//
-// int main() {
-//     Complex_vector<double> cv(5);
-// 	dd_real a;
-//     for (int i = 0; i < 5; ++i) {
-// 		a = i;
-//         cv[i] = a; // set
-//     }
-//      for (int i = 0; i < 5; ++i) {
-//          dd_real item = cv[i]; // get
-// 		 std::cout << item << std::endl;
-// 		 printf("hoge%f\n",(double)cv[i]);
-//      }
-// }
-//
-// 		// add
-// 		static dd_real add(double a, double b);
-// 		dd_real &operator+=(double a);
-// 		dd_real &operator+=(const dd_real &a);
-//
-// 		//minus
-// 		static dd_real sub(double a, double b);
-// 		dd_real operator-() const;
-// 		dd_real &operator-=(double a);
-// 		dd_real &operator-=(const dd_real &a);
-//
-// 		//mul
-// 		static dd_real mul(double a, double b);
-// 		dd_real &operator*=(double a);
-// 		dd_real &operator*=(const dd_real &a);
-// 		//div
-// 		static dd_real div(double a, double b);
-// 		dd_real &operator/=(double a);
-// 		dd_real &operator/=(const dd_real &a);
-//
-// 		dd_real &operator=(double a);
-// 		dd_real &operator=(const char *s);
-//
-// 		at;
-// 		operator[];
-// 		data;
-// 		front;
-// 		back;
-//
-// 		size;
-// 		resize;
-//
-// 	  new
-// 	  (allocate)
-//
-// 	begin
-// 	end
-//
-
-// QD_API dd_real operator+(const dd_real &a, double b);
-// QD_API dd_real operator+(double a, const dd_real &b);
-// QD_API dd_real operator+(const dd_real &a, const dd_real &b);
-//
-// QD_API dd_real operator-(const dd_real &a, double b);
-// QD_API dd_real operator-(double a, const dd_real &b);
-// QD_API dd_real operator-(const dd_real &a, const dd_real &b);
-//
-// QD_API dd_real operator*(const dd_real &a, double b);
-// QD_API dd_real operator*(double a, const dd_real &b);
-// QD_API dd_real operator*(const dd_real &a, const dd_real &b);
-//
-// QD_API dd_real operator/(const dd_real &a, double b);
-// QD_API dd_real operator/(double a, const dd_real &b);
-// QD_API dd_real operator/(const dd_real &a, const dd_real &b);
-//
-// QD_API bool operator==(const dd_real &a, double b);
-// QD_API bool operator==(double a, const dd_real &b);
-// QD_API bool operator==(const dd_real &a, const dd_real &b);
-//
-// QD_API bool operator!=(const dd_real &a, double b);
-// QD_API bool operator!=(double a, const dd_real &b);
-// QD_API bool operator!=(const dd_real &a, const dd_real &b);
-//
-//       DD_Scalar dot(D_Vector vx, D_Vector vy);
-//       DD_Scalar dot(DD_Vector vx, D_Vector vy);
-//       DD_Scalar dot(D_Vector vx, DD_Vector vy);
-//       DD_Scalar dot(DD_Vector vx, DD_Vector vy);
-//
-//       DD_Scalar nrm2(D_Vector vx);
-//       DD_Scalar nrm2(DD_Vector vx);
-//
