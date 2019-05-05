@@ -29,6 +29,11 @@ class d_real_vector : public std::vector<double>{
 			std::cout << std::vector<double>::at(i) << std::endl;
 		}
 
+		void push_back(const dd_real val){
+			resize(size()+1);
+			data()[size()] = val.x[0];
+		}
+
 		void input(const char* filename);
 		void input_mm(FILE *file);
 		void input_plane(FILE *file);
@@ -66,6 +71,18 @@ class d_real_vector : public std::vector<double>{
 		}
 
 		operator dd_real_vector();
+
+//--add---------------------------------------
+		void add(dd_real_vector& vec1, dd_real_vector& vec2);
+		void add(d_real_vector& vec1, dd_real_vector& vec2);
+		void add(dd_real_vector& vec1, d_real_vector& vec2);
+		void add(d_real_vector& vec1, d_real_vector& vec2);
+
+		d_real_vector operator+(dd_real_vector& vec);
+		d_real_vector operator+(d_real_vector& vec);
+
+		d_real_vector operator+=(dd_real_vector& vec);
+		d_real_vector operator+=(d_real_vector& vec);
 };
 
 #endif

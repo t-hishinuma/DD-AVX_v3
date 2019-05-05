@@ -69,6 +69,7 @@ class dd_real_vector{
 		}
 
 		operator d_real_vector(){
+			printf("cast d=>dd\n");
 			return hi;
 		}
 
@@ -89,8 +90,6 @@ class dd_real_vector{
 			return tmp;
 		};
 
-//--cast---------------------------------------
-		
 //--I/O---------------------------------------
 		void print_all(){ for(int i=0; i<N; i++) std::cout << hi[i] << ", " << lo[i] << std::endl; }
 		void print(long i){ std::cout << hi[i] << ", " << lo[i] << std::endl;}
@@ -162,24 +161,27 @@ class dd_real_vector{
 		bool operator!=(const std::vector<dd_real>& vec);
 
 //--add---------------------------------------
-		void add(const dd_real_vector& vec1, const dd_real_vector& vec2);
-		void add(const d_real_vector& vec1, const dd_real_vector& vec2);
-		void add(const dd_real_vector& vec1, const d_real_vector& vec2);
-		void add(const d_real_vector& vec1, const d_real_vector& vec2);
+		void add(dd_real_vector& vec1, dd_real_vector& vec2);
+		void add(d_real_vector& vec1, dd_real_vector& vec2);
+		void add(dd_real_vector& vec1, d_real_vector& vec2);
+		void add(d_real_vector& vec1, d_real_vector& vec2);
 
-		dd_real_vector operator+(const dd_real_vector& vec);
-		dd_real_vector operator+=(const dd_real_vector& vec);
+		dd_real_vector operator+(dd_real_vector& vec);
+		dd_real_vector operator+(d_real_vector& vec);
 
-		dd_real_vector operator+(const d_real_vector& vec);
-		dd_real_vector operator+=(const d_real_vector& vec);
+		dd_real_vector operator+=(dd_real_vector& vec);
+		dd_real_vector operator+=(d_real_vector& vec);
 
 };
 
-// inline d_real_vector:: operator dd_real_vector()
-// {
-// 	dd_real_vector tmp;
-// 	tmp.hi=*this;
-// 	tmp.lo(size(). 0.0);
-// 	return tmp;
-// }
+inline d_real_vector:: operator dd_real_vector()
+{
+	printf("cast dd=>d\n");
+	dd_real_vector tmp;
+	for(long i=0; i<(long)size(); i++){
+		tmp.hi[i]=*this[i];
+		tmp.lo[i]=0.0;
+	}
+	return tmp;
+}
 #endif

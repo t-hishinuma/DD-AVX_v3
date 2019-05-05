@@ -42,7 +42,7 @@ int main(int argc, char** argv){
 	}
 
 	long N = atoi(argv[1]);
-	std::cout << "copy test, size = " << N << std::endl;
+	std::cout << "size = " << N << std::endl;
 
 	std::cout << "DD = DD" << std::endl;
 	ret = test2<dd_real_vector, dd_real_vector>(N);

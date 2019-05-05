@@ -37,25 +37,21 @@ int test2()
  	vec1.add(vec2, vec3); 
 
 	if(err_check(ref, vec1.HI(), TOL)){
-		std::cout << "pass" << std::endl;
+		std::cout << "pass1" << std::endl;
 	}
 	else{
-		std::cout << "fail" << std::endl;
-		for(int i=0; i< ref.size(); i++)
-			std::cout << i << ", ans:" << ref[i] << ", data:" << vec1.hi[i] << std::endl;
+		std::cout << "fail1" << std::endl;
 		return false;
 	}
 //=operator================================================
 	ref = make_ans(vec2.HI(), vec3.HI());
-	vec1 = vec2 + vec3;
+	vec1 = vec2 + vec3; 
 
 	if(err_check(ref, vec1.HI(), TOL)){
-		std::cout << "pass" << std::endl;
+		std::cout << "pass2" << std::endl;
 	}
 	else{
-		std::cout << "fail" << std::endl;
-		for(int i=0; i< ref.size(); i++)
-			std::cout << i << ", ans:" << ref[i] << ", data:" << vec1.hi[i] << std::endl;
+		std::cout << "fail2" << std::endl;
 		return false;
 	}
 //=operator================================================
@@ -63,40 +59,60 @@ int test2()
 	vec1 += vec2;
 
 	if(err_check(ref, vec1.HI(), TOL)){
-		std::cout << "pass" << std::endl;
+		std::cout << "pass3" << std::endl;
 	}
 	else{
-		std::cout << "fail" << std::endl;
-		for(int i=0; i< ref.size(); i++)
-			std::cout << i << ", ans:" << ref[i] << ", data:" << vec1.hi[i] << std::endl;
+		std::cout << "fail3" << std::endl;
 		return false;
 	}
 
 	return true;
 }
-int main(){
+
+int main(int argc, char** argv){
 	bool ret=0;
 
+	if(argc!=2){
+		std::cout << "error, $1 = size" << std::endl;
+		return 1;
+	}
+
+	long N = atoi(argv[1]);
+	std::cout << "size = " << N << std::endl;
+
+ 	// DD=
 	std::cout << "DD = DD + DD" << std::endl;
 	ret = test2<dd_real_vector, dd_real_vector, dd_real_vector>();
 	if(ret == false) return ret;
 
-	std::cout << "D = DD + D" << std::endl;
+	std::cout << "DD = DD + D" << std::endl;
 	ret = test2<dd_real_vector, dd_real_vector, d_real_vector>();
 	if(ret == false) return ret;
-//
-// 	std::cout << "DD = DD + D" << std::endl;
-// 	ret = test2<dd_real_vector, dd_real_vector, d_real_vector>();
-// 	if(ret == 1) return ret;
 
-// 	std::cout << "D = D + D" << std::endl;
-// 	ret = test2<dd_real_vector, d_real_vector, d_real_vector>();
-// 	if(ret == 1) return ret;
-//
-// 	std::cout << "D = D" << std::endl;
-// 	ret = test2<d_real_vector, d_real_vector>();
-// 	if(ret == 1) return ret;
+	std::cout << "DD = D + DD" << std::endl;
+	ret = test2<dd_real_vector, d_real_vector, dd_real_vector>();
+	if(ret == false) return ret;
 
+	std::cout << "DD = D + D" << std::endl;
+	ret = test2<dd_real_vector, d_real_vector, d_real_vector>();
+	if(ret == false) return ret;
+
+	// D=
+	std::cout << "D = DD + DD" << std::endl;
+	ret = test2<d_real_vector, dd_real_vector, dd_real_vector>();
+	if(ret == false) return ret;
+
+	std::cout << "D = DD + D" << std::endl;
+	ret = test2<d_real_vector, dd_real_vector, d_real_vector>();
+	if(ret == false) return ret;
+
+	std::cout << "D = D + DD" << std::endl;
+	ret = test2<d_real_vector, d_real_vector, dd_real_vector>();
+	if(ret == false) return ret;
+
+	std::cout << "D = D + D" << std::endl;
+	ret = test2<d_real_vector, d_real_vector, d_real_vector>();
+	if(ret == false) return ret;
 	return 0;
 }
 

@@ -7,7 +7,7 @@ using namespace ddavx_core;
 //=========================================================
 
 //DD=DD+DD
-void dd_real_vector::add(const dd_real_vector& vec1, const dd_real_vector& vec2)
+void dd_real_vector::add(dd_real_vector& vec1, dd_real_vector& vec2)
 {
 	if(size() != vec1.size() || size() != vec2.size()){
 		std::cout << "error vecvor size is" << size() << vec1.size() << vec2.size() << std::endl;
@@ -41,7 +41,7 @@ void dd_real_vector::add(const dd_real_vector& vec1, const dd_real_vector& vec2)
 }
 
 //DD=D+DD
-void dd_real_vector::add(const d_real_vector& vec1, const dd_real_vector& vec2)
+void dd_real_vector::add(d_real_vector& vec1, dd_real_vector& vec2)
 {
 	if(size() != (long)vec1.size() || size() != vec2.size()){
 		std::cout << "error vecvor size is" << size() << vec1.size() << vec2.size() << std::endl;
@@ -57,7 +57,7 @@ void dd_real_vector::add(const d_real_vector& vec1, const dd_real_vector& vec2)
 			AVXreg a_hi = load(hi[i]);
 			AVXreg a_lo = load(lo[i]);
 
-			AVXreg b_hi = load(vec1[i]);
+			AVXreg b_hi = load(vec1.data()[i]);
 			AVXreg b_lo = regs.zeros;
 
 			AVXreg c_hi = load(vec2.hi[i]);
@@ -69,20 +69,20 @@ void dd_real_vector::add(const d_real_vector& vec1, const dd_real_vector& vec2)
 			store(lo[i], a_lo);
 		}
 		for(;i<ie;i++){
-			Add(hi[i], lo[i], vec1[i], 0.0, vec2.hi[i], vec2.lo[i]);
+			Add(hi[i], lo[i], vec1.data()[i], 0.0, vec2.hi[i], vec2.lo[i]);
 		}
 	}
 }
 
 
 //DD=D+DD
-void dd_real_vector::add(const dd_real_vector& vec1, const d_real_vector& vec2)
+void dd_real_vector::add(dd_real_vector& vec1, d_real_vector& vec2)
 {
 	add(vec2, vec1);
 }
 
 //DD=D+D
-void dd_real_vector::add(const d_real_vector& vec1, const d_real_vector& vec2)
+void dd_real_vector::add(d_real_vector& vec1, d_real_vector& vec2)
 {
 	if(size() != (long)vec1.size() || size() != (long)vec2.size()){
 		std::cout << "error vecvor size is" << size() << vec1.size() << vec2.size() << std::endl;
@@ -91,7 +91,7 @@ void dd_real_vector::add(const d_real_vector& vec1, const d_real_vector& vec2)
 
 #pragma omp parallel for
 	for(long i = 0; i < size(); i++){
-		hi[i] = vec1[i] + vec2[i];
+		hi[i] = vec1.data()[i] + vec2.data()[i];
 		lo[i] = 0.0;
 			
 	}
@@ -101,24 +101,24 @@ void dd_real_vector::add(const d_real_vector& vec1, const d_real_vector& vec2)
 //  operator
 //=========================================================
 //DD=DD+DD
-dd_real_vector dd_real_vector::operator+(const dd_real_vector& vec)
+dd_real_vector dd_real_vector::operator+(dd_real_vector& vec)
 {
 	add(*this, vec);
 	return *this;
 }
-dd_real_vector dd_real_vector::operator+=(const dd_real_vector& vec)
+dd_real_vector dd_real_vector::operator+=(dd_real_vector& vec)
 {
 	add(*this, vec);
 	return *this;
 }
 
 //DD=DD+D
-dd_real_vector dd_real_vector::operator+(const d_real_vector& vec)
+dd_real_vector dd_real_vector::operator+(d_real_vector& vec)
 {
 	add(*this, vec);
 	return *this;
 }
-dd_real_vector dd_real_vector::operator+=(const d_real_vector& vec)
+dd_real_vector dd_real_vector::operator+=(d_real_vector& vec)
 {
 	add(*this, vec);
 	return *this;

@@ -8,10 +8,14 @@ LIBFLAGS=-shared
 SRCS =$(notdir $(wildcard ./*.cpp))
 SRCS+=$(notdir $(wildcard ./vector/*.cpp))
 SRCS+=$(notdir $(wildcard ./vector/basic_op/*.cpp))
+SRCS+=$(notdir $(wildcard ./vector/arithmetic/*.cpp))
+SRCS+=$(notdir $(wildcard ./vector/blas/*.cpp))
 
 vpath %.cpp ./
 vpath %.cpp ./vector
 vpath %.cpp ./vector/basic_op/
+vpath %.cpp ./vector/arithmetic/
+vpath %.cpp ./vector/blas/
 
 OBJDIR=./obj/
 OBJS=$(addprefix $(OBJDIR)/, $(SRCS:.cpp=.o))
