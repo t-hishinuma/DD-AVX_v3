@@ -1,8 +1,9 @@
 #include<DD-AVX.hpp>
 #include<vector>
 #include<iostream>
+#define TOL 1.0e-8
 
-std::vector<double> ans(std::vector<double> vec1, std::vector <double> vec2){
+std::vector<double> ans(const std::vector<double>& vec1, const std::vector<double>& vec2){
 	std::vector<double> ans(vec1.size(), 0.0);
 	#pragma omp parallel for
 	for(int i=0; i<ans.size(); i++){
@@ -11,7 +12,7 @@ std::vector<double> ans(std::vector<double> vec1, std::vector <double> vec2){
 	return ans;
 }
 
-bool err_check(std::vector<double> ans, std::vector <double> val, double tol){
+bool err_check(const std::vector<double>& ans, const std::vector<double>& val, const double tol){
 	for(int i=0; i<ans.size(); i++){
 		double err = (val[i] - ans[i]) / ans[i];
 		if(err < tol) return false;
@@ -27,11 +28,18 @@ int test2()
 		vec1.push_back(dd_rand());
 
  	DST vec2(10, 1.0e+9);
-	vec1.print_all();
-	printf("%d, %d", vec1.size(), vec2.size());
-	printf("================\n");
- 	vec1.add(vec1, vec2);
-	vec1.print_all();
+
+ 	vec1.add(vec1, vec2); //lib
+
+	std::vector<double> ans = ans(vec1.hi, vec2.hi);
+
+	if(err_check(ans, vec1.data(), TOL)){
+		return true;
+	}
+	else{
+		vec1.print_all();
+		return false;
+	}
 
 	return 0;
 }

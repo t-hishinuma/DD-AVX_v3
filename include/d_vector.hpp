@@ -14,6 +14,11 @@ class d_real_vector : public std::vector<double>{
 		d_real_vector(int n, double val) : std::vector<double>(n, val) {}
 		d_real_vector(long n, double val) : std::vector<double>(n, val) {}
 
+		std::vector<double> hi(){return hi;}
+		std::vector<double> lo(){
+			std::vector tmp(size(), 0.0);
+			return tmp;
+		}
 //--I/O---------------------------------------
 		void print_all(){
 			for(long i=0; i<(long)size(); i++)
