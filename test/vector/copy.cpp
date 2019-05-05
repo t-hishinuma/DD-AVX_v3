@@ -3,7 +3,7 @@
 #include<iostream>
 
 template<typename SRC, typename DST>
-bool test2(long n)
+bool test(long n)
 {
 		SRC vec1(n, 1.0);
 		DST vec2;
@@ -45,19 +45,19 @@ int main(int argc, char** argv){
 	std::cout << "size = " << N << std::endl;
 
 	std::cout << "DD = DD" << std::endl;
-	ret = test2<dd_real_vector, dd_real_vector>(N);
+	ret = test<dd_real_vector, dd_real_vector>(N);
 	if(ret == false) return ret;
 
 	std::cout << "D = DD" << std::endl;
-	ret = test2<dd_real_vector, d_real_vector>(N);
+	ret = test<dd_real_vector, d_real_vector>(N);
 	if(ret == false) return ret;
 	
 	std::cout << "DD = D" << std::endl;
-	ret = test2<d_real_vector, dd_real_vector>(N);
+	ret = test<d_real_vector, dd_real_vector>(N);
 	if(ret == false) return ret;
 
 	std::cout << "D = D" << std::endl;
-	ret = test2<d_real_vector, d_real_vector>(N);
+	ret = test<d_real_vector, d_real_vector>(N);
 	if(ret == false) return ret;
 
 	return 0;

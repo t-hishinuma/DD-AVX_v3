@@ -21,7 +21,7 @@ bool err_check(const std::vector<double>& ans, const std::vector<double>& val, c
 }
 
 template<typename DST, typename SRC1, typename SRC2>
-int test2(long N)
+int test(long N)
 {
 //=func()================
 	DST vec1;
@@ -81,36 +81,36 @@ int main(int argc, char** argv){
 
  	// DD=
 	std::cout << "DD = DD - DD" << std::endl;
-	ret = test2<dd_real_vector, dd_real_vector, dd_real_vector>(N);
+	ret = test<dd_real_vector, dd_real_vector, dd_real_vector>(N);
 	if(ret == false) return ret;
 
 	std::cout << "DD = DD - D" << std::endl;
-	ret = test2<dd_real_vector, dd_real_vector, d_real_vector>(N);
+	ret = test<dd_real_vector, dd_real_vector, d_real_vector>(N);
 	if(ret == false) return ret;
 
 	std::cout << "DD = D - DD" << std::endl;
-	ret = test2<dd_real_vector, d_real_vector, dd_real_vector>(N);
+	ret = test<dd_real_vector, d_real_vector, dd_real_vector>(N);
 	if(ret == false) return ret;
 
 	std::cout << "DD = D - D" << std::endl;
-	ret = test2<dd_real_vector, d_real_vector, d_real_vector>(N);
+	ret = test<dd_real_vector, d_real_vector, d_real_vector>(N);
 	if(ret == false) return ret;
 
 	// D=
 	std::cout << "D = DD - DD" << std::endl;
-	ret = test2<d_real_vector, dd_real_vector, dd_real_vector>(N);
+	ret = test<d_real_vector, dd_real_vector, dd_real_vector>(N);
 	if(ret == false) return ret;
 
 	std::cout << "D = DD - D" << std::endl;
-	ret = test2<d_real_vector, dd_real_vector, d_real_vector>(N);
+	ret = test<d_real_vector, dd_real_vector, d_real_vector>(N);
 	if(ret == false) return ret;
 
 	std::cout << "D = D - DD" << std::endl;
-	ret = test2<d_real_vector, d_real_vector, dd_real_vector>(N);
+	ret = test<d_real_vector, d_real_vector, dd_real_vector>(N);
 	if(ret == false) return ret;
 
 	std::cout << "D = D - D" << std::endl;
-	ret = test2<d_real_vector, d_real_vector, d_real_vector>(N);
+	ret = test<d_real_vector, d_real_vector, d_real_vector>(N);
 	if(ret == false) return ret;
 
 	return 0;

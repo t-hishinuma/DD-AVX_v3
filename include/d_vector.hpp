@@ -122,18 +122,6 @@ class d_real_vector : public std::vector<double>{
 
 		d_real_vector operator/=(dd_real_vector& vec);
 		d_real_vector operator/=(d_real_vector& vec);
-
-//--mod---------------------------------------
-		void mod(dd_real_vector& vec1, dd_real_vector& vec2);
-		void mod(d_real_vector& vec1, dd_real_vector& vec2);
-		void mod(dd_real_vector& vec1, d_real_vector& vec2);
-		void mod(d_real_vector& vec1, d_real_vector& vec2);
-
-		d_real_vector operator%(dd_real_vector& vec);
-		d_real_vector operator%(d_real_vector& vec);
-
-		d_real_vector operator%=(dd_real_vector& vec);
-		d_real_vector operator%=(d_real_vector& vec);
 };
 
 #endif

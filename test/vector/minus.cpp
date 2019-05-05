@@ -21,7 +21,7 @@ bool err_check(const std::vector<double>& ans, const std::vector<double>& val, c
 }
 
 template<typename T>
-int test2(long N)
+int test(long N)
 {
 //=func()================
 	T vec1;
@@ -69,12 +69,12 @@ int main(int argc, char** argv){
 
  	// DD=
 	std::cout << "DD = -DD" << std::endl;
-	ret = test2<dd_real_vector>(N);
+	ret = test<dd_real_vector>(N);
 	if(ret == false) return ret;
 
 	// D=
 	std::cout << "D = -D" << std::endl;
-	ret = test2<d_real_vector>(N);
+	ret = test<d_real_vector>(N);
 	if(ret == false) return ret;
 
 	return 0;
