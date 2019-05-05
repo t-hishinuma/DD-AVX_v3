@@ -7,7 +7,7 @@ std::vector<double> make_ans(std::vector<double> vec1, std::vector<double> vec2)
 	std::vector<double> ans(vec1.size(), 0.0);
 	#pragma omp parallel for
 	for(int i=0; i<ans.size(); i++){
-		ans[i] = vec1[i] * vec2[i];
+		ans[i] = vec1[i] / vec2[i];
 	}
 	return ans;
 }
@@ -33,7 +33,7 @@ int test2(long N)
 
 	auto ref = make_ans(vec2.HI(), vec3.HI());
 
- 	vec1.mul(vec2, vec3); 
+ 	vec1.div(vec2, vec3); 
 
 	if(err_check(ref, vec1.HI(), TOL)){
 		std::cout << "pass1" << std::endl;
@@ -44,7 +44,7 @@ int test2(long N)
 	}
 //=operator================================================
 	ref = make_ans(vec2.HI(), vec3.HI());
-	vec1 = vec2 * vec3; 
+	vec1 = vec2 / vec3; 
 
 	if(err_check(ref, vec1.HI(), TOL)){
 		std::cout << "pass2" << std::endl;
@@ -55,7 +55,7 @@ int test2(long N)
 	}
 //=operator================================================
 	ref = make_ans(vec1.HI(), vec2.HI());
-	vec1 *= vec2;
+	vec1 /= vec2;
 
 	if(err_check(ref, vec1.HI(), TOL)){
 		std::cout << "pass3" << std::endl;
@@ -80,36 +80,36 @@ int main(int argc, char** argv){
 	std::cout << "size = " << N << std::endl;
 
  	// DD=
-	std::cout << "DD = DD * DD" << std::endl;
+	std::cout << "DD = DD / DD" << std::endl;
 	ret = test2<dd_real_vector, dd_real_vector, dd_real_vector>(N);
 	if(ret == false) return ret;
 
-	std::cout << "DD = DD * D" << std::endl;
+	std::cout << "DD = DD / D" << std::endl;
 	ret = test2<dd_real_vector, dd_real_vector, d_real_vector>(N);
 	if(ret == false) return ret;
 
-	std::cout << "DD = D * DD" << std::endl;
+	std::cout << "DD = D / DD" << std::endl;
 	ret = test2<dd_real_vector, d_real_vector, dd_real_vector>(N);
 	if(ret == false) return ret;
 
-	std::cout << "DD = D * D" << std::endl;
+	std::cout << "DD = D / D" << std::endl;
 	ret = test2<dd_real_vector, d_real_vector, d_real_vector>(N);
 	if(ret == false) return ret;
 
 	// D=
-	std::cout << "D = DD * DD" << std::endl;
+	std::cout << "D = DD / DD" << std::endl;
 	ret = test2<d_real_vector, dd_real_vector, dd_real_vector>(N);
 	if(ret == false) return ret;
 
-	std::cout << "D = DD * D" << std::endl;
+	std::cout << "D = DD / D" << std::endl;
 	ret = test2<d_real_vector, dd_real_vector, d_real_vector>(N);
 	if(ret == false) return ret;
 
-	std::cout << "D = D * DD" << std::endl;
+	std::cout << "D = D / DD" << std::endl;
 	ret = test2<d_real_vector, d_real_vector, dd_real_vector>(N);
 	if(ret == false) return ret;
 
-	std::cout << "D = D * D" << std::endl;
+	std::cout << "D = D / D" << std::endl;
 	ret = test2<d_real_vector, d_real_vector, d_real_vector>(N);
 	if(ret == false) return ret;
 

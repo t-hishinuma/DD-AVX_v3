@@ -114,6 +114,13 @@ mul:
     script:
         - cd test/vector; ./check.sh mul;
 
+div:
+    stage: run_test_vector
+    tags:
+        - hishinuma-ci
+    script:
+        - cd test/vector; ./check.sh div;
+
 ###################################################
 
 make_doc:

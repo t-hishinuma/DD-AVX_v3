@@ -199,6 +199,30 @@ class dd_real_vector{
 
 		dd_real_vector operator*=(dd_real_vector& vec);
 		dd_real_vector operator*=(d_real_vector& vec);
+
+//--div---------------------------------------
+		void div(dd_real_vector& vec1, dd_real_vector& vec2);
+		void div(d_real_vector& vec1, dd_real_vector& vec2);
+		void div(dd_real_vector& vec1, d_real_vector& vec2);
+		void div(d_real_vector& vec1, d_real_vector& vec2);
+
+		dd_real_vector operator/(dd_real_vector& vec);
+		dd_real_vector operator/(d_real_vector& vec);
+
+		dd_real_vector operator/=(dd_real_vector& vec);
+		dd_real_vector operator/=(d_real_vector& vec);
+
+//--mod---------------------------------------
+		void mod(dd_real_vector& vec1, dd_real_vector& vec2);
+		void mod(d_real_vector& vec1, dd_real_vector& vec2);
+		void mod(dd_real_vector& vec1, d_real_vector& vec2);
+		void mod(d_real_vector& vec1, d_real_vector& vec2);
+
+		dd_real_vector operator%(dd_real_vector& vec);
+		dd_real_vector operator%(d_real_vector& vec);
+
+		dd_real_vector operator%=(dd_real_vector& vec);
+		dd_real_vector operator%=(d_real_vector& vec);
 };
 
 inline d_real_vector:: operator dd_real_vector()
