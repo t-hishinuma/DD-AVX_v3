@@ -160,6 +160,9 @@ class dd_real_vector{
 		bool operator!=(const std::vector<double>& vec);
 		bool operator!=(const std::vector<dd_real>& vec);
 
+//--minus---------------------------------------
+		void minus();
+
 //--add---------------------------------------
 		void add(dd_real_vector& vec1, dd_real_vector& vec2);
 		void add(d_real_vector& vec1, dd_real_vector& vec2);

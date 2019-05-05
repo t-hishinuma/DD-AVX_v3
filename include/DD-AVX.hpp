@@ -19,7 +19,8 @@
 #include"./d_vector.hpp"
 
 #if USE_AVX2==1
-	#include"./AVX2_core.hpp"
+	#include"./core/AVX2_core.hpp"
+	#include"./core/AVX2_core_add.hpp"
 #endif
 
 using d_real = double;

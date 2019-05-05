@@ -72,6 +72,9 @@ class d_real_vector : public std::vector<double>{
 
 		operator dd_real_vector();
 
+//--minus---------------------------------------
+		void minus();
+
 //--add---------------------------------------
 		void add(dd_real_vector& vec1, dd_real_vector& vec2);
 		void add(d_real_vector& vec1, dd_real_vector& vec2);
