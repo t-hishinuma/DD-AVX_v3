@@ -83,7 +83,7 @@ int main(){
 
 	std::cout << "D = DD + D" << std::endl;
 	ret = test2<dd_real_vector, dd_real_vector, d_real_vector>();
-	if(ret == 1) return ret;
+	if(ret == false) return ret;
 //
 // 	std::cout << "DD = DD + D" << std::endl;
 // 	ret = test2<dd_real_vector, dd_real_vector, d_real_vector>();
