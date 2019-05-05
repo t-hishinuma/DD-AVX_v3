@@ -187,6 +187,18 @@ class dd_real_vector{
 
 		dd_real_vector operator-=(dd_real_vector& vec);
 		dd_real_vector operator-=(d_real_vector& vec);
+
+//--mul---------------------------------------
+		void mul(dd_real_vector& vec1, dd_real_vector& vec2);
+		void mul(d_real_vector& vec1, dd_real_vector& vec2);
+		void mul(dd_real_vector& vec1, d_real_vector& vec2);
+		void mul(d_real_vector& vec1, d_real_vector& vec2);
+
+		dd_real_vector operator*(dd_real_vector& vec);
+		dd_real_vector operator*(d_real_vector& vec);
+
+		dd_real_vector operator*=(dd_real_vector& vec);
+		dd_real_vector operator*=(d_real_vector& vec);
 };
 
 inline d_real_vector:: operator dd_real_vector()

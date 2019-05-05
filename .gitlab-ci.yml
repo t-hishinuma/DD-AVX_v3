@@ -107,6 +107,13 @@ sub:
     script:
         - cd test/vector; ./check.sh sub;
 
+mul:
+    stage: run_test_vector
+    tags:
+        - hishinuma-ci
+    script:
+        - cd test/vector; ./check.sh mul;
+
 ###################################################
 
 make_doc:

@@ -18,4 +18,8 @@ if [ $1 = "sub" ]; then
 	./sub.o 123 || exit -1
 fi
 
+if [ $1 = "mul" ]; then
+	./mul.o 123 || exit -1
+fi
+
 exit 0
