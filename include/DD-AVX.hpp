@@ -4,9 +4,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include<vector>
-#include<algorithm>
-#include<iostream>
+#include<float.h>
+
+#include <vector>
+#include <algorithm>
+#include <iostream>
+#include <random>
+#include <cassert>
 
 #include<omp.h>
 
@@ -19,6 +23,13 @@
 #endif
 
 using d_real = double;
+
+inline dd_real dd_rand(){
+	dd_real tmp;
+	tmp.x[0] = rand();
+	tmp.x[1] = tmp.x[0] * powf(2.0, -52);
+	return tmp;
+}
 
 #if 0
 #if USE_AVX==1

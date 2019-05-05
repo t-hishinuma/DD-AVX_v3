@@ -8,12 +8,7 @@ all: build
 build: 
 	g++ $(RPATH) $(LIB) vector_std.cpp -o vector_std.o
 	g++ $(RPATH) $(LIB) vector_copy.cpp -o vector_copy.o
-	g++ $(RPATH) $(LIB) vector_copy.cpp -o vector_add.o
-
-run: build
-	./vector_std.o
-	./vector_copy.o
-	./vector_add.o
+	g++ $(RPATH) $(LIB) vector_add.cpp -o vector_add.o
 
 clean:
 	- rm vector_std.o vector_copy.o vector_add.o

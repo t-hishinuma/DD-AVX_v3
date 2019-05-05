@@ -3,11 +3,11 @@
 #include<iostream>
 
 template<typename SRC, typename DST>
-int test2()
+bool test2(long n)
 {
-		SRC vec1(10, 1.0);
+		SRC vec1(n, 1.0);
 		DST vec2;
-		DST vec3(20, 5.0);
+		DST vec3(n/2, 5.0);
 
 		vec2.copy(vec1);
 
@@ -16,39 +16,47 @@ int test2()
 		} 
  		else {
 			vec2.print_all();
-			return 1;
+			return false;
 		}
 
 		vec3 = vec1;
 
  		if(vec1 != vec3){
 			vec3.print_all();
-			return 1;
+			return false;
 		}
 		else{
 			std::cout << "pass" << std::endl;
 		}
 
-		return 0;
+		return true;
 }
-int main(){
-	int ret=0;
+int main(int argc, char** argv){
+	bool ret;
+
+	if(argc!=2){
+		std::cout << "error, $1 = size" << std::endl;
+		return 1;
+	}
+
+	long N = atoi(argv[1]);
+	std::cout << "copy test, size = " << N << std::endl;
 
 	std::cout << "DD = DD" << std::endl;
-	ret = test2<dd_real_vector, dd_real_vector>();
-	if(ret == 1) return ret;
+	ret = test2<dd_real_vector, dd_real_vector>(N);
+	if(ret == false) return ret;
 
 	std::cout << "D = DD" << std::endl;
-	ret = test2<dd_real_vector, d_real_vector>();
-	if(ret == 1) return ret;
+	ret = test2<dd_real_vector, d_real_vector>(N);
+	if(ret == false) return ret;
 	
 	std::cout << "DD = D" << std::endl;
-	ret = test2<d_real_vector, dd_real_vector>();
-	if(ret == 1) return ret;
+	ret = test2<d_real_vector, dd_real_vector>(N);
+	if(ret == false) return ret;
 
 	std::cout << "D = D" << std::endl;
-	ret = test2<d_real_vector, d_real_vector>();
-	if(ret == 1) return ret;
+	ret = test2<d_real_vector, d_real_vector>(N);
+	if(ret == false) return ret;
 
 	return ret;
 }

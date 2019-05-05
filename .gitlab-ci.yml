@@ -2,7 +2,8 @@ stages:
     - build
     - install
     - build_test
-    - run_test
+    - run_test_scalar
+    - run_test_vector
     - doc
       
 before_script:
@@ -59,7 +60,7 @@ test_build:
 ###################################################
 
 scalar:
-    stage: run_test
+    stage: run_test_scalar
     tags:
         - hishinuma-ci
     script:
@@ -69,12 +70,36 @@ scalar:
             - test_build/
         expire_in: 1day
 
-vector:
-    stage: run_test
+###################################################
+
+std:
+    stage: run_test_vector
     tags:
         - hishinuma-ci
     script:
-        - cd test; make run_vector;
+        - cd test; ./check.sh std;
+    artifacts:
+        paths:
+            - test_build/
+        expire_in: 1day
+
+copy:
+    stage: run_test_vector
+    tags:
+        - hishinuma-ci
+    script:
+        - cd test; ./check.sh copy;
+    artifacts:
+        paths:
+            - test_build/
+        expire_in: 1day
+        
+add:
+    stage: run_test_vector
+    tags:
+        - hishinuma-ci
+    script:
+        - cd test; ./check.sh add;
     artifacts:
         paths:
             - test_build/
@@ -89,6 +114,3 @@ make_doc:
         - rm -rf /public/dd_avx/
         - cd doc/; doxygen ./Doxyfile; cd -
         - mv doc/html /public/dd_avx
-    dependencies:
-        - "scalar"
-        - "vector"

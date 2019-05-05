@@ -113,8 +113,8 @@ class dd_real_vector{
 
 		void push_back(const dd_real val){
 			N=N+1;
-			hi.resize(val.x[0]);
-			lo.resize(val.x[1]);
+			hi.push_back(val.x[0]);
+			lo.push_back(val.x[1]);
 		}
 
 		void clear(){

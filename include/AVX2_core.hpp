@@ -1,3 +1,4 @@
+#pragma once
 #ifndef DD_AVX_CORE_HPP_
 #define DD_AVX_CORE_HPP_
 
@@ -6,6 +7,7 @@
 using AVXreg = __m256d;
 
 namespace ddavx_core{
+	const long AVX_SIZE=4;
 	class registers{
 		public:
 			double splitter = 134217729.0;
@@ -46,12 +48,8 @@ namespace ddavx_core{
 		ret4 = tmp[3];
 	}
 
-/**********************************************************
- * DD_AVX_ADDN_AVX_CORE                                 *
- **********************************************************
-  (b_hi,b_lo) + (c_hi,c_lo)
- **********************************************************/
-inline void Add_AVX(
+//Add
+inline void Add(
 	   	__m256d& a_hi, __m256d& a_lo,
 	   	const __m256d& b_hi, const __m256d& b_lo,
 	   	const __m256d& c_hi, const __m256d& c_lo,
@@ -88,5 +86,36 @@ inline void Add_AVX(
 	c.bh = DD_AVX_FUNC(sub_pd)(c.bh,c.sh);
 	a_lo = c.bh;
 }
+inline void Add(
+		double& a_hi, double& a_lo,
+		const double& b_hi, const double& b_lo,
+		const double& c_hi, const double& c_lo)
+{
+	dd_real a, b, c;
+	a.x[0] = a_hi; a.x[1] = a_lo;
+	b.x[0] = b_hi; b.x[1] = b_lo;
+	c.x[0] = c_hi; c.x[1] = c_lo;
+	a = b + c;
+
+	a_hi = a.x[0], a_lo = a.x[1];
+}
+
+inline void get_isie(long size, long& is, long& ie){
+    int maxid = omp_get_max_threads();
+	int tid = omp_get_thread_num();
+
+	if( tid < (size % maxid) ) 
+	{ 
+		ie = size / maxid+1; 
+		is = ie * tid; 
+	} 
+	else 
+	{ 
+		ie = size / maxid; 
+		is = ie * tid + size % maxid; 
+	} 
+	ie = ie + is;
+}
+
 }
 #endif
