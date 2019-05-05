@@ -85,6 +85,13 @@ copy:
         - hishinuma-ci
     script:
         - cd test/vector; ./check.sh copy;
+
+minus:
+    stage: run_test_vector
+    tags:
+        - hishinuma-ci
+    script:
+        - cd test/vector; ./check.sh minus;
         
 add:
     stage: run_test_vector

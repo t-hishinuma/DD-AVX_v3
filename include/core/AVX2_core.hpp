@@ -12,7 +12,7 @@ namespace ddavx_core{
 		public:
 			double splitter = 134217729.0;
 			__m256d sp = DD_AVX_FUNC(broadcast_sd)(&splitter); 
-			__m256d mi = DD_AVX_FUNC(set_pd)(-1.0,-1.0,-1.0,-1.0);
+			__m256d minus = DD_AVX_FUNC(set_pd)(-1.0,-1.0,-1.0,-1.0);
 			__m256d zeros = DD_AVX_FUNC(set_pd)(0,0,0,0);
 			__m256d one,bh,bl,ch,cl,sh,sl,wh,wl,th,tl,p1,p2,t0,t1,t2,eh,t3; 
 	};
@@ -66,6 +66,11 @@ namespace ddavx_core{
 		} 
 		ie = ie + is;
 	}
+	inline void to_minus(double& val, registers& regs){
 
+		AVXreg reg = load(val);
+ 		reg = DD_AVX_FUNC(mul_pd)(reg, regs.minus);
+ 		store(val, reg);
+	}
 }
 #endif

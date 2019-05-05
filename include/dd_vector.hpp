@@ -162,6 +162,7 @@ class dd_real_vector{
 
 //--minus---------------------------------------
 		void minus();
+		dd_real_vector operator-();
 
 //--add---------------------------------------
 		void add(dd_real_vector& vec1, dd_real_vector& vec2);

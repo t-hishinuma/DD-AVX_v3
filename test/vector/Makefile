@@ -9,6 +9,7 @@ build:
 	g++ $(RPATH) $(LIB) vector_std.cpp -o vector_std.o
 	g++ $(RPATH) $(LIB) vector_copy.cpp -o vector_copy.o
 	g++ $(RPATH) $(LIB) vector_add.cpp -o vector_add.o
+	g++ $(RPATH) $(LIB) vector_minus.cpp -o vector_minus.o
 
 clean:
-	- rm vector_std.o vector_copy.o vector_add.o
+	- rm vector_std.o vector_copy.o vector_add.o vector_minus.o

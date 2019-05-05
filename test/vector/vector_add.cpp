@@ -21,18 +21,17 @@ bool err_check(const std::vector<double>& ans, const std::vector<double>& val, c
 }
 
 template<typename DST, typename SRC1, typename SRC2>
-int test2()
+int test2(long N)
 {
 //=func()================
 	DST vec1;
-	for(int i=0; i<10; i++)
+	for(int i=0; i<N; i++)
 		vec1.push_back(dd_rand());
 
- 	SRC1 vec2(10, 1.0e+9);
- 	SRC2 vec3(10, 2.0e+9);
+ 	SRC1 vec2(N, 1.0e+9);
+ 	SRC2 vec3(N, 2.0e+9);
 
-	std::vector<double> ref;
-	ref = make_ans(vec2.HI(), vec3.HI());
+	auto ref = make_ans(vec2.HI(), vec3.HI());
 
  	vec1.add(vec2, vec3); 
 
@@ -82,36 +81,36 @@ int main(int argc, char** argv){
 
  	// DD=
 	std::cout << "DD = DD + DD" << std::endl;
-	ret = test2<dd_real_vector, dd_real_vector, dd_real_vector>();
+	ret = test2<dd_real_vector, dd_real_vector, dd_real_vector>(N);
 	if(ret == false) return ret;
 
 	std::cout << "DD = DD + D" << std::endl;
-	ret = test2<dd_real_vector, dd_real_vector, d_real_vector>();
+	ret = test2<dd_real_vector, dd_real_vector, d_real_vector>(N);
 	if(ret == false) return ret;
 
 	std::cout << "DD = D + DD" << std::endl;
-	ret = test2<dd_real_vector, d_real_vector, dd_real_vector>();
+	ret = test2<dd_real_vector, d_real_vector, dd_real_vector>(N);
 	if(ret == false) return ret;
 
 	std::cout << "DD = D + D" << std::endl;
-	ret = test2<dd_real_vector, d_real_vector, d_real_vector>();
+	ret = test2<dd_real_vector, d_real_vector, d_real_vector>(N);
 	if(ret == false) return ret;
 
 	// D=
 	std::cout << "D = DD + DD" << std::endl;
-	ret = test2<d_real_vector, dd_real_vector, dd_real_vector>();
+	ret = test2<d_real_vector, dd_real_vector, dd_real_vector>(N);
 	if(ret == false) return ret;
 
 	std::cout << "D = DD + D" << std::endl;
-	ret = test2<d_real_vector, dd_real_vector, d_real_vector>();
+	ret = test2<d_real_vector, dd_real_vector, d_real_vector>(N);
 	if(ret == false) return ret;
 
 	std::cout << "D = D + DD" << std::endl;
-	ret = test2<d_real_vector, d_real_vector, dd_real_vector>();
+	ret = test2<d_real_vector, d_real_vector, dd_real_vector>(N);
 	if(ret == false) return ret;
 
 	std::cout << "D = D + D" << std::endl;
-	ret = test2<d_real_vector, d_real_vector, d_real_vector>();
+	ret = test2<d_real_vector, d_real_vector, d_real_vector>(N);
 	if(ret == false) return ret;
 	return 0;
 }
