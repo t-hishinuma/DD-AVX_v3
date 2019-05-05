@@ -97,6 +97,6 @@ int main(){
 // 	ret = test2<d_real_vector, d_real_vector>();
 // 	if(ret == 1) return ret;
 
-	return ret;
+	return 0;
 }
 

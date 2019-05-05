@@ -60,6 +60,6 @@ int main(int argc, char** argv){
 	ret = test2<d_real_vector, d_real_vector>(N);
 	if(ret == false) return ret;
 
-	return ret;
+	return 0;
 }
 
