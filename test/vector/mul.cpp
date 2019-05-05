@@ -7,7 +7,7 @@ std::vector<double> make_ans(std::vector<double> vec1, std::vector<double> vec2)
 	std::vector<double> ans(vec1.size(), 0.0);
 	#pragma omp parallel for
 	for(int i=0; i<ans.size(); i++){
-		ans[i] = vec1[i] + vec2[i];
+		ans[i] = vec1[i] * vec2[i];
 	}
 	return ans;
 }
@@ -80,7 +80,7 @@ int main(int argc, char** argv){
 	std::cout << "size = " << N << std::endl;
 
  	// DD=
-	std::cout << "DD = DD + DD" << std::endl;
+	std::cout << "DD = DD * DD" << std::endl;
 	ret = test2<dd_real_vector, dd_real_vector, dd_real_vector>(N);
 	if(ret == false) return ret;
 
@@ -112,6 +112,7 @@ int main(int argc, char** argv){
 	std::cout << "D = D + D" << std::endl;
 	ret = test2<d_real_vector, d_real_vector, d_real_vector>(N);
 	if(ret == false) return ret;
+
 	return 0;
 }
 

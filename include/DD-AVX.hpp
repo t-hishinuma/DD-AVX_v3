@@ -21,6 +21,7 @@
 #if USE_AVX2==1
 	#include"./core/AVX2_core.hpp"
 	#include"./core/AVX2_core_add.hpp"
+	#include"./core/AVX2_core_mul.hpp"
 #endif
 
 using d_real = double;

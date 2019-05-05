@@ -8,7 +8,7 @@ using namespace ddavx_core;
 
 void d_real_vector::add(dd_real_vector& vec1, dd_real_vector& vec2)
 {
-	if((long)size() != vec1.size() || (long)size() != vec2.size()){
+	if((long)size() != (long)vec1.size() || (long)size() != (long)vec2.size()){
 		std::cout << "error vecvor size is" << size() << vec1.size() << vec2.size() << std::endl;
 		assert(1);
 	}
@@ -39,7 +39,7 @@ void d_real_vector::add(dd_real_vector& vec1, dd_real_vector& vec2)
 
 void d_real_vector::add(d_real_vector& vec1, dd_real_vector& vec2)
 {
-	if((long)size() != (long)vec1.size() || (long)size() != vec2.size()){
+	if((long)size() != (long)vec1.size() || (long)size() != (long)vec2.size()){
 		std::cout << "error vecvor size is" << size() << vec1.size() << vec2.size() << std::endl;
 		assert(1);
 	};

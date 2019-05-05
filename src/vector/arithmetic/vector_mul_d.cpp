@@ -8,7 +8,7 @@ using namespace ddavx_core;
 
 void d_real_vector::mul(dd_real_vector& vec1, dd_real_vector& vec2)
 {
-	if((long)size() != vec1.size() || (long)size() != vec2.size()){
+	if((long)size() != (long)vec1.size() || (long)size() != (long)vec2.size()){
 		std::cout << "error vecvor size is" << size() << vec1.size() << vec2.size() << std::endl;
 		assert(1);
 	}
@@ -27,19 +27,19 @@ void d_real_vector::mul(dd_real_vector& vec1, dd_real_vector& vec2)
 			AVXreg c_hi = load(vec2.hi[i]);
 			AVXreg c_lo = load(vec2.lo[i]);
 
-			Add(a_hi, b_hi, b_lo, c_hi, c_lo, regs);
+			Mul(a_hi, b_hi, b_lo, c_hi, c_lo, regs);
 
 			store(data()[i], a_hi);
 		}
 		for(;i<ie;i++){
-			Add(data()[i], vec1.hi[i], vec1.lo[i], vec2.hi[i], vec2.lo[i]);
+			Mul(data()[i], vec1.hi[i], vec1.lo[i], vec2.hi[i], vec2.lo[i]);
 		}
 	}
 }
 
-void d_real_vector::mul(d_real_vector& vec1, dd_real_vector& vec2)
+void d_real_vector::mul(dd_real_vector& vec1, d_real_vector& vec2)
 {
-	if((long)size() != (long)vec1.size() || (long)size() != vec2.size()){
+	if((long)size() != (long)vec1.size() || (long)size() != (long)vec2.size()){
 		std::cout << "error vecvor size is" << size() << vec1.size() << vec2.size() << std::endl;
 		assert(1);
 	};
@@ -53,23 +53,23 @@ void d_real_vector::mul(d_real_vector& vec1, dd_real_vector& vec2)
 		for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
 			AVXreg a_hi = load(data()[i]);
 
-			AVXreg b_hi = load(vec1.data()[i]);
-			AVXreg b_lo = regs.zeros;
+			AVXreg b_hi = load(vec1.hi[i]);
+			AVXreg b_lo = load(vec1.lo[i]);
 
-			AVXreg c_hi = load(vec2.hi[i]);
-			AVXreg c_lo = load(vec2.lo[i]);
+			AVXreg c_hi = load(vec2.data()[i]);
+			AVXreg c_lo = regs.zeros;
 
-			Add(a_hi, b_hi, b_lo, c_hi, c_lo, regs);
+			Mul(a_hi, b_hi, b_lo, c_hi, c_lo, regs);
 
 			store(data()[i], a_hi);
 		}
 		for(;i<ie;i++){
-			Add(data()[i], vec1.data()[i], 0.0, vec2.hi[i], vec2.lo[i]);
+			Mul(data()[i], vec1.hi[i], vec1.lo[i], vec2.data()[i], 0.0);
 		}
 	}
 }
 
-void d_real_vector::mul(dd_real_vector& vec1, d_real_vector& vec2)
+void d_real_vector::mul(d_real_vector& vec1, dd_real_vector& vec2)
 {
  	mul(vec2, vec1);
 }
