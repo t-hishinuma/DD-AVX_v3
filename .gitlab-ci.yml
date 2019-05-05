@@ -100,6 +100,13 @@ add:
     script:
         - cd test/vector; ./check.sh add;
 
+sub:
+    stage: run_test_vector
+    tags:
+        - hishinuma-ci
+    script:
+        - cd test/vector; ./check.sh sub;
+
 ###################################################
 
 make_doc:

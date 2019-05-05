@@ -87,6 +87,18 @@ class d_real_vector : public std::vector<double>{
 
 		d_real_vector operator+=(dd_real_vector& vec);
 		d_real_vector operator+=(d_real_vector& vec);
+
+//--sub---------------------------------------
+		void sub(dd_real_vector& vec1, dd_real_vector& vec2);
+		void sub(d_real_vector& vec1, dd_real_vector& vec2);
+		void sub(dd_real_vector& vec1, d_real_vector& vec2);
+		void sub(d_real_vector& vec1, d_real_vector& vec2);
+
+		d_real_vector operator-(dd_real_vector& vec);
+		d_real_vector operator-(d_real_vector& vec);
+
+		d_real_vector operator-=(dd_real_vector& vec);
+		d_real_vector operator-=(d_real_vector& vec);
 };
 
 #endif

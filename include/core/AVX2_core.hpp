@@ -67,10 +67,13 @@ namespace ddavx_core{
 		ie = ie + is;
 	}
 	inline void to_minus(double& val, registers& regs){
-
 		AVXreg reg = load(val);
  		reg = DD_AVX_FUNC(mul_pd)(reg, regs.minus);
  		store(val, reg);
+	}
+
+	inline void to_minus(AVXreg& reg, registers& regs){
+ 		reg = DD_AVX_FUNC(mul_pd)(reg, regs.minus);
 	}
 }
 #endif

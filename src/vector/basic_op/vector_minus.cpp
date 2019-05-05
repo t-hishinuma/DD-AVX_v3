@@ -40,6 +40,7 @@ dd_real_vector dd_real_vector::operator-()
 	minus();
 	return *this;
 }
+
 d_real_vector d_real_vector::operator-()
 {
 	minus();
