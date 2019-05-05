@@ -13,6 +13,7 @@ namespace ddavx_core{
 			double splitter = 134217729.0;
 			__m256d sp = DD_AVX_FUNC(broadcast_sd)(&splitter); 
 			__m256d mi = DD_AVX_FUNC(set_pd)(-1.0,-1.0,-1.0,-1.0);
+			__m256d zeros = DD_AVX_FUNC(set_pd)(0,0,0,0);
 			__m256d one,bh,bl,ch,cl,sh,sl,wh,wl,th,tl,p1,p2,t0,t1,t2,eh,t3; 
 	};
 

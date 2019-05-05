@@ -5,7 +5,7 @@ LIB=-I$(DD_AVX_DIR)/include -L$(DD_AVX_DIR)/lib -ldd-avx  -lqd
 
 all: build
 
-build:
+build: scalar.o
 	g++ $(RPATH) $(LIB) scalar.cpp -o scalar.o
 
 run: build

@@ -15,6 +15,7 @@ bool test2(long n)
 			std::cout << "pass" << std::endl;
 		} 
  		else {
+			std::cout << "fail" << std::endl;
 			vec2.print_all();
 			return false;
 		}
@@ -22,6 +23,7 @@ bool test2(long n)
 		vec3 = vec1;
 
  		if(vec1 != vec3){
+			std::cout << "fail" << std::endl;
 			vec3.print_all();
 			return false;
 		}

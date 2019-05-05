@@ -13,14 +13,15 @@ vpath %.cpp ./
 vpath %.cpp ./vector
 vpath %.cpp ./vector/basic_op/
 
-OBJDIR=obj/
+OBJDIR=./obj/
 OBJS=$(addprefix $(OBJDIR)/, $(SRCS:.cpp=.o))
 
 all: $(TARGET)
+	echo $(OBJS)
 
-$(TARGET): $(OBJS) 
+$(TARGET): $(OBJS)
 	g++ $(CXXFLAGS) $(LIBFLAGS) $(QD_LINK) $(OBJS) -o $(TARGET)
 
 $(OBJDIR)/%.o: %.cpp 
 	mkdir -p obj
-	g++ $(CXXFLAGS) $(QD_LINK) -I./include -c $< -o $@
+	g++ $(CXXFLAGS) $(QD_LINK) -I../include -c $< -o $@

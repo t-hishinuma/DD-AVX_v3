@@ -4,6 +4,7 @@
 class dd_real_vector;
 
 class d_real_vector : public std::vector<double>{
+	friend class dd_real_vector;
 	public:
 		d_real_vector() : std::vector<double>(){};
 
@@ -14,9 +15,9 @@ class d_real_vector : public std::vector<double>{
 		d_real_vector(int n, double val) : std::vector<double>(n, val) {}
 		d_real_vector(long n, double val) : std::vector<double>(n, val) {}
 
-		std::vector<double> hi(){return hi;}
-		std::vector<double> lo(){
-			std::vector tmp(size(), 0.0);
+		std::vector<double> HI(){return *this;}
+		std::vector<double> LO(){
+			std::vector<double> tmp(size(), 0.0);
 			return tmp;
 		}
 //--I/O---------------------------------------
@@ -55,6 +56,16 @@ class d_real_vector : public std::vector<double>{
 		bool operator!=(const d_real_vector& vec);
 		bool operator!=(const std::vector<double>& vec);
 		bool operator!=(const std::vector<dd_real>& vec);
+
+//--cast -------------------------------------
+		operator std::vector<double>(){
+			return *this;
+		}
+		operator double*(){
+			return data();
+		}
+
+		operator dd_real_vector();
 };
 
 #endif

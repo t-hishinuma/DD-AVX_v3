@@ -37,7 +37,6 @@ class dd_real_vector{
 	public:
 		std::vector<double> hi;
 		std::vector<double> lo;
-
 		dd_real_vector(){}
 
 		dd_real_vector(long n){
@@ -61,6 +60,17 @@ class dd_real_vector{
 		dd_real_vector_ref<double> operator[](long n) {
 			return dd_real_vector_ref<double>(hi.begin() + n, lo.begin() + n);
 		}
+//--cast -------------------------------------
+		operator std::vector<double>(){
+			return hi;
+		}
+		operator double*(){
+			return hi.data();
+		}
+
+		operator d_real_vector(){
+			return hi;
+		}
 
 //--getinfo---------------------------------------
 		long size() const{return N;};
@@ -69,6 +79,9 @@ class dd_real_vector{
 		double* hi_data(){return hi.data();};
 		double* lo_data(){return lo.data();};
 
+		std::vector<double> HI(){return this->hi;}
+		std::vector<double> LO(){return this->lo;}
+
 		dd_real at(int n){
 			dd_real tmp;
 			tmp.x[0] = hi[n];
@@ -76,6 +89,8 @@ class dd_real_vector{
 			return tmp;
 		};
 
+//--cast---------------------------------------
+		
 //--I/O---------------------------------------
 		void print_all(){ for(int i=0; i<N; i++) std::cout << hi[i] << ", " << lo[i] << std::endl; }
 		void print(long i){ std::cout << hi[i] << ", " << lo[i] << std::endl;}
@@ -146,8 +161,25 @@ class dd_real_vector{
 		bool operator!=(const std::vector<double>& vec);
 		bool operator!=(const std::vector<dd_real>& vec);
 
-//--comparision---------------------------------------
+//--add---------------------------------------
 		void add(const dd_real_vector& vec1, const dd_real_vector& vec2);
+		void add(const d_real_vector& vec1, const dd_real_vector& vec2);
+		void add(const dd_real_vector& vec1, const d_real_vector& vec2);
+		void add(const d_real_vector& vec1, const d_real_vector& vec2);
+
+		dd_real_vector operator+(const dd_real_vector& vec);
+		dd_real_vector operator+=(const dd_real_vector& vec);
+
+		dd_real_vector operator+(const d_real_vector& vec);
+		dd_real_vector operator+=(const d_real_vector& vec);
 
 };
+
+// inline d_real_vector:: operator dd_real_vector()
+// {
+// 	dd_real_vector tmp;
+// 	tmp.hi=*this;
+// 	tmp.lo(size(). 0.0);
+// 	return tmp;
+// }
 #endif

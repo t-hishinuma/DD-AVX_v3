@@ -1,4 +1,4 @@
-DD_AVX_DIR+=$(HOME)/lib/dd_avx/
+DD_AVX_DIR?=$(HOME)/lib/dd_avx/
 
 all:
 	$(MAKE) -C submodules -f Makefile.qd
@@ -18,6 +18,6 @@ clean:
 	- $(MAKE) -C submodules -f Makefile.qd clean
 
 clean_lib:
-	- rm -rf src/obj
-	- rm -rf ./lib/*
+	- rm -rf src/obj/*
+	- rm -rf ./lib/libdd-avx.so
 	- rm -rf  $(DD_AVX_DIR)

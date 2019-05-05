@@ -64,7 +64,7 @@ scalar:
     tags:
         - hishinuma-ci
     script:
-        - cd test; make run_scalar;
+        - cd test/scalar; ./scalar.o;
     artifacts:
         paths:
             - test_build/
@@ -77,33 +77,22 @@ std:
     tags:
         - hishinuma-ci
     script:
-        - cd test; ./check.sh std;
-    artifacts:
-        paths:
-            - test_build/
-        expire_in: 1day
+        - cd test/vector; ./check.sh std;
 
 copy:
     stage: run_test_vector
     tags:
         - hishinuma-ci
     script:
-        - cd test; ./check.sh copy;
-    artifacts:
-        paths:
-            - test_build/
-        expire_in: 1day
+        - cd test/vector; ./check.sh copy;
         
 add:
     stage: run_test_vector
     tags:
         - hishinuma-ci
     script:
-        - cd test; ./check.sh add;
-    artifacts:
-        paths:
-            - test_build/
-        expire_in: 1day
+        - cd test/vector; ./check.sh add;
+
 ###################################################
 
 make_doc:
