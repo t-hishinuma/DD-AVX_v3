@@ -11,7 +11,7 @@ namespace ddavx_core{
 			__m256d& a_hi, __m256d& a_lo,
 			const __m256d& b_hi, const __m256d& b_lo,
 			const __m256d& c_hi, const __m256d& c_lo,
-			registers c
+			registers& c
 			)
 	{
 		c.bh = b_hi; 
@@ -49,7 +49,7 @@ namespace ddavx_core{
 			__m256d& a_hi,
 			const __m256d& b_hi, const __m256d& b_lo,
 			const __m256d& c_hi, const __m256d& c_lo,
-			registers c
+			registers& c
 			)
 	{
 		c.bh = b_hi; 

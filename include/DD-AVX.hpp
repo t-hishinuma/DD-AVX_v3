@@ -25,7 +25,7 @@
 #endif
 
 using d_real = double;
-x
+
 inline dd_real dd_rand(){
 	dd_real tmp;
 	tmp.x[0] = rand();
@@ -33,13 +33,16 @@ inline dd_real dd_rand(){
 	return tmp;
 }
 
-namespace ddavx{
-	void axpy(d_real alpha, d_real_vector x, d_real_vector y);
-	void axpy(dd_real alpha, d_real_vector x, d_real_vector y);
-	void axpy(d_real alpha, dd_real_vector x, d_real_vector y);
-	void axpy(d_real alpha, d_real_vector x, dd_real_vector y);
-	void axpy(d_real alpha, dd_real_vector x, dd_real_vector y);
-	void axpy(dd_real alpha, dd_real_vector x, dd_real_vector y);
+namespace dd_avx{
+	void axpy(const dd_real& alpha, const dd_real_vector& x, dd_real_vector& y);
+	void axpy(const dd_real& alpha, const d_real_vector& x, dd_real_vector& y);
+	void axpy(const dd_real& alpha, const dd_real_vector& x, d_real_vector& y);
+	void axpy(const dd_real& alpha, const d_real_vector& x, d_real_vector& y);
+
+	void axpy(const d_real& alpha, const dd_real_vector& x, dd_real_vector& y);
+	void axpy(const d_real& alpha, const d_real_vector& x, dd_real_vector& y);
+	void axpy(const d_real& alpha, const dd_real_vector& x, d_real_vector& y);
+	void axpy(const d_real& alpha, const d_real_vector& x, d_real_vector& y);
 }
 
 #if 0

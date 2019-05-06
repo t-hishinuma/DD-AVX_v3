@@ -14,8 +14,11 @@ std::vector<double> make_ans(std::vector<double> vec1, std::vector<double> vec2)
 
 bool err_check(const std::vector<double>& ans, const std::vector<double>& val, const double tol){
 	for(int i=0; i<ans.size(); i++){
-		double err = (val[i] - ans[i]) / ans[i];
-		if(err > tol) return false;
+		double err = fabs(val[i] - ans[i]) / fabs(ans[i]);
+		if(err > tol){
+			printf("ans[%d] = %e, data[%d] = %e, err = %e\n", i, ans[i], i, val[i], err);
+			return false;
+		}
 	}
 	return true;
 }
