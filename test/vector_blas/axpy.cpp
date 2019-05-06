@@ -1,5 +1,5 @@
 #include<DD-AVX.hpp>
-#nclude<vector>
+#include<vector>
 #include<iostream>
 #define TOL 1.0e-8
 

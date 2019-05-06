@@ -83,7 +83,7 @@ void d_real_vector::mul(d_real_vector& vec1, d_real_vector& vec2)
 
 #pragma omp parallel for
 	for(long i = 0; i < (long)size(); i++){
-		data()[i] = vec1.data()[i] + vec2.data()[i];
+		data()[i] = vec1.data()[i] * vec2.data()[i];
 
 	}
 }
