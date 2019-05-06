@@ -29,7 +29,7 @@ int test(long N)
 //=func()================
 	T vec1;
 	for(int i=0; i<N; i++)
-		vec1.push_back(dd_rand());
+		vec1.push_back(rand());
 
 	auto ref = make_ans(vec1.HI());
 

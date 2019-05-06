@@ -107,6 +107,5 @@ namespace ddavx_core{
 
 		a_hi = a.x[0];
 	}
-
 }
 #endif

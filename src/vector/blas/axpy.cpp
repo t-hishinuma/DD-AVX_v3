@@ -2,65 +2,238 @@
 using namespace ddavx_core;
 
 namespace dd_avx{
+//alpha = DD ///////////////////////////////////////////
 	void axpy(const dd_real& alpha, const dd_real_vector& x, dd_real_vector& y){
-		printf("gomagoma\n");
-// 		if((long)size() != (long)vec1.size() || (long)size() != (long)vec2.size()){
-// 			std::cout << "error vecvor size is" << size() << vec1.size() << vec2.size() << std::endl;
-// 			assert(1);
-// 		};
-// 		registers regs;
-//
-// #pragma omp parallel private(regs)
-// 		{
-// 			long i=0, is=0, ie=0;
-// 			get_isie(size(), is, ie);
-// 			for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
-// 				AVXreg a_hi = load(hi[i]);
-// 				AVXreg a_lo = load(lo[i]);
-//
-// 				AVXreg b_hi = load(vec1.hi[i]);
-// 				AVXreg b_lo = load(vec1.lo[i]);
-//
-// 				AVXreg c_hi = load(vec2.hi[i]);
-// 				AVXreg c_lo = load(vec2.lo[i]);
-//
-// 				Add(a_hi, a_lo, b_hi, b_lo, c_hi, c_lo, regs);
-//
-// 				store(hi[i], a_hi);
-// 				store(lo[i], a_lo);
-// 			}
-// 			for(;i<ie;i++){
-// 				Add(hi[i], lo[i], vec1.hi[i], vec1.lo[i], vec2.hi[i], vec2.lo[i]);
-// 			}
-// 		}
+		if((long)x.size() != (long)y.size()){
+			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
+			assert(1);
+		};
+ 		registers regs;
+
+#pragma omp parallel private(regs)
+		{
+			long i=0, is=0, ie=0;
+			get_isie((long)y.size(), is, ie);
+			AVXreg alpha_hi = broadcast(alpha.x[0]);
+			AVXreg alpha_lo = broadcast(alpha.x[1]);
+			for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
+
+				AVXreg x_hi = load(x.hi[i]);
+				AVXreg x_lo = load(x.lo[i]);
+
+				AVXreg y_hi = load(y.hi[i]);
+				AVXreg y_lo = load(y.lo[i]);
+
+				Fma(y_hi, y_lo, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, x_lo, regs);
+
+				store(y.hi[i], y_hi);
+				store(y.lo[i], y_lo);
+			}
+			for(;i<ie;i++){
+				Fma(y.hi[i], y.lo[i], y.hi[i], y.lo[i], alpha.x[0], alpha.x[1], x.hi[i], x.lo[i]);
+			}
+		}
 	}
 
 	void axpy(const dd_real& alpha, const d_real_vector& x, dd_real_vector& y){
-		printf("gomagoma\n");
+		if((long)x.size() != (long)y.size()){
+			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
+			assert(1);
+		};
+ 		registers regs;
+
+#pragma omp parallel private(regs)
+		{
+			long i=0, is=0, ie=0;
+			get_isie((long)y.size(), is, ie);
+			AVXreg alpha_hi = broadcast(alpha.x[0]);
+			AVXreg alpha_lo = broadcast(alpha.x[1]);
+			for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
+
+				AVXreg x_hi = load(x.data()[i]);
+				AVXreg x_lo = regs.zeros;
+
+				AVXreg y_hi = load(y.hi[i]);
+				AVXreg y_lo = load(y.lo[i]);
+
+				Fma(y_hi, y_lo, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, x_lo, regs);
+
+				store(y.hi[i], y_hi);
+				store(y.lo[i], y_lo);
+			}
+			for(;i<ie;i++){
+				Fma(y.hi[i], y.lo[i], y.hi[i], y.lo[i], alpha.x[0], alpha.x[1], x.data()[i], 0.0);
+			}
+		}
 	}
 
 	void axpy(const dd_real& alpha, const dd_real_vector& x, d_real_vector& y){
-		printf("gomagoma\n");
+		if((long)x.size() != (long)y.size()){
+			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
+			assert(1);
+		};
+ 		registers regs;
+
+#pragma omp parallel private(regs)
+		{
+			long i=0, is=0, ie=0;
+			get_isie((long)y.size(), is, ie);
+			AVXreg alpha_hi = broadcast(alpha.x[0]);
+			AVXreg alpha_lo = broadcast(alpha.x[1]);
+			for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
+
+				AVXreg x_hi = load(x.hi[i]);
+				AVXreg x_lo = load(x.lo[i]);
+
+				AVXreg y_hi = load(y.data()[i]);
+				AVXreg y_lo = regs.zeros;
+
+				Fma(y_hi, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, x_lo, regs);
+
+				store(y.data()[i], y_hi);
+			}
+			for(;i<ie;i++){
+				Fma(y.data()[i], y.data()[i], 0.0, alpha.x[0], alpha.x[1], x.hi[i], x.lo[i]);
+			}
+		}
 	}
 
 	void axpy(const dd_real& alpha, const d_real_vector& x, d_real_vector& y){
-		printf("gomagoma\n");
+		if((long)x.size() != (long)y.size()){
+			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
+			assert(1);
+		};
+ 		registers regs;
+
+#pragma omp parallel private(regs)
+		{
+			long i=0, is=0, ie=0;
+			get_isie((long)y.size(), is, ie);
+			AVXreg alpha_hi = broadcast(alpha.x[0]);
+			AVXreg alpha_lo = broadcast(0.0);
+			for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
+
+				AVXreg x_hi = load(x.data()[i]);
+				AVXreg x_lo = regs.zeros;
+
+				AVXreg y_hi = load(y.data()[i]);
+				AVXreg y_lo = regs.zeros;
+
+				Fma(y_hi, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, x_lo, regs);
+
+				store(y.data()[i], y_hi);
+			}
+			for(;i<ie;i++){
+				Fma(y.data()[i], y.data()[i], 0.0, alpha.x[0], alpha.x[1], x.data()[i], 0.0);
+			}
+		}
 	}
 
+//alpha = D ///////////////////////////////////////////
 	void axpy(const d_real& alpha, const dd_real_vector& x, dd_real_vector& y){
-		printf("gomagoma\n");
+		if((long)x.size() != (long)y.size()){
+			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
+			assert(1);
+		};
+ 		registers regs;
+
+#pragma omp parallel private(regs)
+		{
+			long i=0, is=0, ie=0;
+			get_isie((long)y.size(), is, ie);
+			AVXreg alpha_hi = broadcast(alpha);
+			AVXreg alpha_lo = broadcast(0.0);
+			for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
+
+				AVXreg x_hi = load(x.hi[i]);
+				AVXreg x_lo = load(x.lo[i]);
+
+				AVXreg y_hi = load(y.hi[i]);
+				AVXreg y_lo = load(y.lo[i]);
+
+				Fma(y_hi, y_lo, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, x_lo, regs);
+
+				store(y.hi[i], y_hi);
+				store(y.lo[i], y_lo);
+			}
+			for(;i<ie;i++){
+				Fma(y.hi[i], y.lo[i], y.hi[i], y.lo[i], alpha, 0.0, x.hi[i], x.lo[i]);
+			}
+		}
 	}
 
 	void axpy(const d_real& alpha, const d_real_vector& x, dd_real_vector& y){
-		printf("gomagoma\n");
+		if((long)x.size() != (long)y.size()){
+			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
+			assert(1);
+		};
+ 		registers regs;
+
+#pragma omp parallel private(regs)
+		{
+			long i=0, is=0, ie=0;
+			get_isie((long)y.size(), is, ie);
+			AVXreg alpha_hi = broadcast(alpha);
+			AVXreg alpha_lo = broadcast(0.0);
+			for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
+
+				AVXreg x_hi = load(x.data()[i]);
+				AVXreg x_lo = regs.zeros;
+
+				AVXreg y_hi = load(y.hi[i]);
+				AVXreg y_lo = load(y.lo[i]);
+
+				Fma(y_hi, y_lo, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, x_lo, regs);
+
+				store(y.hi[i], y_hi);
+				store(y.lo[i], y_lo);
+			}
+			for(;i<ie;i++){
+				Fma(y.hi[i], y.lo[i], y.hi[i], y.lo[i], alpha, 0.0, x.data()[i], 0.0);
+			}
+		}
 	}
 
 	void axpy(const d_real& alpha, const dd_real_vector& x, d_real_vector& y){
-		printf("gomagoma\n");
+		if((long)x.size() != (long)y.size()){
+			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
+			assert(1);
+		};
+ 		registers regs;
+
+#pragma omp parallel private(regs)
+		{
+			long i=0, is=0, ie=0;
+			get_isie((long)y.size(), is, ie);
+			AVXreg alpha_hi = broadcast(alpha);
+			AVXreg alpha_lo = broadcast(0.0);
+			for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
+
+				AVXreg x_hi = load(x.hi[i]);
+				AVXreg x_lo = load(x.lo[i]);
+
+				AVXreg y_hi = load(y.data()[i]);
+				AVXreg y_lo = regs.zeros;
+
+				Fma(y_hi, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, x_lo, regs);
+
+				store(y.data()[i], y_hi);
+			}
+			for(;i<ie;i++){
+				Fma(y.data()[i], y.data()[i], 0.0, alpha, 0.0, x.hi[i], x.lo[i]);
+			}
+		}
 	}
 
 	void axpy(const d_real& alpha, const d_real_vector& x, d_real_vector& y){
-		printf("gomagoma\n");
-	}
+		if((long)x.size() != (long)y.size()){
+			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
+			assert(1);
+		};
 
+#pragma omp parallel for
+		for(long i = 0 ; i<y.size();i++){
+			y[i] = y[i] + alpha * x[i];
+		}
+	}
 }

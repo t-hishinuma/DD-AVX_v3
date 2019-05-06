@@ -4,6 +4,7 @@ stages:
     - build_test
     - run_test_scalar
     - run_test_vector
+    - run_test_vector_blas
     - doc
       
 before_script:
@@ -121,6 +122,13 @@ div:
     script:
         - cd test/vector; ./check.sh div;
 
+###################################################
+axpy:
+    stage: run_test_vector_blas
+    tags:
+        - hishinuma-ci
+    script:
+        - cd test/vector_blas; ./check.sh axpy;
 ###################################################
 
 make_doc:

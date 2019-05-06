@@ -29,7 +29,7 @@ int test(long N)
 //=func()================
 	DST vec1;
 	for(int i=0; i<N; i++)
-		vec1.push_back(dd_rand());
+		vec1.push_back(rand());
 
  	SRC1 vec2(N, 1.0e+9);
  	SRC2 vec3(N, 2.0e+9);

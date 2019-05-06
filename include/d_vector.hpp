@@ -29,10 +29,17 @@ class d_real_vector : public std::vector<double>{
 			std::cout << std::vector<double>::at(i) << std::endl;
 		}
 
-		void push_back(const dd_real val){
-			resize(size()+1);
-			data()[size()] = val.x[0];
-		}
+// 		void push_back(const dd_real& val){
+// // 			resize(size()+1);
+// // 			data()[size()] = val.x[0];
+// 			printf("dd[%d]: %f\n", size(), data()[size()]);
+// 		}
+//
+// 		void push_back(const double val){
+// 			resize(size()+1);
+// 			data()[size()] = val;
+// 			printf("d[%d]: %f\n", size(), data()[size()]);
+// 		}
 
 		void input(const char* filename);
 		void input_mm(FILE *file);

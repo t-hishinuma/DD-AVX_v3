@@ -22,6 +22,7 @@
 	#include"./AVX2_core/AVX2_core.hpp"
 	#include"./AVX2_core/AVX2_core_add.hpp"
 	#include"./AVX2_core/AVX2_core_mul.hpp"
+	#include"./AVX2_core/AVX2_core_fma.hpp"
 #endif
 
 using d_real = double;
