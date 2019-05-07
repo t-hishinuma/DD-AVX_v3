@@ -3,7 +3,7 @@ using namespace ddavx_core;
 
 namespace dd_avx{
 //alpha = DD ///////////////////////////////////////////
-	void axpy(const dd_real& alpha, const dd_real_vector& x, dd_real_vector& y){
+	void dot(const dd_real& alpha, const dd_real_vector& x, dd_real_vector& y){
 		if((long)x.size() != (long)y.size()){
 			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
 			assert(1);
@@ -35,7 +35,7 @@ namespace dd_avx{
 		}
 	}
 
-	void axpy(const dd_real& alpha, const d_real_vector& x, dd_real_vector& y){
+	void dot(const dd_real& alpha, const d_real_vector& x, dd_real_vector& y){
 		if((long)x.size() != (long)y.size()){
 			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
 			assert(1);
@@ -51,22 +51,23 @@ namespace dd_avx{
 			for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
 
 				AVXreg x_hi = load(x.data()[i]);
+				AVXreg x_lo = regs.zeros;
 
 				AVXreg y_hi = load(y.hi[i]);
 				AVXreg y_lo = load(y.lo[i]);
 
-				Fmad(y_hi, y_lo, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, regs);
+				Fma(y_hi, y_lo, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, x_lo, regs);
 
 				store(y.hi[i], y_hi);
 				store(y.lo[i], y_lo);
 			}
 			for(;i<ie;i++){
-				Fmad(y.hi[i], y.lo[i], y.hi[i], y.lo[i], alpha.x[0], alpha.x[1], x.data()[i]);
+				Fma(y.hi[i], y.lo[i], y.hi[i], y.lo[i], alpha.x[0], alpha.x[1], x.data()[i], 0.0);
 			}
 		}
 	}
 
-	void axpy(const dd_real& alpha, const dd_real_vector& x, d_real_vector& y){
+	void dot(const dd_real& alpha, const dd_real_vector& x, d_real_vector& y){
 		if((long)x.size() != (long)y.size()){
 			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
 			assert(1);
@@ -97,7 +98,7 @@ namespace dd_avx{
 		}
 	}
 
-	void axpy(const dd_real& alpha, const d_real_vector& x, d_real_vector& y){
+	void dot(const dd_real& alpha, const d_real_vector& x, d_real_vector& y){
 		if((long)x.size() != (long)y.size()){
 			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
 			assert(1);
@@ -113,11 +114,12 @@ namespace dd_avx{
 			for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
 
 				AVXreg x_hi = load(x.data()[i]);
+				AVXreg x_lo = regs.zeros;
 
 				AVXreg y_hi = load(y.data()[i]);
 				AVXreg y_lo = regs.zeros;
 
-				Fmad(y_hi, y_lo, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, regs);
+				Fma(y_hi, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, x_lo, regs);
 
 				store(y.data()[i], y_hi);
 			}
@@ -128,7 +130,7 @@ namespace dd_avx{
 	}
 
 //alpha = D ///////////////////////////////////////////
-	void axpy(const d_real& alpha, const dd_real_vector& x, dd_real_vector& y){
+	void dot(const d_real& alpha, const dd_real_vector& x, dd_real_vector& y){
 		if((long)x.size() != (long)y.size()){
 			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
 			assert(1);
@@ -149,7 +151,7 @@ namespace dd_avx{
 				AVXreg y_hi = load(y.hi[i]);
 				AVXreg y_lo = load(y.lo[i]);
 
-				Fmad(y_hi, y_lo, y_hi, y_lo, x_hi, x_lo, alpha_hi, regs);
+				Fma(y_hi, y_lo, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, x_lo, regs);
 
 				store(y.hi[i], y_hi);
 				store(y.lo[i], y_lo);
@@ -160,7 +162,7 @@ namespace dd_avx{
 		}
 	}
 
-	void axpy(const d_real& alpha, const d_real_vector& x, dd_real_vector& y){
+	void dot(const d_real& alpha, const d_real_vector& x, dd_real_vector& y){
 		if((long)x.size() != (long)y.size()){
 			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
 			assert(1);
@@ -181,7 +183,7 @@ namespace dd_avx{
 				AVXreg y_hi = load(y.hi[i]);
 				AVXreg y_lo = load(y.lo[i]);
 
-				Fmad(y_hi, y_lo, y_hi, y_lo, x_hi, x_lo, alpha_hi, regs);
+				Fma(y_hi, y_lo, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, x_lo, regs);
 
 				store(y.hi[i], y_hi);
 				store(y.lo[i], y_lo);
@@ -192,7 +194,7 @@ namespace dd_avx{
 		}
 	}
 
-	void axpy(const d_real& alpha, const dd_real_vector& x, d_real_vector& y){
+	void dot(const d_real& alpha, const dd_real_vector& x, d_real_vector& y){
 		if((long)x.size() != (long)y.size()){
 			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
 			assert(1);
@@ -213,7 +215,7 @@ namespace dd_avx{
 				AVXreg y_hi = load(y.data()[i]);
 				AVXreg y_lo = regs.zeros;
 
-				Fmad(y_hi, y_lo, y_hi, y_lo, x_hi, x_lo, alpha_hi, regs);
+				Fma(y_hi, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, x_lo, regs);
 
 				store(y.data()[i], y_hi);
 			}
@@ -223,14 +225,14 @@ namespace dd_avx{
 		}
 	}
 
-	void axpy(const d_real& alpha, const d_real_vector& x, d_real_vector& y){
+	void dot(const d_real& alpha, const d_real_vector& x, d_real_vector& y){
 		if((long)x.size() != (long)y.size()){
 			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
 			assert(1);
 		};
 
 #pragma omp parallel for
-		for(long i = 0 ; i<(long)y.size();i++){
+		for(long i = 0 ; i < (long)y.size();i++){
 			y.data()[i] = y.data()[i] + alpha * x.data()[i];
 		}
 	}
