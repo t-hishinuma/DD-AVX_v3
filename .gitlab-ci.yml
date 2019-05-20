@@ -18,6 +18,7 @@ build_lib:
     tags:
         - hishinuma-ci
     script:
+        - make clean
         - make
         - ls
         - ls lib/
