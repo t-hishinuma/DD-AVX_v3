@@ -1,7 +1,7 @@
 #include<DD-AVX.hpp>
 #include<vector>
 #include<iostream>
-#define TOL 1.0e-4
+#define TOL 1.0e-6
 
 std::vector<double> make_ans(const double alpha, const std::vector<double>& x){
 	std::vector<double> y(x.size(), 0.0);

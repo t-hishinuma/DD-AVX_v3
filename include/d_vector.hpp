@@ -1,7 +1,10 @@
 #ifndef D_VECTOR_HPP
 #define D_VECTOR_HPP
-#include<./DD-AVX.hpp>
+
 class dd_real_vector;
+class dd_real_vector_ref;
+class dd_real_scalar;
+
 
 class d_real_vector : public std::vector<double>{
 	friend class dd_real_vector;
@@ -29,18 +32,6 @@ class d_real_vector : public std::vector<double>{
 			std::cout << std::vector<double>::at(i) << std::endl;
 		}
 
-// 		void push_back(const dd_real& val){
-// // 			resize(size()+1);
-// // 			data()[size()] = val.x[0];
-// 			printf("dd[%d]: %f\n", size(), data()[size()]);
-// 		}
-//
-// 		void push_back(const double val){
-// 			resize(size()+1);
-// 			data()[size()] = val;
-// 			printf("d[%d]: %f\n", size(), data()[size()]);
-// 		}
-
 		void input(const char* filename);
 		void input_mm(FILE *file);
 		void input_plane(FILE *file);
@@ -51,23 +42,23 @@ class d_real_vector : public std::vector<double>{
 		void copy(const dd_real_vector& vec);
 		void copy(const d_real_vector& vec);
 		void copy(const std::vector<double>& vec);
-		void copy(const std::vector<dd_real>& vec);
+		void copy(const std::vector<dd_real_scalar>& vec);
 
 		d_real_vector& operator=(const dd_real_vector& vec);
 		d_real_vector& operator=(const d_real_vector& vec);
 		d_real_vector& operator=(const std::vector<double>& vec);
-		d_real_vector& operator=(const std::vector<dd_real>& vec);
+		d_real_vector& operator=(const std::vector<dd_real_scalar>& vec);
 
 //--comparision == ---------------------------------------
 		bool operator==(const dd_real_vector& vec);
 		bool operator==(const d_real_vector& vec);
 		bool operator==(const std::vector<double>& vec);
-		bool operator==(const std::vector<dd_real>& vec);
+		bool operator==(const std::vector<dd_real_scalar>& vec);
 
 		bool operator!=(const dd_real_vector& vec);
 		bool operator!=(const d_real_vector& vec);
 		bool operator!=(const std::vector<double>& vec);
-		bool operator!=(const std::vector<dd_real>& vec);
+		bool operator!=(const std::vector<dd_real_scalar>& vec);
 
 //--cast -------------------------------------
 		operator std::vector<double>(){

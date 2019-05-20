@@ -3,7 +3,7 @@ using namespace ddavx_core;
 
 namespace dd_avx{
 //alpha = DD ///////////////////////////////////////////
-	void dot(const dd_real& alpha, const dd_real_vector& x, dd_real_vector& y){
+	void dot(const dd_real_scalar& alpha, const dd_real_vector& x, dd_real_vector& y){
 		if((long)x.size() != (long)y.size()){
 			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
 			assert(1);
@@ -35,7 +35,7 @@ namespace dd_avx{
 		}
 	}
 
-	void dot(const dd_real& alpha, const d_real_vector& x, dd_real_vector& y){
+	void dot(const dd_real_scalar& alpha, const d_real_vector& x, dd_real_vector& y){
 		if((long)x.size() != (long)y.size()){
 			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
 			assert(1);
@@ -67,7 +67,7 @@ namespace dd_avx{
 		}
 	}
 
-	void dot(const dd_real& alpha, const dd_real_vector& x, d_real_vector& y){
+	void dot(const dd_real_scalar& alpha, const dd_real_vector& x, d_real_vector& y){
 		if((long)x.size() != (long)y.size()){
 			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
 			assert(1);
@@ -98,7 +98,7 @@ namespace dd_avx{
 		}
 	}
 
-	void dot(const dd_real& alpha, const d_real_vector& x, d_real_vector& y){
+	void dot(const dd_real_scalar& alpha, const d_real_vector& x, d_real_vector& y){
 		if((long)x.size() != (long)y.size()){
 			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
 			assert(1);
@@ -130,7 +130,7 @@ namespace dd_avx{
 	}
 
 //alpha = D ///////////////////////////////////////////
-	void dot(const d_real& alpha, const dd_real_vector& x, dd_real_vector& y){
+	void dot(const d_real_scalar& alpha, const dd_real_vector& x, dd_real_vector& y){
 		if((long)x.size() != (long)y.size()){
 			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
 			assert(1);
@@ -162,7 +162,7 @@ namespace dd_avx{
 		}
 	}
 
-	void dot(const d_real& alpha, const d_real_vector& x, dd_real_vector& y){
+	void dot(const d_real_scalar& alpha, const d_real_vector& x, dd_real_vector& y){
 		if((long)x.size() != (long)y.size()){
 			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
 			assert(1);
@@ -194,7 +194,7 @@ namespace dd_avx{
 		}
 	}
 
-	void dot(const d_real& alpha, const dd_real_vector& x, d_real_vector& y){
+	void dot(const d_real_scalar& alpha, const dd_real_vector& x, d_real_vector& y){
 		if((long)x.size() != (long)y.size()){
 			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
 			assert(1);
@@ -225,7 +225,7 @@ namespace dd_avx{
 		}
 	}
 
-	void dot(const d_real& alpha, const d_real_vector& x, d_real_vector& y){
+	void dot(const d_real_scalar& alpha, const d_real_vector& x, d_real_vector& y){
 		if((long)x.size() != (long)y.size()){
 			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
 			assert(1);

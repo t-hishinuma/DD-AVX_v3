@@ -25,7 +25,7 @@ bool d_real_vector::operator==(const std::vector<double>& vec){
 	return ret;
 }
 
-bool d_real_vector::operator==(const std::vector<dd_real>& vec){
+bool d_real_vector::operator==(const std::vector<dd_real_scalar>& vec){
 	bool ret = ((long)size() == (long)vec.size());
 	if(ret == false) return false;
 
@@ -54,7 +54,7 @@ bool d_real_vector::operator!=(const std::vector<double>& vec){
 	return !ret;
 }
 
-bool d_real_vector::operator!=(const std::vector<dd_real>& vec){
+bool d_real_vector::operator!=(const std::vector<dd_real_scalar>& vec){
 	bool ret = (*this == vec);
 	return !ret;
 }
@@ -86,7 +86,7 @@ bool dd_real_vector::operator==(const std::vector<double>& vec){
 	return ret;
 }
 
-bool dd_real_vector::operator==(const std::vector<dd_real>& vec){
+bool dd_real_vector::operator==(const std::vector<dd_real_scalar>& vec){
 	bool ret = (size() == (long)vec.size());
 	if(ret == false) return false;
 
@@ -114,7 +114,7 @@ bool dd_real_vector::operator!=(const std::vector<double>& vec){
 	return !ret;
 }
 
-bool dd_real_vector::operator!=(const std::vector<dd_real>& vec){
+bool dd_real_vector::operator!=(const std::vector<dd_real_scalar>& vec){
 	bool ret = (*this == vec);
 	return !ret;
 }

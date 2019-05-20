@@ -1,14 +1,16 @@
 #ifndef DD_VECTOR_HPP
 #define DD_VECTOR_HPP
-#include<./d_vector.hpp>
 
-template<typename T>
+class d_real_vector;
+class dd_real_scalar;
+
 class dd_real_vector_ref
 {
-    typename std::vector<T>::iterator dd_hi_iter;
-    typename std::vector<T>::iterator dd_lo_iter;
 public:
-    dd_real_vector_ref(typename std::vector<T>::iterator hi, typename std::vector<T>::iterator lo)
+    typename std::vector<double>::iterator dd_hi_iter;
+    typename std::vector<double>::iterator dd_lo_iter;
+
+    dd_real_vector_ref(typename std::vector<double>::iterator hi, typename std::vector<double>::iterator lo)
         : dd_hi_iter(hi), dd_lo_iter(lo) {}
 
     operator double() const{
@@ -24,10 +26,41 @@ public:
 	   	*dd_lo_iter = c.x[1];
 	}
 
-    operator dd_real(){
-		return dd_real(*dd_hi_iter, *dd_lo_iter);
+	void operator=(dd_real_vector_ref& c){
+		*dd_hi_iter = *c.dd_hi_iter;
+	   	*dd_lo_iter = *c.dd_lo_iter;
 	}
+
+	void operator=(double& c){
+		*dd_hi_iter = c;
+		*dd_lo_iter = 0.0;
+	}
+
+	dd_real operator+(const dd_real a);
+	dd_real operator+(dd_real_vector_ref c);
+	dd_real operator+(double c);
+	dd_real operator-(const dd_real a);
+	dd_real operator-(dd_real_vector_ref c);
+	dd_real operator-(double c);
+	dd_real operator*(const dd_real a);
+	dd_real operator*(dd_real_vector_ref c);
+	dd_real operator*(double c);
+	dd_real operator/(const dd_real a);
+	dd_real operator/(dd_real_vector_ref c);
+	dd_real operator/(double c);
+// 	QD_API std::ostream& operator<<(std::ostream &s, const dd_real &a);
+// 	QD_API std::istream& operator>>(std::istream &s, dd_real &a);
 };
+
+dd_real operator+(const dd_real a, const dd_real_vector_ref b);
+dd_real operator+(const double a, const dd_real_vector_ref b);
+dd_real operator-(const dd_real a, const dd_real_vector_ref b);
+dd_real operator-(const double a, const dd_real_vector_ref b);
+dd_real operator*(const dd_real a, const dd_real_vector_ref b);
+dd_real operator*(const double a, const dd_real_vector_ref b);
+dd_real operator/(const dd_real a, const dd_real_vector_ref b);
+dd_real operator/(const double a, const dd_real_vector_ref b);
+
 
 class dd_real_vector{
 
@@ -51,27 +84,19 @@ class dd_real_vector{
 			lo.resize(N, 0.0);
 		}
 
-		dd_real_vector(long n, dd_real val){
+		dd_real_vector(long n, dd_real_scalar val){
 			N=n;
 			hi.resize(N, val.x[0]);
 			lo.resize(N, val.x[1]);
 		}
 
-		dd_real_vector_ref<double> operator[](long n) {
-			return dd_real_vector_ref<double>(hi.begin() + n, lo.begin() + n);
+		dd_real_vector_ref operator[](long n) {
+			return dd_real_vector_ref(hi.begin() + n, lo.begin() + n);
 		}
 //--cast -------------------------------------
-		operator std::vector<double>(){
-			return hi;
-		}
-		operator double*(){
-			return hi.data();
-		}
-
-		operator d_real_vector(){
-			printf("cast d=>dd\n");
-			return hi;
-		}
+		operator std::vector<double>();
+		operator double*();
+		operator d_real_vector();
 
 //--getinfo---------------------------------------
 		long size() const{return N;};
@@ -83,8 +108,8 @@ class dd_real_vector{
 		std::vector<double> HI(){return this->hi;}
 		std::vector<double> LO(){return this->lo;}
 
-		dd_real at(int n){
-			dd_real tmp;
+		dd_real_scalar at(int n){
+			dd_real_scalar tmp;
 			tmp.x[0] = hi[n];
 			tmp.x[1] = lo[n];
 			return tmp;
@@ -113,7 +138,7 @@ class dd_real_vector{
 			lo.resize(N, 0.0);
 		};
 
-		void resize(long n, dd_real val){
+		void resize(long n, dd_real_scalar val){
 			N=n;
 			hi.resize(N, val.x[0]);
 			lo.resize(N, val.x[1]);
@@ -125,7 +150,7 @@ class dd_real_vector{
 			lo.push_back(0.0);
 		}
 
-		void push_back(const dd_real val){
+		void push_back(const dd_real_scalar val){
 			N=N+1;
 			hi.push_back(val.x[0]);
 			lo.push_back(val.x[1]);
@@ -141,24 +166,24 @@ class dd_real_vector{
 		void copy(const dd_real_vector& vec);
 		void copy(const d_real_vector& vec);
 		void copy(const std::vector<double>& vec);
-		void copy(const std::vector<dd_real>& vec);
+		void copy(const std::vector<dd_real_scalar>& vec);
 
 		dd_real_vector& operator=(const dd_real_vector& vec);
 		dd_real_vector& operator=(const d_real_vector& vec);
 		dd_real_vector& operator=(const std::vector<double>& vec);
-		dd_real_vector& operator=(const std::vector<dd_real>& vec);
+		dd_real_vector& operator=(const std::vector<dd_real_scalar>& vec);
 
 //--comparision---------------------------------------
 
 		bool operator==(const dd_real_vector& vec);
 		bool operator==(const d_real_vector& vec);
 		bool operator==(const std::vector<double>& vec);
-		bool operator==(const std::vector<dd_real>& vec);
+		bool operator==(const std::vector<dd_real_scalar>& vec);
 
 		bool operator!=(const dd_real_vector& vec);
 		bool operator!=(const d_real_vector& vec);
 		bool operator!=(const std::vector<double>& vec);
-		bool operator!=(const std::vector<dd_real>& vec);
+		bool operator!=(const std::vector<dd_real_scalar>& vec);
 
 //--minus---------------------------------------
 		void minus();
@@ -212,15 +237,4 @@ class dd_real_vector{
 		dd_real_vector operator/=(dd_real_vector& vec);
 		dd_real_vector operator/=(d_real_vector& vec);
 };
-
-inline d_real_vector:: operator dd_real_vector()
-{
-	printf("cast dd=>d\n");
-	dd_real_vector tmp;
-	for(long i=0; i<(long)size(); i++){
-		tmp.hi[i]=*this[i];
-		tmp.lo[i]=0.0;
-	}
-	return tmp;
-}
 #endif
