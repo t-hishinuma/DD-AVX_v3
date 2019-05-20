@@ -15,7 +15,6 @@
 #include<omp.h>
 
 #include"qd/dd_real.h"
-#include"./scalar.hpp"
 #include"./dd_vector.hpp"
 #include"./d_vector.hpp"
 
