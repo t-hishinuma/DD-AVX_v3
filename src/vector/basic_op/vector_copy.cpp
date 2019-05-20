@@ -15,7 +15,7 @@ void d_real_vector::copy(const std::vector<double>& vec){
 	std::copy(vec.begin(), vec.end(), begin());
 }
 
-void d_real_vector::copy(const std::vector<dd_real_scalar>& vec){
+void d_real_vector::copy(const std::vector<dd_real>& vec){
 	resize(vec.size());
 	
 	#pragma omp parallel for
@@ -39,7 +39,7 @@ d_real_vector& d_real_vector::operator=(const std::vector<double>& vec){
    	return *this;
 }
 
-d_real_vector& d_real_vector::operator=(const std::vector<dd_real_scalar>& vec){
+d_real_vector& d_real_vector::operator=(const std::vector<dd_real>& vec){
 	copy(vec);
    	return *this;
 }
@@ -66,7 +66,7 @@ void dd_real_vector::copy(const std::vector<double>& vec){
 	N = vec.size();
 }
 
-void dd_real_vector::copy(const std::vector<dd_real_scalar>& vec){
+void dd_real_vector::copy(const std::vector<dd_real>& vec){
 	hi.resize(vec.size());
 	lo.resize(vec.size());
 	
@@ -93,7 +93,7 @@ dd_real_vector& dd_real_vector::operator=(const std::vector<double>& vec){
    	return *this;
 }
 
-dd_real_vector& dd_real_vector::operator=(const std::vector<dd_real_scalar>& vec){
+dd_real_vector& dd_real_vector::operator=(const std::vector<dd_real>& vec){
 	this->copy(vec);
    	return *this;
 }

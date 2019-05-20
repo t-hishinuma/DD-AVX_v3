@@ -2,7 +2,7 @@
 #define DD_VECTOR_HPP
 
 class d_real_vector;
-class dd_real_scalar;
+struct dd_real;
 
 class dd_real_vector_ref
 {
@@ -84,7 +84,7 @@ class dd_real_vector{
 			lo.resize(N, 0.0);
 		}
 
-		dd_real_vector(long n, dd_real_scalar val){
+		dd_real_vector(long n, dd_real val){
 			N=n;
 			hi.resize(N, val.x[0]);
 			lo.resize(N, val.x[1]);
@@ -108,8 +108,8 @@ class dd_real_vector{
 		std::vector<double> HI(){return this->hi;}
 		std::vector<double> LO(){return this->lo;}
 
-		dd_real_scalar at(int n){
-			dd_real_scalar tmp;
+		dd_real at(int n){
+			dd_real tmp;
 			tmp.x[0] = hi[n];
 			tmp.x[1] = lo[n];
 			return tmp;
@@ -138,7 +138,7 @@ class dd_real_vector{
 			lo.resize(N, 0.0);
 		};
 
-		void resize(long n, dd_real_scalar val){
+		void resize(long n, dd_real val){
 			N=n;
 			hi.resize(N, val.x[0]);
 			lo.resize(N, val.x[1]);
@@ -150,7 +150,7 @@ class dd_real_vector{
 			lo.push_back(0.0);
 		}
 
-		void push_back(const dd_real_scalar val){
+		void push_back(const dd_real val){
 			N=N+1;
 			hi.push_back(val.x[0]);
 			lo.push_back(val.x[1]);
@@ -166,24 +166,24 @@ class dd_real_vector{
 		void copy(const dd_real_vector& vec);
 		void copy(const d_real_vector& vec);
 		void copy(const std::vector<double>& vec);
-		void copy(const std::vector<dd_real_scalar>& vec);
+		void copy(const std::vector<dd_real>& vec);
 
 		dd_real_vector& operator=(const dd_real_vector& vec);
 		dd_real_vector& operator=(const d_real_vector& vec);
 		dd_real_vector& operator=(const std::vector<double>& vec);
-		dd_real_vector& operator=(const std::vector<dd_real_scalar>& vec);
+		dd_real_vector& operator=(const std::vector<dd_real>& vec);
 
 //--comparision---------------------------------------
 
 		bool operator==(const dd_real_vector& vec);
 		bool operator==(const d_real_vector& vec);
 		bool operator==(const std::vector<double>& vec);
-		bool operator==(const std::vector<dd_real_scalar>& vec);
+		bool operator==(const std::vector<dd_real>& vec);
 
 		bool operator!=(const dd_real_vector& vec);
 		bool operator!=(const d_real_vector& vec);
 		bool operator!=(const std::vector<double>& vec);
-		bool operator!=(const std::vector<dd_real_scalar>& vec);
+		bool operator!=(const std::vector<dd_real>& vec);
 
 //--minus---------------------------------------
 		void minus();

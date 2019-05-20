@@ -26,7 +26,7 @@
 	#include"./AVX2_core/AVX2_core_fma.hpp"
 #endif
 
-using d_real_scalar = double;
+using d_real = double;
 
 inline dd_real dd_rand(){
 	dd_real tmp;
@@ -36,15 +36,15 @@ inline dd_real dd_rand(){
 }
 
 namespace dd_avx{
-	void axpy(const dd_real_scalar& alpha, const dd_real_vector& x, dd_real_vector& y);
-	void axpy(const dd_real_scalar& alpha, const d_real_vector& x, dd_real_vector& y);
-	void axpy(const dd_real_scalar& alpha, const dd_real_vector& x, d_real_vector& y);
-	void axpy(const dd_real_scalar& alpha, const d_real_vector& x, d_real_vector& y);
+	void axpy(const dd_real& alpha, const dd_real_vector& x, dd_real_vector& y);
+	void axpy(const dd_real& alpha, const d_real_vector& x, dd_real_vector& y);
+	void axpy(const dd_real& alpha, const dd_real_vector& x, d_real_vector& y);
+	void axpy(const dd_real& alpha, const d_real_vector& x, d_real_vector& y);
 
-	void axpy(const d_real_scalar& alpha, const dd_real_vector& x, dd_real_vector& y);
-	void axpy(const d_real_scalar& alpha, const d_real_vector& x, dd_real_vector& y);
-	void axpy(const d_real_scalar& alpha, const dd_real_vector& x, d_real_vector& y);
-	void axpy(const d_real_scalar& alpha, const d_real_vector& x, d_real_vector& y);
+	void axpy(const dd_real& alpha, const dd_real_vector& x, dd_real_vector& y);
+	void axpy(const dd_real& alpha, const d_real_vector& x, dd_real_vector& y);
+	void axpy(const dd_real& alpha, const dd_real_vector& x, d_real_vector& y);
+	void axpy(const dd_real& alpha, const d_real_vector& x, d_real_vector& y);
 }
 
 #if 0

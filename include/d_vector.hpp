@@ -3,7 +3,7 @@
 
 class dd_real_vector;
 class dd_real_vector_ref;
-class dd_real_scalar;
+struct dd_real;
 
 
 class d_real_vector : public std::vector<double>{
@@ -42,23 +42,23 @@ class d_real_vector : public std::vector<double>{
 		void copy(const dd_real_vector& vec);
 		void copy(const d_real_vector& vec);
 		void copy(const std::vector<double>& vec);
-		void copy(const std::vector<dd_real_scalar>& vec);
+		void copy(const std::vector<dd_real>& vec);
 
 		d_real_vector& operator=(const dd_real_vector& vec);
 		d_real_vector& operator=(const d_real_vector& vec);
 		d_real_vector& operator=(const std::vector<double>& vec);
-		d_real_vector& operator=(const std::vector<dd_real_scalar>& vec);
+		d_real_vector& operator=(const std::vector<dd_real>& vec);
 
 //--comparision == ---------------------------------------
 		bool operator==(const dd_real_vector& vec);
 		bool operator==(const d_real_vector& vec);
 		bool operator==(const std::vector<double>& vec);
-		bool operator==(const std::vector<dd_real_scalar>& vec);
+		bool operator==(const std::vector<dd_real>& vec);
 
 		bool operator!=(const dd_real_vector& vec);
 		bool operator!=(const d_real_vector& vec);
 		bool operator!=(const std::vector<double>& vec);
-		bool operator!=(const std::vector<dd_real_scalar>& vec);
+		bool operator!=(const std::vector<dd_real>& vec);
 
 //--cast -------------------------------------
 		operator std::vector<double>(){
