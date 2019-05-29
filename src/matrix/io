@@ -1,0 +1,299 @@
+#include "../../include/pzsparse.hpp"
+#include <cassert>
+#include <fstream>
+#include <iomanip>
+#include <iostream>
+#include <limits>
+#include <sstream>
+
+#define MM_BANNER "%%MatrixMarket"
+#define MM_MAT "matrix"
+#define MM_VEC "vector"
+#define MM_FMT "coordinate"
+#define MM_TYPE_REAL "real"
+#define MM_TYPE_GENERAL "general"
+#define MM_TYPE_SYMM "symmetric"
+
+namespace pzsparse {
+namespace matrix_market {
+
+// ==========================================================================
+// INPUT
+// ==========================================================================
+
+template <typename Float_>
+static void vector_input_core(const std::string& filename, Float_* x)
+{
+    std::string banner, buf;
+    std::string mm, vec, fmt, dtype, dstruct;
+    size_t      N;
+
+    //file open
+    if (filename == "") {
+        throw std::invalid_argument("pzsparse::matrix_market::input: empty filename");
+    }
+
+    std::ifstream ifs(filename);
+
+    if (ifs.fail()) {
+        std::cerr << "vector_input::can not open file" << std::endl;
+        exit(-1);
+    }
+
+    getline(ifs, banner);
+    std::istringstream head(banner);
+
+    head >> mm >> vec >> fmt >> dtype >> dstruct;
+
+    if (mm != std::string(MM_BANNER)) {
+        std::cerr << "vector_input::This vector is not MM format" << std::endl;
+        exit(-1);
+    }
+    if (vec != std::string(MM_VEC)) {
+        std::cerr << "vector_input::This vector is not vector type" << std::endl;
+        exit(-1);
+    }
+    if (fmt != std::string(MM_FMT)) {
+        std::cerr << "vector_input::This vector is not coodinate format" << std::endl;
+        exit(-1);
+    }
+    if (dtype != std::string(MM_TYPE_REAL)) {
+        std::cerr << "vector_input::This vector is not real" << std::endl;
+        exit(-1);
+    }
+    if (dstruct != std::string(MM_TYPE_GENERAL)) {
+        std::cerr << "vector_input::This vector is not general" << std::endl;
+        exit(-1);
+    }
+
+    getline(ifs, buf);
+    std::istringstream size_line(buf);
+    size_line >> N;
+
+    size_t idx   = 0;
+    Float_ value = 0;
+    for (int i = 0; i < N; i++) {
+        getline(ifs, buf);
+        std::istringstream data(buf);
+        data >> idx >> value;
+        x[i] = value;
+    }
+
+    ifs.close();
+}
+
+template <>
+void input<float>(const std::string& filename, float* x)
+{
+    vector_input_core(filename, x);
+}
+
+template <>
+void input<double>(const std::string& filename, double* x)
+{
+    vector_input_core(filename, x);
+}
+
+template <>
+void input<float>(const std::string& filename, std::vector<float>& x)
+{
+    vector_input_core(filename, x.data());
+}
+
+template <>
+void input<double>(const std::string& filename, std::vector<double>& x)
+{
+    vector_input_core(filename, x.data());
+}
+
+template <typename Float_, typename Index_>
+void matrix_input_core(const std::string& filename, Matrix<Float_, Index_>& m)
+{
+    if (m.get_format() != MatrixFormat_Uncompressed) {
+        throw format_error("pzsparse::Matrix::input: Cannot modify matrix of this format");
+    }
+
+    m.setzero();
+
+    std::string banner, buf;
+    std::string mm, mat, fmt, dtype, dstruct;
+
+    //file open
+    std::ifstream ifs(filename);
+    if (!ifs) {
+        std::cerr << "Matrix.input: cannot open file " << filename << std::endl;
+        std::exit(1);
+    }
+
+    //check Matrix Market bannner
+    getline(ifs, banner);
+    std::istringstream bn(banner);
+    bn >> mm >> mat >> fmt >> dtype >> dstruct;
+
+    if (mm != std::string(MM_BANNER)) {
+        std::cerr << "Matrix.input: This matrix is not MM format:" << mm << std::endl;
+        exit(-1);
+    }
+    if (mat != std::string(MM_MAT)) {
+        std::cerr << "Matrix.input: This matrix is not matrix type:" << mat << std::endl;
+        exit(-1);
+    }
+    if (fmt != std::string(MM_FMT)) {
+        std::cerr << "Matrix.input: This matrix is not coodinate format:" << fmt << std::endl;
+        exit(-1);
+    }
+    if (dtype != std::string(MM_TYPE_REAL)) {
+        std::cerr << "Matrix.input: This matrix is not real:" << dtype << std::endl;
+        exit(-1);
+    }
+    if (dstruct != std::string(MM_TYPE_GENERAL)) {
+        std::cerr << "Matrix.input: This matrix is not general:" << dstruct << std::endl;
+        exit(-1);
+    }
+
+    //skip %
+    do {
+        getline(ifs, buf);
+    } while (buf[0] == '%');
+
+    //check size
+    Index_ rowN, colN, nnz;
+
+    std::istringstream data(buf);
+    data >> rowN >> colN >> nnz;
+    if (colN != rowN) {
+        std::cerr << "Matrix.input: Matrix is not square" << std::endl;
+        exit(-1);
+    }
+    if (colN <= 0 || nnz < 0) {
+        std::cerr << "Matrix.input: Matrix size should be positive" << std::endl;
+        exit(-1);
+    }
+
+    m.resize(rowN);
+
+    //input MM data as selected matrix storage format
+
+    assert(m.get_format() == MatrixFormat_Uncompressed);
+
+    for (Index_ i = 0; i < nnz; i++) {
+        Index_ idx, jdx;
+        Float_ value;
+
+        getline(ifs, buf);
+        std::istringstream data(buf);
+        data >> idx >> jdx >> value;
+
+        if (idx < 1 || idx > rowN || jdx < 1 || jdx > colN) {
+            std::cerr << "Matrix.input: Invalid index" << std::endl;
+            exit(1);
+        }
+
+        m.insert(idx - 1, jdx - 1, value);
+    }
+
+    ifs.close();
+}
+
+template <>
+void input<float, int32_t>(const std::string& filename, Matrix<float, int32_t>& m)
+{
+    matrix_input_core(filename, m);
+}
+template <>
+void input<float, int64_t>(const std::string& filename, Matrix<float, int64_t>& m)
+{
+    matrix_input_core(filename, m);
+}
+template <>
+void input<double, int32_t>(const std::string& filename, Matrix<double, int32_t>& m)
+{
+    matrix_input_core(filename, m);
+}
+template <>
+void input<double, int64_t>(const std::string& filename, Matrix<double, int64_t>& m)
+{
+    matrix_input_core(filename, m);
+}
+
+// ==========================================================================
+// OUTPUT
+// ==========================================================================
+
+template <typename Float_>
+void vector_output_core(const std::string& filename, const Float_* x, size_t n)
+{
+    std::ofstream out(filename);
+    out << std::scientific;
+    out << std::setprecision(std::numeric_limits<Float_>::max_digits10);
+
+    out << (MM_BANNER " " MM_VEC " " MM_FMT " " MM_TYPE_REAL " " MM_TYPE_GENERAL) << std::endl;
+    out << n << std::endl;
+
+    for (size_t i = 0; i < n; i++) {
+        out << i + 1 << " " << x[i] << std::endl;
+    }
+}
+
+template <>
+void output<float>(const std::string& filename, const float* x, size_t n)
+{
+    vector_output_core(filename, x, n);
+}
+
+template <>
+void output<double>(const std::string& filename, const double* x, size_t n)
+{
+    vector_output_core(filename, x, n);
+}
+
+template <>
+void output<float>(const std::string& filename, const std::vector<float>& x)
+{
+    vector_output_core(filename, x.data(), x.size());
+}
+
+template <>
+void output<double>(const std::string& filename, const std::vector<double>& x)
+{
+    vector_output_core(filename, x.data(), x.size());
+}
+
+template <typename Float_, typename Index_>
+void matrix_output_core(const std::string& filename, const Matrix<Float_, Index_>& m)
+{
+    std::ofstream out(filename);
+    out << std::scientific;
+    out << std::setprecision(std::numeric_limits<Float_>::max_digits10);
+
+    out << (MM_BANNER " " MM_MAT " " MM_FMT " " MM_TYPE_REAL " " MM_TYPE_GENERAL) << std::endl;
+    out << m.size() << " " << m.size() << " " << m.nnz() << std::endl;
+
+    m.each([&out](Index_ i, Index_ j, Float_ v) {
+        out << i + 1 << "\t" << j + 1 << "\t" << v << std::endl;
+    });
+}
+
+template <>
+void output<float, int32_t>(const std::string& filename, const Matrix<float, int32_t>& m)
+{
+    matrix_output_core(filename, m);
+}
+template <>
+void output<float, int64_t>(const std::string& filename, const Matrix<float, int64_t>& m)
+{
+    matrix_output_core(filename, m);
+}
+template <>
+void output<double, int32_t>(const std::string& filename, const Matrix<double, int32_t>& m)
+{
+    matrix_output_core(filename, m);
+}
+template <>
+void output<double, int64_t>(const std::string& filename, const Matrix<double, int64_t>& m)
+{
+    matrix_output_core(filename, m);
+}
+
+}
+}

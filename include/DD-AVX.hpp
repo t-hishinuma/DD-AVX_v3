@@ -17,6 +17,7 @@
 #include"qd/dd_real.h"
 #include"./dd_vector.hpp"
 #include"./d_vector.hpp"
+#include"./d_matrix.hpp"
 
 #if USE_AVX2==1
 	#include"./AVX2_core/AVX2_core.hpp"
