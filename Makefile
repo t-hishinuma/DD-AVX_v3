@@ -1,6 +1,7 @@
 DD_AVX_DIR?=$(HOME)/lib/dd_avx/
 
 all:
+	git submodule update -i
 	$(MAKE) -C submodules -f Makefile.qd
 	$(MAKE) -C submodules -f Makefile.qd install
 	$(MAKE) -j -C src/ -f Makefile.avx2 

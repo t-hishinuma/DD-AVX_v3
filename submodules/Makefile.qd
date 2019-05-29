@@ -26,6 +26,7 @@ $(QD_TARGET): $(MAKEFILE)
 	cd $(QD_DIR); make -j; cd ..
 
 $(MAKEFILE): $(CONFIGURE)
+	chmod -R 755 $(QD_DIR)
 	cd $(QD_DIR); ./configure $(QD_OPT); cd ..
 	chmod -R 755 $(QD_DIR)
 
