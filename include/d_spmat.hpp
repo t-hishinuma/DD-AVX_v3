@@ -5,7 +5,7 @@ class d_real_vector;
 class dd_real_vector;
 struct dd_real;
 
-class d_real_matrix{
+class d_real_SpMat{
 	public:
 		long row=0;
 		long nnz=0;
@@ -13,9 +13,9 @@ class d_real_matrix{
 		std::vector<long> row_ptr;
 		std::vector<long> col_ind;
 
-		d_real_matrix(){}
+		d_real_SpMat(){}
 
-		d_real_matrix(long N, long NNZ){
+		d_real_SpMat(long N, long NNZ){
 			row=N;
 			nnz=NNZ;
 			val.resize(NNZ, 0.0);
@@ -33,14 +33,20 @@ class d_real_matrix{
 		}
 
 //--I/O---------------------------------------
-		void input_mm(char* filename);
+		void input_mm(const char* filename);
+		void output_mm(const char* filename);
+		void output();
 
 //--getinfo---------------------------------------
 		long get_row() const{return row;};
 		long get_nnz() const{return nnz;};
-
-
 		double at(long r, long c);
+
+//--util---------------------------------------
+// 		get_row(const long )
+// 		get_col(const )
+// 		get_diag(const )
+
 
 
 // //--copy---------------------------------------
@@ -50,16 +56,5 @@ class d_real_matrix{
 // 		dd_real_vector& operator=(const d_real_vector& vec);
 // 		dd_real_vector& operator=(const std::vector<double>& vec);
 // 		dd_real_vector& operator=(const std::vector<dd_real>& vec);
-// //--I/O---------------------------------------
-// 		void print_all(){ for(int i=0; i<N; i++) std::cout << hi[i] << ", " << lo[i] << std::endl; }
-// 		void print(long i){ std::cout << hi[i] << ", " << lo[i] << std::endl;}
-//
-// 		void input(const char* filename);
-// 		void input_mm(FILE *file);
-// 		void input_plane(FILE *file);
-// 		void output_mm(const char *filename);
-// 		void output_plane(const char *filename);
-//
-// 		void convert();
 };
 #endif

@@ -17,7 +17,7 @@
 #include"qd/dd_real.h"
 #include"./dd_vector.hpp"
 #include"./d_vector.hpp"
-#include"./d_matrix.hpp"
+#include"./d_spmat.hpp"
 
 #if USE_AVX2==1
 	#include"./AVX2_core/AVX2_core.hpp"
@@ -36,6 +36,7 @@ inline dd_real dd_rand(){
 }
 
 namespace dd_avx{
+	//axpy
 	void axpy(const dd_real& alpha, const dd_real_vector& x, dd_real_vector& y);
 	void axpy(const dd_real& alpha, const d_real_vector& x, dd_real_vector& y);
 	void axpy(const dd_real& alpha, const dd_real_vector& x, d_real_vector& y);
@@ -45,6 +46,12 @@ namespace dd_avx{
 	void axpy(const dd_real& alpha, const d_real_vector& x, dd_real_vector& y);
 	void axpy(const dd_real& alpha, const dd_real_vector& x, d_real_vector& y);
 	void axpy(const dd_real& alpha, const d_real_vector& x, d_real_vector& y);
+
+	//SpMV
+	void matvec(const d_real_SpMat& A, const dd_real_vector& x, dd_real_vector& y);
+	void matvec(const d_real_SpMat& A, const d_real_vector& x, dd_real_vector& y);
+	void matvec(const d_real_SpMat& A, const dd_real_vector& x, d_real_vector& y);
+	void matvec(const d_real_SpMat& A, const d_real_vector& x, d_real_vector& y);
 }
 
 #if 0
