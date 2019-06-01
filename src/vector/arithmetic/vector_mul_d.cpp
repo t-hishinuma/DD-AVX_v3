@@ -9,7 +9,7 @@ using namespace ddavx_core;
 void d_real_vector::mul(dd_real_vector& vec1, dd_real_vector& vec2)
 {
 	if((long)size() != (long)vec1.size() || (long)size() != (long)vec2.size()){
-		std::cout << "error vecvor size is" << size() << vec1.size() << vec2.size() << std::endl;
+		std::cerr << "error bad vector size" << std::endl;
 		assert(1);
 	}
 	registers regs;
@@ -40,7 +40,7 @@ void d_real_vector::mul(dd_real_vector& vec1, dd_real_vector& vec2)
 void d_real_vector::mul(dd_real_vector& vec1, d_real_vector& vec2)
 {
 	if((long)size() != (long)vec1.size() || (long)size() != (long)vec2.size()){
-		std::cout << "error vecvor size is" << size() << vec1.size() << vec2.size() << std::endl;
+		std::cerr << "error bad vector size" << std::endl;
 		assert(1);
 	};
 	registers regs;
@@ -77,7 +77,7 @@ void d_real_vector::mul(d_real_vector& vec1, dd_real_vector& vec2)
 void d_real_vector::mul(d_real_vector& vec1, d_real_vector& vec2)
 {
 	if((long)size() != (long)vec1.size() || (long)size() != (long)vec2.size()){
-		std::cout << "error vecvor size is" << size() << vec1.size() << vec2.size() << std::endl;
+		std::cerr << "error bad vector size" << std::endl;
 		assert(1);
 	};
 

@@ -2,236 +2,210 @@
 using namespace ddavx_core;
 
 namespace dd_avx{
-//alpha = DD ///////////////////////////////////////////
-	void axpy(const dd_real& alpha, const dd_real_vector& x, dd_real_vector& y){
+	// D, DD, DD
+	void matvec(const d_real_SpMat& A, const dd_real_vector& x, dd_real_vector& y){
 		if((long)x.size() != (long)y.size()){
-			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
+			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		};
- 		registers regs;
+		if((long)x.size() != (long)A.get_row()){
+			std::cerr << "error bad matrix size" << std::endl;
+			assert(1);
+		};
 
-#pragma omp parallel private(regs)
-		{
-			long i=0, is=0, ie=0;
-			get_isie((long)y.size(), is, ie);
-			AVXreg alpha_hi = broadcast(alpha.x[0]);
-			AVXreg alpha_lo = broadcast(alpha.x[1]);
-			for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
+		registers regs;
 
-				AVXreg x_hi = load(x.hi[i]);
-				AVXreg x_lo = load(x.lo[i]);
+#pragma omp parallel for schedule(guided) private(regs)
+		for(long i=0; i<A.get_row(); i++){
+			AVXreg y_hi = regs.zeros;
+			AVXreg y_lo = regs.zeros;
+			long j = 0;
 
-				AVXreg y_hi = load(y.hi[i]);
-				AVXreg y_lo = load(y.lo[i]);
+			for(j = A.row_ptr[i]; j < A.row_ptr[i+1] - 3; j+=4){
 
-				Fma(y_hi, y_lo, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, x_lo, regs);
+				AVXreg x_hi = set(x.hi[A.col_ind[j+0]], x.hi[A.col_ind[j+1]], x.hi[A.col_ind[j+2]], x.hi[A.col_ind[j+3]]);
+				AVXreg x_lo = set(x.lo[A.col_ind[j+0]], x.lo[A.col_ind[j+1]], x.lo[A.col_ind[j+2]], x.lo[A.col_ind[j+3]]);
 
-				store(y.hi[i], y_hi);
-				store(y.lo[i], y_lo);
+				AVXreg Areg = load(A.val[j]);
+
+				Fmad(y_hi, y_lo, y_hi, y_lo, x_hi, x_lo, Areg, regs);
 			}
-			for(;i<ie;i++){
-				Fma(y.hi[i], y.lo[i], y.hi[i], y.lo[i], alpha.x[0], alpha.x[1], x.hi[i], x.lo[i]);
+
+			//Fraction Processing
+			if(j == A.row_ptr[i+1]-3){
+				AVXreg x_hi = set(0.0, x.hi[A.col_ind[j+2]], x.hi[A.col_ind[j+1]], x.hi[A.col_ind[j+0]]);
+				AVXreg x_lo = set(0.0, x.lo[A.col_ind[j+2]], x.lo[A.col_ind[j+1]], x.lo[A.col_ind[j+0]]);
+
+				AVXreg Areg = load(A.val[j]);
+
+				Fmad(y_hi, y_lo, y_hi, y_lo, x_hi, x_lo, Areg, regs);
+				j+=3;
 			}
+
+			if(j == A.row_ptr[i+1]-2){
+				AVXreg x_hi = set(0.0, 0.0, x.hi[A.col_ind[j+1]], x.hi[A.col_ind[j+0]]);
+				AVXreg x_lo = set(0.0, 0.0, x.lo[A.col_ind[j+1]], x.lo[A.col_ind[j+0]]);
+
+				AVXreg Areg = load(A.val[j]);
+				Fmad(y_hi, y_lo, y_hi, y_lo, x_hi, x_lo, Areg, regs);
+				j+=2;
+			}
+
+			if(j == A.row_ptr[i+1]-1){
+				AVXreg x_hi = set(0.0, 0.0, 0.0, x.hi[A.col_ind[j+0]]);
+				AVXreg x_lo = set(0.0, 0.0, 0.0, x.lo[A.col_ind[j+0]]);
+
+				AVXreg Areg = load(A.val[j]);
+				Fmad(y_hi, y_lo, y_hi, y_lo, x_hi, x_lo, Areg, regs);
+				j+=1;
+			}
+
+			y[i] = reduction(y_hi, y_lo);
 		}
 	}
 
-	void axpy(const dd_real& alpha, const d_real_vector& x, dd_real_vector& y){
+	// D, D, DD
+	void matvec(const d_real_SpMat& A, const d_real_vector& x, dd_real_vector& y){
 		if((long)x.size() != (long)y.size()){
-			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
+			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		};
- 		registers regs;
-
-#pragma omp parallel private(regs)
-		{
-			long i=0, is=0, ie=0;
-			get_isie((long)y.size(), is, ie);
-			AVXreg alpha_hi = broadcast(alpha.x[0]);
-			AVXreg alpha_lo = broadcast(alpha.x[1]);
-			for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
-
-				AVXreg x_hi = load(x.data()[i]);
-
-				AVXreg y_hi = load(y.hi[i]);
-				AVXreg y_lo = load(y.lo[i]);
-
-				Fmad(y_hi, y_lo, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, regs);
-
-				store(y.hi[i], y_hi);
-				store(y.lo[i], y_lo);
-			}
-			for(;i<ie;i++){
-				Fmad(y.hi[i], y.lo[i], y.hi[i], y.lo[i], alpha.x[0], alpha.x[1], x.data()[i]);
-			}
-		}
-	}
-
-	void axpy(const dd_real& alpha, const dd_real_vector& x, d_real_vector& y){
-		if((long)x.size() != (long)y.size()){
-			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
+		if((long)x.size() != (long)A.get_row()){
+			std::cerr << "error bad matrix size" << std::endl;
 			assert(1);
 		};
- 		registers regs;
 
-#pragma omp parallel private(regs)
-		{
-			long i=0, is=0, ie=0;
-			get_isie((long)y.size(), is, ie);
-			AVXreg alpha_hi = broadcast(alpha.x[0]);
-			AVXreg alpha_lo = broadcast(alpha.x[1]);
-			for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
+		registers regs;
 
-				AVXreg x_hi = load(x.hi[i]);
-				AVXreg x_lo = load(x.lo[i]);
+#pragma omp parallel for schedule(guided) private(regs)
+		for(long i=0; i<A.get_row(); i++){
+			AVXreg y_hi = regs.zeros;
+			AVXreg y_lo = regs.zeros;
+			long j = 0;
 
-				AVXreg y_hi = load(y.data()[i]);
-				AVXreg y_lo = regs.zeros;
+			for(j = A.row_ptr[i]; j < A.row_ptr[i+1] - 3; j+=4){
 
-				Fma(y_hi, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, x_lo, regs);
-
-				store(y.data()[i], y_hi);
-			}
-			for(;i<ie;i++){
-				Fma(y.data()[i], y.data()[i], 0.0, alpha.x[0], alpha.x[1], x.hi[i], x.lo[i]);
-			}
-		}
-	}
-
-	void axpy(const dd_real& alpha, const d_real_vector& x, d_real_vector& y){
-		if((long)x.size() != (long)y.size()){
-			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
-			assert(1);
-		};
- 		registers regs;
-
-#pragma omp parallel private(regs)
-		{
-			long i=0, is=0, ie=0;
-			get_isie((long)y.size(), is, ie);
-			AVXreg alpha_hi = broadcast(alpha.x[0]);
-			AVXreg alpha_lo = broadcast(0.0);
-			for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
-
-				AVXreg x_hi = load(x.data()[i]);
-
-				AVXreg y_hi = load(y.data()[i]);
-				AVXreg y_lo = regs.zeros;
-
-				Fmad(y_hi, y_lo, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, regs);
-
-				store(y.data()[i], y_hi);
-			}
-			for(;i<ie;i++){
-				Fma(y.data()[i], y.data()[i], 0.0, alpha.x[0], alpha.x[1], x.data()[i], 0.0);
-			}
-		}
-	}
-
-//alpha = D ///////////////////////////////////////////
-	void axpy(const d_real& alpha, const dd_real_vector& x, dd_real_vector& y){
-		if((long)x.size() != (long)y.size()){
-			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
-			assert(1);
-		};
- 		registers regs;
-
-#pragma omp parallel private(regs)
-		{
-			long i=0, is=0, ie=0;
-			get_isie((long)y.size(), is, ie);
-			AVXreg alpha_hi = broadcast(alpha);
-			AVXreg alpha_lo = broadcast(0.0);
-			for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
-
-				AVXreg x_hi = load(x.hi[i]);
-				AVXreg x_lo = load(x.lo[i]);
-
-				AVXreg y_hi = load(y.hi[i]);
-				AVXreg y_lo = load(y.lo[i]);
-
-				Fmad(y_hi, y_lo, y_hi, y_lo, x_hi, x_lo, alpha_hi, regs);
-
-				store(y.hi[i], y_hi);
-				store(y.lo[i], y_lo);
-			}
-			for(;i<ie;i++){
-				Fma(y.hi[i], y.lo[i], y.hi[i], y.lo[i], alpha, 0.0, x.hi[i], x.lo[i]);
-			}
-		}
-	}
-
-	void axpy(const d_real& alpha, const d_real_vector& x, dd_real_vector& y){
-		if((long)x.size() != (long)y.size()){
-			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
-			assert(1);
-		};
- 		registers regs;
-
-#pragma omp parallel private(regs)
-		{
-			long i=0, is=0, ie=0;
-			get_isie((long)y.size(), is, ie);
-			AVXreg alpha_hi = broadcast(alpha);
-			AVXreg alpha_lo = broadcast(0.0);
-			for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
-
-				AVXreg x_hi = load(x.data()[i]);
+				AVXreg x_hi = set(x[A.col_ind[j+0]], x[A.col_ind[j+1]], x[A.col_ind[j+2]], x[A.col_ind[j+3]]);
 				AVXreg x_lo = regs.zeros;
 
-				AVXreg y_hi = load(y.hi[i]);
-				AVXreg y_lo = load(y.lo[i]);
+				AVXreg Areg = load(A.val[j]);
 
-				Fmad(y_hi, y_lo, y_hi, y_lo, x_hi, x_lo, alpha_hi, regs);
+				Fmad(y_hi, y_lo, y_hi, y_lo, x_hi, x_lo, Areg, regs);
+			}
 
-				store(y.hi[i], y_hi);
-				store(y.lo[i], y_lo);
+			//Fraction Processing
+			if(j == A.row_ptr[i+1]-3){
+				AVXreg x_hi = set(0.0, x[A.col_ind[j+2]], x[A.col_ind[j+1]], x[A.col_ind[j+0]]);
+				AVXreg x_lo = regs.zeros;
+
+				AVXreg Areg = load(A.val[j]);
+
+				Fmad(y_hi, y_lo, y_hi, y_lo, x_hi, x_lo, Areg, regs);
+				j+=3;
 			}
-			for(;i<ie;i++){
-				Fma(y.hi[i], y.lo[i], y.hi[i], y.lo[i], alpha, 0.0, x.data()[i], 0.0);
+
+			if(j == A.row_ptr[i+1]-2){
+				AVXreg x_hi = set(0.0, 0.0, x[A.col_ind[j+1]], x[A.col_ind[j+0]]);
+				AVXreg x_lo = regs.zeros;
+
+				AVXreg Areg = load(A.val[j]);
+				Fmad(y_hi, y_lo, y_hi, y_lo, x_hi, x_lo, Areg, regs);
+				j+=2;
 			}
+
+			if(j == A.row_ptr[i+1]-1){
+				AVXreg x_hi = set(0.0, 0.0, 0.0, x[A.col_ind[j+0]]);
+				AVXreg x_lo = regs.zeros;
+
+				AVXreg Areg = load(A.val[j]);
+				Fmad(y_hi, y_lo, y_hi, y_lo, x_hi, x_lo, Areg, regs);
+				j+=1;
+			}
+
+			y[i] = reduction(y_hi, y_lo);
 		}
 	}
 
-	void axpy(const d_real& alpha, const dd_real_vector& x, d_real_vector& y){
+	// D, DD, D
+	void matvec(const d_real_SpMat& A, const dd_real_vector& x, d_real_vector& y){
 		if((long)x.size() != (long)y.size()){
-			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
+			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		};
- 		registers regs;
-
-#pragma omp parallel private(regs)
-		{
-			long i=0, is=0, ie=0;
-			get_isie((long)y.size(), is, ie);
-			AVXreg alpha_hi = broadcast(alpha);
-			AVXreg alpha_lo = broadcast(0.0);
-			for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
-
-				AVXreg x_hi = load(x.hi[i]);
-				AVXreg x_lo = load(x.lo[i]);
-
-				AVXreg y_hi = load(y.data()[i]);
-				AVXreg y_lo = regs.zeros;
-
-				Fmad(y_hi, y_lo, y_hi, y_lo, x_hi, x_lo, alpha_hi, regs);
-
-				store(y.data()[i], y_hi);
-			}
-			for(;i<ie;i++){
-				Fma(y.data()[i], y.data()[i], 0.0, alpha, 0.0, x.hi[i], x.lo[i]);
-			}
-		}
-	}
-
-	void axpy(const d_real& alpha, const d_real_vector& x, d_real_vector& y){
-		if((long)x.size() != (long)y.size()){
-			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
+		if((long)x.size() != (long)A.get_row()){
+			std::cerr << "error bad matrix size" << std::endl;
 			assert(1);
 		};
 
-#pragma omp parallel for
-		for(long i = 0 ; i<(long)y.size();i++){
-			y.data()[i] = y.data()[i] + alpha * x.data()[i];
+		registers regs;
+
+#pragma omp parallel for schedule(guided) private(regs)
+		for(long i=0; i<A.get_row(); i++){
+			AVXreg y_hi = regs.zeros;
+			AVXreg y_lo = regs.zeros;
+			long j = 0;
+
+			for(j = A.row_ptr[i]; j < A.row_ptr[i+1] - 3; j+=4){
+
+				AVXreg x_hi = set(x.hi[A.col_ind[j+0]], x.hi[A.col_ind[j+1]], x.hi[A.col_ind[j+2]], x.hi[A.col_ind[j+3]]);
+				AVXreg x_lo = set(x.lo[A.col_ind[j+0]], x.lo[A.col_ind[j+1]], x.lo[A.col_ind[j+2]], x.lo[A.col_ind[j+3]]);
+
+				AVXreg Areg = load(A.val[j]);
+
+				Fmad(y_hi, y_lo, y_hi, y_lo, x_hi, x_lo, Areg, regs);
+			}
+
+			//Fraction Processing
+			if(j == A.row_ptr[i+1]-3){
+				AVXreg x_hi = set(0.0, x.hi[A.col_ind[j+2]], x.hi[A.col_ind[j+1]], x.hi[A.col_ind[j+0]]);
+				AVXreg x_lo = set(0.0, x.lo[A.col_ind[j+2]], x.lo[A.col_ind[j+1]], x.lo[A.col_ind[j+0]]);
+
+				AVXreg Areg = load(A.val[j]);
+
+				Fmad(y_hi, y_lo, y_hi, y_lo, x_hi, x_lo, Areg, regs);
+				j+=3;
+			}
+
+			if(j == A.row_ptr[i+1]-2){
+				AVXreg x_hi = set(0.0, 0.0, x.hi[A.col_ind[j+1]], x.hi[A.col_ind[j+0]]);
+				AVXreg x_lo = set(0.0, 0.0, x.lo[A.col_ind[j+1]], x.lo[A.col_ind[j+0]]);
+
+				AVXreg Areg = load(A.val[j]);
+				Fmad(y_hi, y_lo, y_hi, y_lo, x_hi, x_lo, Areg, regs);
+				j+=2;
+			}
+
+			if(j == A.row_ptr[i+1]-1){
+				AVXreg x_hi = set(0.0, 0.0, 0.0, x.hi[A.col_ind[j+0]]);
+				AVXreg x_lo = set(0.0, 0.0, 0.0, x.lo[A.col_ind[j+0]]);
+
+				AVXreg Areg = load(A.val[j]);
+				Fmad(y_hi, y_lo, y_hi, y_lo, x_hi, x_lo, Areg, regs);
+				j+=1;
+			}
+
+			y.data()[i] = reduction(y_hi, y_lo);
 		}
 	}
+
+	// D, D, D
+	void matvec(const d_real_SpMat& A, const d_real_vector& x, d_real_vector& y){
+		if((long)x.size() != (long)y.size()){
+			std::cerr << "error bad vector size" << std::endl;
+			assert(1);
+		};
+		if((long)x.size() != (long)A.get_row()){
+			std::cerr << "error bad matrix size" << std::endl;
+			assert(1);
+		};
+
+#pragma omp parallel for schedule(guided) 
+		for(long i=0; i<A.get_row(); i++){
+			for(long j = A.row_ptr[i]; j < A.row_ptr[i+1]; j++){
+				y.data()[i] = A.val[j] * x[A.col_ind[j]];
+			}
+		}
+	}
+
+
 }

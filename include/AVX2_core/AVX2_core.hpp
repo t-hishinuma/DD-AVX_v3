@@ -5,6 +5,7 @@
 #include <immintrin.h>
 #define DD_AVX_FUNC(NAME) _mm256_##NAME
 using AVXreg = __m256d;
+struct dd_real;
 
 namespace ddavx_core{
 	const long AVX_SIZE=4;
@@ -40,6 +41,19 @@ namespace ddavx_core{
 		DD_AVX_FUNC(storeu_pd)((double*)&(ret), val);
 	}
 
+	inline dd_real reduction(AVXreg a_hi, AVXreg a_lo){
+		double hi[4];
+		double lo[4];
+		DD_AVX_FUNC(storeu_pd)((double*)&(hi), a_hi); 
+		DD_AVX_FUNC(storeu_pd)((double*)&(lo), a_lo); 
+		dd_real a; a.x[0] = hi[0]; a.x[1] = lo[0];
+		dd_real b; b.x[0] = hi[1]; b.x[1] = lo[1];
+		dd_real c; c.x[0] = hi[2]; c.x[1] = lo[2];
+		dd_real d; d.x[0] = hi[3]; d.x[1] = lo[3];
+
+		return d + a + b + c;
+	}
+
 	inline void store(double& ret1, double& ret2, double& ret3, double& ret4, const __m256d val){
 		double tmp[4];
 		DD_AVX_FUNC(storeu_pd)((double*)&(tmp), val); 
@@ -47,6 +61,13 @@ namespace ddavx_core{
 		ret2 = tmp[1];
 		ret3 = tmp[2];
 		ret4 = tmp[3];
+	}
+
+	inline void print(AVXreg a){
+		double tmp[4];
+		DD_AVX_FUNC(storeu_pd)((double*)&(tmp), a); 
+		printf("%f, %f, %f, %f\n", tmp[0], tmp[1], tmp[2], tmp[3]);
+	
 	}
 
 	//isie

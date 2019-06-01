@@ -5,7 +5,7 @@ namespace dd_avx{
 //alpha = DD ///////////////////////////////////////////
 	void axpy(const dd_real& alpha, const dd_real_vector& x, dd_real_vector& y){
 		if((long)x.size() != (long)y.size()){
-			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
+			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		};
  		registers regs;
@@ -37,7 +37,7 @@ namespace dd_avx{
 
 	void axpy(const dd_real& alpha, const d_real_vector& x, dd_real_vector& y){
 		if((long)x.size() != (long)y.size()){
-			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
+			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		};
  		registers regs;
@@ -68,7 +68,7 @@ namespace dd_avx{
 
 	void axpy(const dd_real& alpha, const dd_real_vector& x, d_real_vector& y){
 		if((long)x.size() != (long)y.size()){
-			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
+			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		};
  		registers regs;
@@ -99,7 +99,7 @@ namespace dd_avx{
 
 	void axpy(const dd_real& alpha, const d_real_vector& x, d_real_vector& y){
 		if((long)x.size() != (long)y.size()){
-			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
+			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		};
  		registers regs;
@@ -130,7 +130,7 @@ namespace dd_avx{
 //alpha = D ///////////////////////////////////////////
 	void axpy(const d_real& alpha, const dd_real_vector& x, dd_real_vector& y){
 		if((long)x.size() != (long)y.size()){
-			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
+			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		};
  		registers regs;
@@ -162,7 +162,7 @@ namespace dd_avx{
 
 	void axpy(const d_real& alpha, const d_real_vector& x, dd_real_vector& y){
 		if((long)x.size() != (long)y.size()){
-			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
+			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		};
  		registers regs;
@@ -194,7 +194,7 @@ namespace dd_avx{
 
 	void axpy(const d_real& alpha, const dd_real_vector& x, d_real_vector& y){
 		if((long)x.size() != (long)y.size()){
-			std::cout << "error vecvor size is" << x.size() << y.size() << std::endl;
+			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		};
  		registers regs;
