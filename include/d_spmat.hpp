@@ -50,11 +50,9 @@ class d_real_SpMat{
 
 
 // //--copy---------------------------------------
-// 		void copy(const d_matrix& mat);
 //
-// 		dd_real_vector& operator=(const dd_real_vector& vec);
-// 		dd_real_vector& operator=(const d_real_vector& vec);
-// 		dd_real_vector& operator=(const std::vector<double>& vec);
-// 		dd_real_vector& operator=(const std::vector<dd_real>& vec);
+		void copy(const d_real_SpMat& mat);
+
+		d_real_SpMat& operator=(const d_real_SpMat& mat);
 };
 #endif

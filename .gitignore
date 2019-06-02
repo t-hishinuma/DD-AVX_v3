@@ -5,6 +5,7 @@ GTAGS
 *.pz
 *.so
 *.log*
+*.log
 *.o
 *.out
 *.swp
