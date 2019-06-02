@@ -42,17 +42,14 @@ class d_real_SpMat{
 		long get_nnz() const{return nnz;};
 		double at(long r, long c);
 
-//--util---------------------------------------
-// 		get_row(const long )
-// 		get_col(const )
-// 		get_diag(const )
-
-
 
 // //--copy---------------------------------------
-//
 		void copy(const d_real_SpMat& mat);
 
 		d_real_SpMat& operator=(const d_real_SpMat& mat);
 };
+
+void get_row_vec(const long r, const d_real_SpMat& A, d_real_vector& ret);
+void get_col_vec(const long c, const d_real_SpMat& A, d_real_vector& ret);
+void get_diag_vec(const d_real_SpMat& A, d_real_vector& ret);
 #endif
