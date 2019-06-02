@@ -3,26 +3,14 @@
 #include<iostream>
 #define TOL 1.0e-6
 
-std::vector<double> make_ans(const double alpha, const std::vector<double>& x){
-	std::vector<double> y(x.size(), 0.0);
-	#pragma omp parallel for
-	for(int i=0; i<y.size(); i++){
-		y[i] = alpha * x[i] + y[i];
-//		printf("%d:: %e, %e, %e\n", i, alpha, x[i], y[i]);
+void make_ans(const d_real_SpMat& A, const std::vector<double>& x, std::vector<double>& y){
+#pragma omp parallel for
+	for(int i=0 ; i < A.get_row() ; i++){
+		for(int j = A.row_ptr[i]; j < A.row_ptr[i+1]; j++){
+			y[i] += A.val[j] * x[A.col_ind[j]];
+		}
 	}
-	return y;
 }
-
-std::vector<double> make_ans(const dd_real alpha, const std::vector<double>& x){
-	std::vector<double> y(x.size(), 0.0);
-	#pragma omp parallel for
-	for(int i=0; i<y.size(); i++){
-		y[i] = alpha.x[0] * x[i] + y[i];
-//		printf("%d:: %e, %e, %e\n", i, alpha, x[i], y[i]);
-	}
-	return y;
-}
-
 
 bool err_check(const std::vector<double>& ans, const std::vector<double>& val, const double tol){
 	for(int i=0; i<ans.size(); i++){
@@ -35,30 +23,26 @@ bool err_check(const std::vector<double>& ans, const std::vector<double>& val, c
 	return true;
 }
 
-template<typename ALPHA, typename X, typename Y>
-int test(long N)
-{
-	ALPHA alpha = rand();
-	X x;
-	Y y;
+template<typename X, typename Y>
+int test(d_real_SpMat& A){
 
-	for(int i=0; i<N; i++)
-		x.push_back(rand());
+ 	X x(A.get_row(), 1.0);
+ 	Y y(A.get_row(), 0.0);
 
-	for(int i=0; i<N; i++)
-		y.push_back(rand());
+	std::vector<double> ans(y.size(), 0.0);
+	
+	dd_avx::matvec(A, x, y);
 
-	dd_avx::axpy(alpha, x, y);
+	make_ans(A, x.HI(), ans );
 
-	auto ref = make_ans(alpha, x.HI());
-
-	if(err_check(ref, y.HI(), TOL)){
-		std::cout << "pass1" << std::endl;
+	if(err_check(ans, y.HI(), TOL)){
+		std::cout << "pass" << std::endl;
 	}
 	else{
-		std::cout << "fail1" << std::endl;
+		std::cout << "fail" << std::endl;
 		return false;
 	}
+
 
 	return true;
 }
@@ -66,21 +50,24 @@ int test(long N)
 int main(int argc, char** argv){
 	bool ret=0;
 
-// 	if(argc!=2){
-// 		std::cout << "error, $1 = size" << std::endl;
-// 		return 1;
-// 	}
-
 	d_real_SpMat A;
 	A.input_mm("./test.mtx");
 
-	dd_real_vector x(A.get_row(), 1.0);
-	dd_real_vector y(A.get_row(), 0.0);
+	std::cout << "DD = DMat * DD" << std::endl;
+	ret = test<dd_real_vector, dd_real_vector>(A);
+	if(ret == false) return ret;
 
-	dd_avx::matvec(A, x, y);
+	std::cout << "D = DMat * DD" << std::endl;
+	ret = test<d_real_vector, dd_real_vector>(A);
+	if(ret == false) return ret;
 
-	y.print_all();
-
+	std::cout << "DD = DMat * D" << std::endl;
+	ret = test<dd_real_vector, d_real_vector>(A);
+	if(ret == false) return ret;
+	
+	std::cout << "D = DMat * D" << std::endl;
+	ret = test<d_real_vector, d_real_vector>(A);
+	if(ret == false) return ret;
 
 	return 0;
 }

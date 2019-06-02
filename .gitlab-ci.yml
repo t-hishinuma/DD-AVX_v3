@@ -5,6 +5,7 @@ stages:
     - run_test_scalar
     - run_test_vector
     - run_test_vector_blas
+    - run_test_matrix
     - doc
       
 before_script:
@@ -130,6 +131,13 @@ axpy:
         - hishinuma-ci
     script:
         - cd test/vector_blas; ./check.sh axpy;
+###################################################
+spmv:
+    stage: run_test_matrix
+    tags:
+        - hishinuma-ci
+    script:
+        - cd test/matrix; ./input.o; ./spmv.o
 ###################################################
 
 make_doc:

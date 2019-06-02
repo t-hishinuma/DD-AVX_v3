@@ -202,7 +202,7 @@ namespace dd_avx{
 #pragma omp parallel for schedule(guided) 
 		for(long i=0; i<A.get_row(); i++){
 			for(long j = A.row_ptr[i]; j < A.row_ptr[i+1]; j++){
-				y.data()[i] = A.val[j] * x[A.col_ind[j]];
+				y.data()[i] += A.val[j] * x[A.col_ind[j]];
 			}
 		}
 	}
