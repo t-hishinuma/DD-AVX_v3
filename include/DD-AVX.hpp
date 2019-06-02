@@ -47,11 +47,22 @@ namespace dd_avx{
 	void axpy(const dd_real& alpha, const dd_real_vector& x, d_real_vector& y);
 	void axpy(const dd_real& alpha, const d_real_vector& x, d_real_vector& y);
 
+	//dot
+	dd_real nrm2(const dd_real_vector& x);
+	dd_real nrm2(const d_real_vector& x);
+
+	//nrm2
+	dd_real dot(const dd_real_vector& x, const dd_real_vector& y);
+	dd_real dot(const d_real_vector& x, const dd_real_vector& y);
+	dd_real dot(const dd_real_vector& x, const d_real_vector& y);
+	dd_real dot(const d_real_vector& x, const d_real_vector& y);
+
 	//SpMV
 	void matvec(const d_real_SpMat& A, const dd_real_vector& x, dd_real_vector& y);
 	void matvec(const d_real_SpMat& A, const d_real_vector& x, dd_real_vector& y);
 	void matvec(const d_real_SpMat& A, const dd_real_vector& x, d_real_vector& y);
 	void matvec(const d_real_SpMat& A, const d_real_vector& x, d_real_vector& y);
+
 }
 
 #if 0

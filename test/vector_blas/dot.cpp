@@ -3,34 +3,23 @@
 #include<iostream>
 #define TOL 1.0e-4
 
-std::vector<double> make_ans(const double alpha, const std::vector<double>& x){
-	std::vector<double> y(x.size(), 0.0);
-	#pragma omp parallel for
-	for(int i=0; i<y.size(); i++){
-		y[i] = alpha * x[i] + y[i];
-//		printf("%d:: %e, %e, %e\n", i, alpha, x[i], y[i]);
-	}
-	return y;
-}
+double make_ans(const std::vector<double> x, const std::vector<double>& y){
 
-std::vector<double> make_ans(const dd_real alpha, const std::vector<double>& x){
-	std::vector<double> y(x.size(), 0.0);
-	#pragma omp parallel for
+	double dot = 0;
 	for(int i=0; i<y.size(); i++){
-		y[i] = alpha.x[0] * x[i] + y[i];
-//		printf("%d:: %e, %e, %e\n", i, alpha, x[i], y[i]);
+		dot += x[i] * y[i];
 	}
-	return y;
+	return dot;
 }
 
 
-bool err_check(const std::vector<double>& ans, const std::vector<double>& val, const double tol){
-	for(int i=0; i<ans.size(); i++){
-		double err = fabs((val[i] - ans[i])) / fabs(ans[i]);
-		if(err > tol){
-			printf("ans[%d] = %e, data[%d] = %e, err = %e\n", i, ans[i], i, val[i], err);
-			return false;
-		}
+
+bool err_check(double ans, double val, const double tol){
+
+	double err = fabs((val - ans)) / fabs(ans);
+	if(err > tol){
+		printf("ans[%d] = %e, data[%d] = %e, err = %e\n", 0, ans, 0, val, err);
+		return false;
 	}
 	return true;
 }
@@ -38,7 +27,7 @@ bool err_check(const std::vector<double>& ans, const std::vector<double>& val, c
 template<typename ALPHA, typename X, typename Y>
 int test(long N)
 {
-	ALPHA alpha = rand();
+	ALPHA alpha = 0;
 	X x;
 	Y y;
 
@@ -48,11 +37,11 @@ int test(long N)
 	for(int i=0; i<N; i++)
 		y.push_back(rand());
 
-	dd_avx::axpy(alpha, x, y);
+	alpha = dd_avx::dot(x, y);
 
-	auto ref = make_ans(alpha, x.HI());
+	auto ref = make_ans(x.HI(), y.HI());
 
-	if(err_check(ref, y.HI(), TOL)){
+	if(err_check(ref, (d_real&)alpha, TOL)){
 		std::cout << "pass1" << std::endl;
 	}
 	else{
@@ -78,8 +67,8 @@ int main(int argc, char** argv){
 	ret = test<dd_real, dd_real_vector, dd_real_vector>(N);
 	if(ret == false) return ret;
 
-	std::cout << "DD, DD, D" << std::endl;
-	ret = test<dd_real, dd_real_vector, d_real_vector>(N);
+	std::cout << "DD, D, DD" << std::endl;
+	ret = test<dd_real, d_real_vector, dd_real_vector>(N);
 	if(ret == false) return ret;
 
 	std::cout << "DD, D, DD" << std::endl;

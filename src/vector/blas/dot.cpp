@@ -2,20 +2,25 @@
 using namespace ddavx_core;
 
 namespace dd_avx{
-//alpha = DD ///////////////////////////////////////////
-	void dot(const dd_real& alpha, const dd_real_vector& x, dd_real_vector& y){
+
+	dd_real dot(const dd_real_vector& x, const dd_real_vector& y){
 		if((long)x.size() != (long)y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		};
- 		registers regs;
+		registers regs;
+
+		dd_real dot[omp_get_max_threads()];
 
 #pragma omp parallel private(regs)
 		{
+			int thN = omp_get_thread_num();
 			long i=0, is=0, ie=0;
 			get_isie((long)y.size(), is, ie);
-			AVXreg alpha_hi = broadcast(alpha.x[0]);
-			AVXreg alpha_lo = broadcast(alpha.x[1]);
+
+			AVXreg r_hi = regs.zeros;
+			AVXreg r_lo = regs.zeros;
+
 			for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
 
 				AVXreg x_hi = load(x.hi[i]);
@@ -24,216 +29,155 @@ namespace dd_avx{
 				AVXreg y_hi = load(y.hi[i]);
 				AVXreg y_lo = load(y.lo[i]);
 
-				Fma(y_hi, y_lo, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, x_lo, regs);
-
-				store(y.hi[i], y_hi);
-				store(y.lo[i], y_lo);
+				Fma(r_hi, r_lo, r_hi, r_lo, x_hi, x_lo, y_hi, y_lo, regs);
 			}
+
+			dot[thN] = reduction(r_hi, r_lo);
+
 			for(;i<ie;i++){
-				Fma(y.hi[i], y.lo[i], y.hi[i], y.lo[i], alpha.x[0], alpha.x[1], x.hi[i], x.lo[i]);
+				Fma(dot[thN].x[0], dot[thN].x[1], dot[thN].x[0], dot[thN].x[1], x.hi[i], x.lo[i], y.hi[i], y.lo[i]);
 			}
 		}
+
+		dd_real tmp = 0;
+		for(int i=0; i < omp_get_max_threads() + 1; i++){
+			tmp += dot[i];
+		}
+
+		return tmp;
+		
 	}
 
-	void dot(const dd_real& alpha, const d_real_vector& x, dd_real_vector& y){
+
+	dd_real dot(const d_real_vector& x, const dd_real_vector& y){
 		if((long)x.size() != (long)y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		};
- 		registers regs;
+		registers regs;
+
+		dd_real dot[omp_get_max_threads()];
 
 #pragma omp parallel private(regs)
 		{
+			int thN = omp_get_thread_num();
 			long i=0, is=0, ie=0;
 			get_isie((long)y.size(), is, ie);
-			AVXreg alpha_hi = broadcast(alpha.x[0]);
-			AVXreg alpha_lo = broadcast(alpha.x[1]);
+
+			AVXreg r_hi = regs.zeros;
+			AVXreg r_lo = regs.zeros;
+
 			for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
 
 				AVXreg x_hi = load(x.data()[i]);
-				AVXreg x_lo = regs.zeros;
 
 				AVXreg y_hi = load(y.hi[i]);
 				AVXreg y_lo = load(y.lo[i]);
 
-				Fma(y_hi, y_lo, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, x_lo, regs);
-
-				store(y.hi[i], y_hi);
-				store(y.lo[i], y_lo);
+				Fmad(r_hi, r_lo, r_hi, r_lo, y_hi, y_lo, x_hi, regs);
 			}
+
+			dot[thN] = reduction(r_hi, r_lo);
+
 			for(;i<ie;i++){
-				Fma(y.hi[i], y.lo[i], y.hi[i], y.lo[i], alpha.x[0], alpha.x[1], x.data()[i], 0.0);
+				Fmad(dot[thN].x[0], dot[thN].x[1], dot[thN].x[0], dot[thN].x[1], y.hi[i], y.lo[i], x.data()[i]);
 			}
 		}
+
+		dd_real tmp = 0;
+		for(int i=0; i < omp_get_max_threads() + 1; i++){
+			tmp += dot[i];
+		}
+
+		return tmp;
+		
 	}
 
-	void dot(const dd_real& alpha, const dd_real_vector& x, d_real_vector& y){
+	dd_real dot(const dd_real_vector& x, const d_real_vector& y){
 		if((long)x.size() != (long)y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		};
- 		registers regs;
+		registers regs;
+
+		dd_real dot[omp_get_max_threads()];
 
 #pragma omp parallel private(regs)
 		{
+			int thN = omp_get_thread_num();
 			long i=0, is=0, ie=0;
 			get_isie((long)y.size(), is, ie);
-			AVXreg alpha_hi = broadcast(alpha.x[0]);
-			AVXreg alpha_lo = broadcast(alpha.x[1]);
+
+			AVXreg r_hi = regs.zeros;
+			AVXreg r_lo = regs.zeros;
+
 			for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
 
 				AVXreg x_hi = load(x.hi[i]);
 				AVXreg x_lo = load(x.lo[i]);
 
 				AVXreg y_hi = load(y.data()[i]);
-				AVXreg y_lo = regs.zeros;
 
-				Fma(y_hi, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, x_lo, regs);
 
-				store(y.data()[i], y_hi);
+				Fmad(r_hi, r_lo, r_hi, r_lo, x_hi, x_lo, y_hi, regs);
 			}
+
+			dot[thN] = reduction(r_hi, r_lo);
+
 			for(;i<ie;i++){
-				Fma(y.data()[i], y.data()[i], 0.0, alpha.x[0], alpha.x[1], x.hi[i], x.lo[i]);
+				Fmad(dot[thN].x[0], dot[thN].x[1], dot[thN].x[0], dot[thN].x[1], x.hi[i], x.lo[i], y.data()[i]);
 			}
 		}
+
+		dd_real tmp = 0;
+		for(int i=0; i < omp_get_max_threads() + 1; i++){
+			tmp += dot[i];
+		}
+
+		return tmp;
 	}
 
-	void dot(const dd_real& alpha, const d_real_vector& x, d_real_vector& y){
+	dd_real dot(const d_real_vector& x, const d_real_vector& y){
 		if((long)x.size() != (long)y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		};
- 		registers regs;
+		registers regs;
+
+		dd_real dot[omp_get_max_threads()];
 
 #pragma omp parallel private(regs)
 		{
+			int thN = omp_get_thread_num();
 			long i=0, is=0, ie=0;
 			get_isie((long)y.size(), is, ie);
-			AVXreg alpha_hi = broadcast(alpha.x[0]);
-			AVXreg alpha_lo = broadcast(0.0);
+
+			AVXreg r_hi = regs.zeros;
+			AVXreg r_lo = regs.zeros;
+
 			for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
 
 				AVXreg x_hi = load(x.data()[i]);
 				AVXreg x_lo = regs.zeros;
 
 				AVXreg y_hi = load(y.data()[i]);
-				AVXreg y_lo = regs.zeros;
 
-				Fma(y_hi, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, x_lo, regs);
 
-				store(y.data()[i], y_hi);
+				Fmad(r_hi, r_lo, r_hi, r_lo, x_hi, x_lo, y_hi, regs);
 			}
+
+			dot[thN] = reduction(r_hi, r_lo);
+
 			for(;i<ie;i++){
-				Fma(y.data()[i], y.data()[i], 0.0, alpha.x[0], alpha.x[1], x.data()[i], 0.0);
+				Fmad(dot[thN].x[0], dot[thN].x[1], dot[thN].x[0], dot[thN].x[1], x.data()[i], 0.0, y.data()[i]);
 			}
 		}
-	}
 
-//alpha = D ///////////////////////////////////////////
-	void dot(const d_real& alpha, const dd_real_vector& x, dd_real_vector& y){
-		if((long)x.size() != (long)y.size()){
-			std::cerr << "error bad vector size" << std::endl;
-			assert(1);
-		};
- 		registers regs;
-
-#pragma omp parallel private(regs)
-		{
-			long i=0, is=0, ie=0;
-			get_isie((long)y.size(), is, ie);
-			AVXreg alpha_hi = broadcast(alpha);
-			AVXreg alpha_lo = broadcast(0.0);
-			for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
-
-				AVXreg x_hi = load(x.hi[i]);
-				AVXreg x_lo = load(x.lo[i]);
-
-				AVXreg y_hi = load(y.hi[i]);
-				AVXreg y_lo = load(y.lo[i]);
-
-				Fma(y_hi, y_lo, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, x_lo, regs);
-
-				store(y.hi[i], y_hi);
-				store(y.lo[i], y_lo);
-			}
-			for(;i<ie;i++){
-				Fma(y.hi[i], y.lo[i], y.hi[i], y.lo[i], alpha, 0.0, x.hi[i], x.lo[i]);
-			}
+		dd_real tmp = 0;
+		for(int i=0; i < omp_get_max_threads() + 1; i++){
+			tmp += dot[i];
 		}
-	}
 
-	void dot(const d_real& alpha, const d_real_vector& x, dd_real_vector& y){
-		if((long)x.size() != (long)y.size()){
-			std::cerr << "error bad vector size" << std::endl;
-			assert(1);
-		};
- 		registers regs;
-
-#pragma omp parallel private(regs)
-		{
-			long i=0, is=0, ie=0;
-			get_isie((long)y.size(), is, ie);
-			AVXreg alpha_hi = broadcast(alpha);
-			AVXreg alpha_lo = broadcast(0.0);
-			for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
-
-				AVXreg x_hi = load(x.data()[i]);
-				AVXreg x_lo = regs.zeros;
-
-				AVXreg y_hi = load(y.hi[i]);
-				AVXreg y_lo = load(y.lo[i]);
-
-				Fma(y_hi, y_lo, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, x_lo, regs);
-
-				store(y.hi[i], y_hi);
-				store(y.lo[i], y_lo);
-			}
-			for(;i<ie;i++){
-				Fma(y.hi[i], y.lo[i], y.hi[i], y.lo[i], alpha, 0.0, x.data()[i], 0.0);
-			}
-		}
-	}
-
-	void dot(const d_real& alpha, const dd_real_vector& x, d_real_vector& y){
-		if((long)x.size() != (long)y.size()){
-			std::cerr << "error bad vector size" << std::endl;
-			assert(1);
-		};
- 		registers regs;
-
-#pragma omp parallel private(regs)
-		{
-			long i=0, is=0, ie=0;
-			get_isie((long)y.size(), is, ie);
-			AVXreg alpha_hi = broadcast(alpha);
-			AVXreg alpha_lo = broadcast(0.0);
-			for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
-
-				AVXreg x_hi = load(x.hi[i]);
-				AVXreg x_lo = load(x.lo[i]);
-
-				AVXreg y_hi = load(y.data()[i]);
-				AVXreg y_lo = regs.zeros;
-
-				Fma(y_hi, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, x_lo, regs);
-
-				store(y.data()[i], y_hi);
-			}
-			for(;i<ie;i++){
-				Fma(y.data()[i], y.data()[i], 0.0, alpha, 0.0, x.hi[i], x.lo[i]);
-			}
-		}
-	}
-
-	void dot(const d_real& alpha, const d_real_vector& x, d_real_vector& y){
-		if((long)x.size() != (long)y.size()){
-			std::cerr << "error bad vector size" << std::endl;
-			assert(1);
-		};
-
-#pragma omp parallel for
-		for(long i = 0 ; i < (long)y.size();i++){
-			y.data()[i] = y.data()[i] + alpha * x.data()[i];
-		}
+		return tmp;
 	}
 }
