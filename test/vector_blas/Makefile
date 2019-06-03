@@ -4,11 +4,14 @@ RPATH=-Wl,-rpath,$(DD_AVX_DIR)/lib
 CXXFLAGS=-O3 -fopenmp -lm
 LIB=-I$(DD_AVX_DIR)/include -L$(DD_AVX_DIR)/lib -ldd-avx -lqd
 
-OBJS= axpy.o  dot.o nrm2.o
+OBJS= axpy.o axpyz.o dot.o nrm2.o
 
 all: $(OBJS)
 
 axpy.o : axpy.cpp
+	g++ $(RPATH) $(LIB) $(CXXFLAGS) $^ -o $@
+
+axpyz.o : axpyz.cpp
 	g++ $(RPATH) $(LIB) $(CXXFLAGS) $^ -o $@
 
 dot.o : dot.cpp
