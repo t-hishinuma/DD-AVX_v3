@@ -1,5 +1,5 @@
-DD_AVX_DIR?=$(HOME)/lib/dd_avx/lib/
-DD_AVX_INC?=$(HOME)/lib/dd_avx/include/
+DD_AVX_DIR?=$(HOME)/lib/dd_avx/
+DD_AVX_INC?=$(HOME)/lib/dd_avx/
 
 all:
 	git submodule update -i
@@ -18,6 +18,11 @@ clean:
 	- rm -rf ./lib/*
 	- rm -rf  $(DD_AVX_DIR)
 	- rm -rf include/qd
+	- rm -rf ./lib/libdd-avx.so
+	- rm -rf  $(DD_AVX_DIR)/libqd.*
+	- rm -rf  $(DD_AVX_DIR)/libdd-avx.*
+	- rm -rf  $(DD_AVX_INC)/DD-AVX*
+	- rm -rf  $(DD_AVX_INC)/qd
 	- $(MAKE) -C submodules -f Makefile.qd clean
 
 clean_lib:
