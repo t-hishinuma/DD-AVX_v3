@@ -47,17 +47,6 @@ namespace dd_avx{
 	void axpy(const d_real& alpha, const dd_real_vector& x, d_real_vector& y);
 	void axpy(const d_real& alpha, const d_real_vector& x, d_real_vector& y);
 
-	//xpay
-	void xpay(const dd_real& alpha, const dd_real_vector& x, dd_real_vector& y);
-	void xpay(const dd_real& alpha, const d_real_vector& x, dd_real_vector& y);
-	void xpay(const dd_real& alpha, const dd_real_vector& x, d_real_vector& y);
-	void xpay(const dd_real& alpha, const d_real_vector& x, d_real_vector& y);
-
-	void xpay(const d_real& alpha, const dd_real_vector& x, dd_real_vector& y);
-	void xpay(const d_real& alpha, const d_real_vector& x, dd_real_vector& y);
-	void xpay(const d_real& alpha, const dd_real_vector& x, d_real_vector& y);
-	void xpay(const d_real& alpha, const d_real_vector& x, d_real_vector& y);
-
 	//axpyz
 	void axpyz(const dd_real& alpha, const dd_real_vector& x, const dd_real_vector& y, dd_real_vector& z);
 	void axpyz(const dd_real& alpha, const d_real_vector& x, const dd_real_vector& y, dd_real_vector& z);
@@ -78,6 +67,24 @@ namespace dd_avx{
 	void axpyz(const dd_real& alpha, const d_real_vector& x, const dd_real_vector& y, d_real_vector& z);
 	void axpyz(const dd_real& alpha, const dd_real_vector& x, const d_real_vector& y, d_real_vector& z);
 	void axpyz(const dd_real& alpha, const d_real_vector& x, const d_real_vector& y, d_real_vector& z);
+
+	//xpay
+	void xpay(const dd_real& alpha, const dd_real_vector& x, dd_real_vector& y);
+	void xpay(const dd_real& alpha, const d_real_vector& x, dd_real_vector& y);
+	void xpay(const dd_real& alpha, const dd_real_vector& x, d_real_vector& y);
+	void xpay(const dd_real& alpha, const d_real_vector& x, d_real_vector& y);
+
+	void xpay(const d_real& alpha, const dd_real_vector& x, dd_real_vector& y);
+	void xpay(const d_real& alpha, const d_real_vector& x, dd_real_vector& y);
+	void xpay(const d_real& alpha, const dd_real_vector& x, d_real_vector& y);
+	void xpay(const d_real& alpha, const d_real_vector& x, d_real_vector& y);
+
+	//scale
+	void scale(const dd_real& alpha, dd_real_vector& x);
+	void scale(const d_real& alpha, dd_real_vector& x);
+	void scale(const dd_real& alpha, d_real_vector& x);
+	void scale(const d_real& alpha, d_real_vector& x);
+
 
 	//dot
 	dd_real nrm2(const dd_real_vector& x);
