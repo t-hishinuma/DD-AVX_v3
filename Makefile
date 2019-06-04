@@ -1,4 +1,5 @@
-DD_AVX_DIR?=$(HOME)/lib/dd_avx/
+DD_AVX_DIR?=$(HOME)/lib/dd_avx/lib/
+DD_AVX_INC?=$(HOME)/lib/dd_avx/include/
 
 all:
 	git submodule update -i
@@ -8,8 +9,9 @@ all:
 
 install:
 	mkdir -p $(DD_AVX_DIR)
-	cp -r ./lib $(DD_AVX_DIR)
-	cp -r ./include $(DD_AVX_DIR)
+	mkdir -p $(DD_AVX_INC)
+	cp -r ./lib/* $(DD_AVX_DIR)
+	cp -r ./include/* $(DD_AVX_INC)
 
 clean:
 	- rm -rf src/obj
@@ -21,4 +23,7 @@ clean:
 clean_lib:
 	- rm -rf src/obj/*
 	- rm -rf ./lib/libdd-avx.so
-	- rm -rf  $(DD_AVX_DIR)
+	- rm -rf  $(DD_AVX_DIR)/lib/libqd.*
+	- rm -rf  $(DD_AVX_DIR)/lib/libdd-avx.*
+	- rm -rf  $(DD_AVX_INC)/include/DD-AVX*
+	- rm -rf  $(DD_AVX_INC)/include/qd

@@ -15,15 +15,15 @@
 #include<omp.h>
 
 #include"qd/dd_real.h"
-#include"./dd_vector.hpp"
-#include"./d_vector.hpp"
-#include"./d_spmat.hpp"
+#include"./DD-AVX_dd_vector.hpp"
+#include"./DD-AVX_d_vector.hpp"
+#include"./DD-AVX_d_spmat.hpp"
 
 #if USE_AVX2==1
-	#include"./AVX2_core/AVX2_core.hpp"
-	#include"./AVX2_core/AVX2_core_add.hpp"
-	#include"./AVX2_core/AVX2_core_mul.hpp"
-	#include"./AVX2_core/AVX2_core_fma.hpp"
+	#include"./DD-AVX_AVX2_core/AVX2_core.hpp"
+	#include"./DD-AVX_AVX2_core/AVX2_core_add.hpp"
+	#include"./DD-AVX_AVX2_core/AVX2_core_mul.hpp"
+	#include"./DD-AVX_AVX2_core/AVX2_core_fma.hpp"
 #endif
 
 using d_real = double;
@@ -48,15 +48,15 @@ namespace dd_avx{
 	void axpy(const d_real& alpha, const d_real_vector& x, d_real_vector& y);
 
 	//xpay
-	void xpay(dd_real_vector& x, const dd_real& alpha, dd_real_vector& y);
-	void xpay(d_real_vector& x, const dd_real& alpha, dd_real_vector& y);
-	void xpay(dd_real_vector& x, const dd_real& alpha, d_real_vector& y);
-	void xpay(d_real_vector& x, const dd_real& alpha, d_real_vector& y);
-	
-	void xpay(dd_real_vector& x, const d_real& alpha, dd_real_vector& y);
-	void xpay(d_real_vector& x, const d_real& alpha, dd_real_vector& y);
-	void xpay(dd_real_vector& x, const d_real& alpha, d_real_vector& y);
-	void xpay(d_real_vector& x, const d_real& alpha, d_real_vector& y);
+	void xpay(const dd_real& alpha, const dd_real_vector& x, dd_real_vector& y);
+	void xpay(const dd_real& alpha, const d_real_vector& x, dd_real_vector& y);
+	void xpay(const dd_real& alpha, const dd_real_vector& x, d_real_vector& y);
+	void xpay(const dd_real& alpha, const d_real_vector& x, d_real_vector& y);
+
+	void xpay(const d_real& alpha, const dd_real_vector& x, dd_real_vector& y);
+	void xpay(const d_real& alpha, const d_real_vector& x, dd_real_vector& y);
+	void xpay(const d_real& alpha, const dd_real_vector& x, d_real_vector& y);
+	void xpay(const d_real& alpha, const d_real_vector& x, d_real_vector& y);
 
 	//axpyz
 	void axpyz(const dd_real& alpha, const dd_real_vector& x, const dd_real_vector& y, dd_real_vector& z);
