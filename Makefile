@@ -16,7 +16,6 @@ install:
 clean:
 	- rm -rf src/obj
 	- rm -rf ./lib/*
-	- rm -rf  $(DD_AVX_DIR)
 	- rm -rf include/qd
 	- rm -rf ./lib/libdd-avx.so
 	- rm -rf  $(DD_AVX_DIR)/libqd.*
