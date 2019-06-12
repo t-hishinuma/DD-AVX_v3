@@ -8,21 +8,9 @@ std::vector<double> make_ans(const double alpha, const std::vector<double>& x){
 	#pragma omp parallel for
 	for(int i=0; i<y.size(); i++){
 		y[i] = alpha * x[i] + y[i];
-//		printf("%d:: %e, %e, %e\n", i, alpha, x[i], y[i]);
 	}
 	return y;
 }
-
-std::vector<double> make_ans(const dd_real alpha, const std::vector<double>& x){
-	std::vector<double> y(x.size(), 0.0);
-	#pragma omp parallel for
-	for(int i=0; i<y.size(); i++){
-		y[i] = alpha.x[0] * x[i] + y[i];
-//		printf("%d:: %e, %e, %e\n", i, alpha, x[i], y[i]);
-	}
-	return y;
-}
-
 
 bool err_check(const std::vector<double>& ans, const std::vector<double>& val, const double tol){
 	for(int i=0; i<ans.size(); i++){
@@ -46,7 +34,7 @@ int test(long N)
 		x.push_back(rand());
 
 	for(int i=0; i<N; i++)
-		y.push_back(rand());
+		y.push_back(0);
 
 	dd_avx::axpy(alpha, x, y);
 
