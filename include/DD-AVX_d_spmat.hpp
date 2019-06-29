@@ -37,11 +37,24 @@ class d_real_SpMat{
 		void output_mm(const char* filename);
 		void output();
 
-//--getinfo---------------------------------------
+//--get---------------------------------------
 		long get_row() const{return row;};
 		long get_nnz() const{return nnz;};
-		double at(long r, long c);
 
+		double at(const long r, const long c);
+		void insert(const long r, const long c);
+
+		d_real_vector get_row_vec(const long r);
+		d_real_vector get_col_vec(const long c);
+		d_real_vector get_diag_vec();
+
+		std::vector<double>::reference datas(long r, long c) {
+			return val[0];
+		}
+
+		double datas(long r, long c) const {
+ 			return val[0];
+ 		}
 
 // //--copy---------------------------------------
 		void copy(const d_real_SpMat& mat);
@@ -49,7 +62,4 @@ class d_real_SpMat{
 		d_real_SpMat& operator=(const d_real_SpMat& mat);
 };
 
-void get_row_vec(const long r, const d_real_SpMat& A, d_real_vector& ret);
-void get_col_vec(const long c, const d_real_SpMat& A, d_real_vector& ret);
-void get_diag_vec(const d_real_SpMat& A, d_real_vector& ret);
 #endif

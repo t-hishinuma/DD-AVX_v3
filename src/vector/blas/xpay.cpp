@@ -8,7 +8,7 @@ namespace dd_avx{
 		if((long)x.size() != (long)y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
-		};
+		}
  		registers regs;
 
 #pragma omp parallel private(regs)
@@ -40,7 +40,7 @@ namespace dd_avx{
 		if((long)x.size() != (long)y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
-		};
+		}
  		registers regs;
 
 #pragma omp parallel private(regs)
@@ -72,7 +72,7 @@ namespace dd_avx{
 		if((long)x.size() != (long)y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
-		};
+		}
  		registers regs;
 
 #pragma omp parallel private(regs)
@@ -103,7 +103,7 @@ namespace dd_avx{
 		if((long)x.size() != (long)y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
-		};
+		}
  		registers regs;
 
 #pragma omp parallel private(regs)
@@ -135,7 +135,7 @@ namespace dd_avx{
 		if((long)x.size() != (long)y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
-		};
+		}
  		registers regs;
 
 #pragma omp parallel private(regs)
@@ -167,7 +167,7 @@ namespace dd_avx{
 		if((long)x.size() != (long)y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
-		};
+		}
  		registers regs;
 
 #pragma omp parallel private(regs)
@@ -199,7 +199,7 @@ namespace dd_avx{
 		if((long)x.size() != (long)y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
-		};
+		}
  		registers regs;
 
 #pragma omp parallel private(regs)
@@ -230,7 +230,7 @@ namespace dd_avx{
 		if((long)x.size() != (long)y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
-		};
+		}
  		registers regs;
 
 #pragma omp parallel private(regs)

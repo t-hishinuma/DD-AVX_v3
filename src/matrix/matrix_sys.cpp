@@ -1,12 +1,19 @@
 #include<DD-AVX.hpp>
 
-double d_real_SpMat::at(long r, long c){
+double d_real_SpMat::at(const long r, const long c){
 		for(int j = row_ptr[r]; j < row_ptr[r+1]; j++){
 			if(col_ind[j] == c){
 				return val[j];
 			}
 		}
 		return 0.0;
+}
+
+void d_real_SpMat::insert(const long r, const long c){
+		for(int j = row_ptr[r]; j < row_ptr[r+1]; j++){
+			if(col_ind[j] == c){
+			}
+		}
 }
 
 void d_real_SpMat::copy(const d_real_SpMat& mat){
@@ -22,43 +29,50 @@ d_real_SpMat& d_real_SpMat::operator=(const d_real_SpMat& mat){
 	return *this;
 }
 
-void get_row_vec(const long r, const d_real_SpMat& A, d_real_vector& ret){
-	if((long)ret.size() != (long)A.get_row()){
-		std::cerr << "error bad vector size" << std::endl;
+////////////////////////////////////////////////
+d_real_vector d_real_SpMat::get_row_vec(const long r){
+	if(row < r){
+		std::cerr << "error bad row" << std::endl;
 		assert(1);
-	};
-
-	for(int j = A.row_ptr[r]; j < A.row_ptr[r+1]; j++){
-		ret.data()[A.col_ind[j]] = A.val[j];
 	}
+
+	std::vector<double> ret(row, 0.0);
+
+	for(int j = row_ptr[r]; j < row_ptr[r+1]; j++){
+		ret.data()[col_ind[j]] = val[j];
+	}
+	return ret;
 }
 
-void get_col_vec(const long c, const d_real_SpMat& A, d_real_vector& ret){
-	if((long)ret.size() != (long)A.get_row()){
-		std::cerr << "error bad vector size" << std::endl;
+
+d_real_vector d_real_SpMat::get_col_vec(const long c){
+	if(row < c){
+		std::cerr << "error bad col" << std::endl;
 		assert(1);
-	};
+	}
+	std::vector<double> ret(row, 0.0);
 
 #pragma omp parallel for
-	for(int i=0; i<A.row; i++){
-		for(int j = A.row_ptr[i]; j < A.row_ptr[i+1]; j++){
-			if(A.col_ind[j] == c)
-				ret.data()[i] = A.val[j];
+	for(int i=0; i<row; i++){
+		for(int j = row_ptr[i]; j < row_ptr[i+1]; j++){
+			if(col_ind[j] == c)
+				ret.data()[i] = val[j];
 		}
 	}
+	return ret;
 }
 
-void get_diag_vec(const d_real_SpMat& A, d_real_vector& ret){
-	if((long)ret.size() != (long)A.get_row()){
-		std::cerr << "error bad vector size" << std::endl;
-		assert(1);
-	};
+
+d_real_vector d_real_SpMat::get_diag_vec(){
+	std::vector<double> ret(row, 0.0);
 
 #pragma omp parallel for
-	for(int i=0; i<A.row; i++){
-		for(int j = A.row_ptr[i]; j < A.row_ptr[i+1]; j++){
-			if(i == A.col_ind[j])
-				ret.data()[i] = A.val[j];
+	for(int i=0; i<row; i++){
+		for(int j = row_ptr[i]; j < row_ptr[i+1]; j++){
+			if(i == col_ind[j])
+				ret.data()[i] = val[j];
 		}
 	}
+	return ret;
 }
+////////////////////////////////////////////////

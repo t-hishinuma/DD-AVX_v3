@@ -61,7 +61,6 @@ dd_real operator*(const double a, const dd_real_vector_ref b);
 dd_real operator/(const dd_real a, const dd_real_vector_ref b);
 dd_real operator/(const double a, const dd_real_vector_ref b);
 
-
 class dd_real_vector{
 
 	private:

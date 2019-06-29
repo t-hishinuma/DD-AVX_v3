@@ -11,7 +11,7 @@ void dd_real_vector::div(dd_real_vector& vec1, dd_real_vector& vec2)
 	if((long)size() != (long)vec1.size() || (long)size() != (long)vec2.size()){
 		std::cerr << "error bad vector size" << std::endl;
 		assert(1);
-	};
+	}
 
 #pragma omp parallel for
 	for(long i=0 ; i<(long)size() ; i++){
@@ -33,7 +33,7 @@ void dd_real_vector::div(d_real_vector& vec1, dd_real_vector& vec2)
 	if((long)size() != (long)vec1.size() || (long)size() != (long)vec2.size()){
 		std::cerr << "error bad vector size" << std::endl;
 		assert(1);
-	};
+	}
 
 #pragma omp parallel for
 	for(long i=0 ; i<(long)size() ; i++){
@@ -56,7 +56,7 @@ void dd_real_vector::div(dd_real_vector& vec1, d_real_vector& vec2)
 	if((long)size() != (long)vec1.size() || (long)size() != (long)vec2.size()){
 		std::cerr << "error bad vector size" << std::endl;
 		assert(1);
-	};
+	}
 
 #pragma omp parallel for
 	for(long i=0 ; i<(long)size() ; i++){
@@ -78,7 +78,7 @@ void dd_real_vector::div(d_real_vector& vec1, d_real_vector& vec2)
 	if((long)size() != (long)vec1.size() || (long)size() != (long)vec2.size()){
 		std::cerr << "error bad vector size" << std::endl;
 		assert(1);
-	};
+	}
 
 #pragma omp parallel for
 	for(long i=0 ; i<(long)size() ; i++){

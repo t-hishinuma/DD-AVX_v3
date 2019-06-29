@@ -131,6 +131,36 @@ axpy:
         - hishinuma-ci
     script:
         - cd test/vector_blas; ./check.sh axpy;
+dot:
+    stage: run_test_vector_blas
+    tags:
+        - hishinuma-ci
+    script:
+        - cd test/vector_blas; ./check.sh dot;
+nrm2:
+    stage: run_test_vector_blas
+    tags:
+        - hishinuma-ci
+    script:
+        - cd test/vector_blas; ./check.sh nrm2;
+scale:
+    stage: run_test_vector_blas
+    tags:
+        - hishinuma-ci
+    script:
+        - cd test/vector_blas; ./check.sh scale;
+xpay:
+    stage: run_test_vector_blas
+    tags:
+        - hishinuma-ci
+    script:
+        - cd test/vector_blas; ./check.sh xpay;
+axpyz:
+    stage: run_test_vector_blas
+    tags:
+        - hishinuma-ci
+    script:
+        - cd test/vector_blas; ./check.sh axpyz;
 ###################################################
 spmv:
     stage: run_test_matrix

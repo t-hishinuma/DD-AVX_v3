@@ -7,11 +7,11 @@ namespace dd_avx{
 		if((long)x.size() != (long)y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
-		};
+		}
 		if((long)x.size() != (long)A.get_row()){
 			std::cerr << "error bad matrix size" << std::endl;
 			assert(1);
-		};
+		}
 
 		registers regs;
 
@@ -69,11 +69,11 @@ namespace dd_avx{
 		if((long)x.size() != (long)y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
-		};
+		}
 		if((long)x.size() != (long)A.get_row()){
 			std::cerr << "error bad matrix size" << std::endl;
 			assert(1);
-		};
+		}
 
 		registers regs;
 
@@ -131,11 +131,11 @@ namespace dd_avx{
 		if((long)x.size() != (long)y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
-		};
+		}
 		if((long)x.size() != (long)A.get_row()){
 			std::cerr << "error bad matrix size" << std::endl;
 			assert(1);
-		};
+		}
 
 		registers regs;
 
@@ -193,11 +193,11 @@ namespace dd_avx{
 		if((long)x.size() != (long)y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
-		};
+		}
 		if((long)x.size() != (long)A.get_row()){
 			std::cerr << "error bad matrix size" << std::endl;
 			assert(1);
-		};
+		}
 
 #pragma omp parallel for schedule(guided) 
 		for(long i=0; i<A.get_row(); i++){

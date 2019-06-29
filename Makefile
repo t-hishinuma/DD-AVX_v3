@@ -1,5 +1,5 @@
-DD_AVX_DIR?=$(HOME)/lib/dd_avx/
-DD_AVX_INC?=$(HOME)/lib/dd_avx/
+DD_AVX_DIR?=$(HOME)/lib/dd_avx/lib
+DD_AVX_INC?=$(HOME)/lib/dd_avx/include
 
 all:
 	git submodule update -i

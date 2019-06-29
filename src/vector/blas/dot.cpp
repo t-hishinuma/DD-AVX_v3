@@ -7,7 +7,7 @@ namespace dd_avx{
 		if((long)x.size() != (long)y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
-		};
+		}
 		registers regs;
 
 		dd_real dot[omp_get_max_threads()];
@@ -53,7 +53,7 @@ namespace dd_avx{
 		if((long)x.size() != (long)y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
-		};
+		}
 		registers regs;
 
 		dd_real dot[omp_get_max_threads()];
@@ -97,7 +97,7 @@ namespace dd_avx{
 		if((long)x.size() != (long)y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
-		};
+		}
 		registers regs;
 
 		dd_real dot[omp_get_max_threads()];
@@ -141,7 +141,7 @@ namespace dd_avx{
 		if((long)x.size() != (long)y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
-		};
+		}
 		registers regs;
 
 		dd_real dot[omp_get_max_threads()];

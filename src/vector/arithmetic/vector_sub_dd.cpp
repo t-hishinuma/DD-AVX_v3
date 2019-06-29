@@ -11,7 +11,7 @@ void dd_real_vector::sub(dd_real_vector& vec1, dd_real_vector& vec2)
 	if((long)size() != (long)vec1.size() || (long)size() != (long)vec2.size()){
 		std::cerr << "error bad vector size" << std::endl;
 		assert(1);
-	};
+	}
 	registers regs;
 
 #pragma omp parallel private(regs)
@@ -46,7 +46,7 @@ void dd_real_vector::sub(d_real_vector& vec1, dd_real_vector& vec2)
 	if((long)size() != (long)vec1.size() || (long)size() != (long)vec2.size()){
 		std::cerr << "error bad vector size" << std::endl;
 		assert(1);
-	};
+	}
 	registers regs;
 
 #pragma omp parallel private(regs)
@@ -81,7 +81,7 @@ void dd_real_vector::sub(dd_real_vector& vec1, d_real_vector& vec2)
 	if((long)size() != (long)vec1.size() || (long)size() != (long)vec2.size()){
 		std::cerr << "error bad vector size" << std::endl;
 		assert(1);
-	};
+	}
 	registers regs;
 
 #pragma omp parallel private(regs)
@@ -117,7 +117,7 @@ void dd_real_vector::sub(d_real_vector& vec1, d_real_vector& vec2)
 	if((long)size() != (long)vec1.size() || (long)size() != (long)vec2.size()){
 		std::cout << "error vecvor size is" << size() << vec1.size() << vec2.size() << std::endl;
 		assert(1);
-	};
+	}
 
 #pragma omp parallel for
 	for(long i = 0; i < size(); i++){
