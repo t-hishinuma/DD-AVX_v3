@@ -52,6 +52,14 @@ int main(int argc, char** argv){
 	d_real_vector row1 = B.get_row_vec(0);
 	row1.print_all();
 	
+	double sum = 0;
+	for(int i=0;i<B.get_row(); i++){
+		for(int j=0;j<B.get_row(); j++){
+			sum += B.at(i, j);
+		}
+	}
+	std::cout << "summation of elements of B is " << sum << std::endl;
+
 	
 
 	return 0;
