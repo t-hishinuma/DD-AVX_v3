@@ -9,11 +9,36 @@ double d_real_SpMat::at(const long r, const long c){
 		return 0.0;
 }
 
-void d_real_SpMat::insert(const long r, const long c){
-		for(int j = row_ptr[r]; j < row_ptr[r+1]; j++){
-			if(col_ind[j] == c){
-			}
+void d_real_SpMat::insert(const long r, const long c, const double a){
+	//printf("insert start r = %d, c = %d, a = %f\n", r, c, a);
+
+	for(int j = row_ptr[r]; j < row_ptr[r+1]; j++){
+		if(col_ind[j] == c){
+			val[j] = a;
+			return;
 		}
+	}
+
+	//pos_check
+	int pos = row_ptr[r+1]; 
+
+	for(int j = row_ptr[r]; j < row_ptr[r+1]; j++){
+		if( c < col_ind[j]){
+			pos = j;
+			break;
+		}
+	}
+	//printf("pos = %d\n", pos);
+
+
+	val.insert(val.begin() + pos, a);
+	col_ind.insert(col_ind.begin() + pos, c);
+	nnz++;
+
+	for(int i = r+1; i < row+1; i++){
+		row_ptr[i]++; 
+	}
+	//printf("row_ptr: %d, %d, %d\n", row_ptr[0], row_ptr[1], row_ptr[2]);
 }
 
 void d_real_SpMat::copy(const d_real_SpMat& mat){

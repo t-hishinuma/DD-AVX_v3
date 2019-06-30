@@ -15,12 +15,28 @@ class d_real_SpMat{
 
 		d_real_SpMat(){}
 
-		d_real_SpMat(long N, long NNZ){
-			row=N;
+		d_real_SpMat(long r, long c){
+			if(r != c){
+				std::cerr << "error, r!=c, square matrix only now" << std::endl;
+				assert(1);
+			}
+			row=r;
+			nnz = 0;
+			val.resize(nnz, 0.0);
+			row_ptr.resize(row+1, 0);
+			col_ind.resize(nnz, -1.0);
+		}
+
+		d_real_SpMat(long r, long c, long NNZ){
+			if(r != c){
+				std::cerr << "error, r!=c, square matrix only now" << std::endl;
+				assert(1);
+			}
+			row=r;
 			nnz=NNZ;
-			val.resize(NNZ, 0.0);
-			row_ptr.resize(N+1, -1.0);
-			col_ind.resize(NNZ, -1.0);
+			val.resize(nnz, 0.0);
+			row_ptr.resize(row+1, 0);
+			col_ind.resize(nnz, -1.0);
 		}
 
 //--allocate, free---------------------------------------
@@ -42,7 +58,7 @@ class d_real_SpMat{
 		long get_nnz() const{return nnz;};
 
 		double at(const long r, const long c);
-		void insert(const long r, const long c);
+		void insert(const long r, const long c, const double a);
 
 		d_real_vector get_row_vec(const long r);
 		d_real_vector get_col_vec(const long c);
@@ -52,9 +68,6 @@ class d_real_SpMat{
 			return val[0];
 		}
 
-		double datas(long r, long c) const {
- 			return val[0];
- 		}
 
 // //--copy---------------------------------------
 		void copy(const d_real_SpMat& mat);

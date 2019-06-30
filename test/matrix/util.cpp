@@ -19,9 +19,37 @@ int main(int argc, char** argv){
 	diag.print_all();
 
 	/////////////////////////////////////
+	std::cout << "create matrix" << std::endl;
+	d_real_SpMat B(3, 3);
+	std::cout << B.get_row() << "," << B.get_nnz() << std::endl;
+	B.output();
 	std::cout << "" << std::endl;
+// create matrix
+	B.insert(0,0,1.0);
+	B.insert(0,1,2.0);
+	B.insert(0,2,3.0);
+	B.output();
+	std::cout << "a" << std::endl;
 
-	d_real_vector row1 = A.get_row_vec(0);
+
+	B.insert(1,0,4.0);
+	B.insert(1,2,5.0);
+	B.output();
+	std::cout << "b" << std::endl;
+
+
+	B.insert(2,0,6.0);
+	B.insert(2,1,7.0);
+	B.insert(2,2,8.0);
+	B.output();
+	std::cout << "c" << std::endl;
+
+
+	std::cout << B.get_row() << "," << B.get_nnz() << std::endl;
+	B.output();
+
+
+	d_real_vector row1 = B.get_row_vec(0);
 	row1.print_all();
 	
 	
