@@ -21,7 +21,9 @@ submoduleとしてスから演算のためのQDライブラリが必要で、`ma
 
 ### Document
 
-Doxygenに自動生成させているが、大したコメントは書いていない。
+Doxygenに自動生成させているが、大したコメントは書けていない。
+一応、gitlabのbadgeから行ける。(http://150.95.137.119:1234/dd_avx/index.html)
+
 現状ではヘッダを読んだほうがきっと早い。
 
 includeの中はそれぞれ：
