@@ -4,6 +4,7 @@ DD_AVX_DIR+=$(HOME)/lib/dd_avx/
 QD_OPT =  CXX=g++ CXXFLAGS=-O3\ -std=c++11
 QD_OPT += FC=gfortran FCFLAGS=-m64
 QD_OPT += --enable-fma --enable-shared=yes --enable-inline
+QD_OPT += AR=-\ AR
 
 MAKEFILE=$(QD_DIR)/Makefile
 CONFIGURE=$(QD_DIR)/configure
