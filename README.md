@@ -16,16 +16,22 @@ AVX2(+FMA), OpenMPによる高速化がされている。
 > make install
 ```
 
-submoduleとしてスから演算のためのQDライブラリが必要で、`make`でgitを使って自動的にダウンロードされる。
+submoduleとしてスカラ演算のためのQDライブラリが必要で、`make`でgitを使って自動的にダウンロードされる。
 インストール先は`DD\AVX_DIR`および`DD_AVX_INC`によって指定できる。QDもここにインストールされる。
 
-### Document
+# Document
 
-Doxygenに自動生成させているが、大したコメントは書けていない。
-一応、gitlabのbadgeから行ける。(http://150.95.137.119:1234/dd_avx/index.html)
+Doxygenにて生成する．
 
-現状ではヘッダを読んだほうがきっと早い。
+# Testing
+各機能のテストは一通り揃えている。
+`test`ディレクトリにそれぞれ入っている。
 
+```
+> cd test; make
+```
+
+# 後輩向け：
 includeの中はそれぞれ：
 * DD-AVX.hpp
 BLAS / Sparse BLAS関数の宣言
@@ -38,16 +44,6 @@ BLAS / Sparse BLAS関数の宣言
 * DD-AVX\_AVX2\_core/
 AVX2化されたDDのAdd, Mul, 積和演算の実装
 
-### Testing
-サンプルはないが、各機能のテストは一通り揃えている。
-`test`ディレクトリにそれぞれ入っている。
-
-```
-> cd test; make
-```
-
-## Restrictions
-* BCRS形式はいま実装されてない
-* SIMD/OpenMPの切り替えはできない。MPIもない
-* SIMDの変数`4`が要所に埋め込まれている。これらはいずれ
-* DD\*DD, D\*D以外の関数の高速化に手抜きされているものがある。
+# Restrictions
+* BCRS形式への変換ルーチンは現在はマルチスレッド化して作り直そうと思っているため動作しない
+* OpenMPのON/OFF切り替えはできない
