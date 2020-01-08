@@ -1,4 +1,7 @@
-# DD-AVX Library: Library of High Precision Sparse Matrix Operations Accelerated by SIMD AVX2
+# DD-AVX Library (beta): Library of High Precision Sparse Matrix Operations Accelerated by SIMD AVX2
+現在はβ版である．
+
+FrontISTR組み込み用に行列の行操作，列操作の実装をしたいのでクラス設計を修正予定．
 
 ## About
 DD-AVXは高速・簡単なインタフェースでDouble / Double-Double精度を組み合わせて使うことを目的としたライブラリである。
@@ -17,11 +20,12 @@ AVX2(+FMA), OpenMPによる高速化がされている。
 ```
 
 submoduleとしてスカラ演算のためのQDライブラリが必要で、`make`でgitを使って自動的にダウンロードされる。
+
 インストール先は`DD\AVX_DIR`および`DD_AVX_INC`によって指定できる。QDもここにインストールされる。
 
 # Document
 
-Doxygenにて生成する．
+Doxygenを用いて生成できる．
 
 # Testing
 各機能のテストは一通り揃えている。
