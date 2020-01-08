@@ -1,10 +1,9 @@
-QD_DIR=./QD
+QD_DIR=QD/
 DD_AVX_DIR+=$(HOME)/lib/dd_avx/
 
 QD_OPT =  CC=gcc CXX=g++ CXXFLAGS=-O3\ -std=c++11
 QD_OPT += FC=gfortran FCFLAGS=-m64
 QD_OPT += --enable-fma=yes --enable-shared=yes --enable-inline=yes
-QD_OPT += AR=-\ AR
 
 MAKEFILE=$(QD_DIR)/Makefile
 CONFIGURE=$(QD_DIR)/configure
@@ -42,4 +41,5 @@ install:
 
 clean:
 	- cd $(QD_DIR); make clean; cd ..
+	- cd $(QD_DIR); rm Makefile; cd..
 	- rm ../include/qd

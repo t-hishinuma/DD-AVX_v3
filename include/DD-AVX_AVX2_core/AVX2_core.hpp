@@ -7,6 +7,46 @@
 using AVXreg = __m256d;
 struct dd_real;
 
+// namespace ddavx_core2{
+//
+// 	const long AVX_SIZE=4;
+//
+// 	class D_SIMD_reg{
+// 		public:
+// 			__m256d hi;
+//
+// 			// = operator
+// 			D_SIMD_reg operator=(const D_SIMD_reg& reg){
+// 				*this.hi = reg.hi;
+// 			}
+//
+// 			D_SIMD_reg operator=(const DD_SIMD_reg& reg){
+// 				*this.hi = reg.hi;
+// 			}
+// 	};
+//
+// 	class DD_SIMD_reg{
+// 		public:
+// 			__m256d hi;
+//
+// 			// = operator
+// 			D_SIMD_reg operator=(const D_SIMD_reg& reg){
+// 				*this.hi = reg.hi;
+// 			}
+//
+// 			D_SIMD_reg operator=(const DD_SIMD_reg& reg){
+// 				*this.hi = reg.hi;
+// 			}
+// 	};
+//
+//
+// 	inline __m256d load(const double& val){
+// 		return DD_AVX_FUNC(loadu_pd)((double*)&(val)); 
+// 	}
+//
+// }
+//
+
 namespace ddavx_core{
 	const long AVX_SIZE=4;
 	class registers{
