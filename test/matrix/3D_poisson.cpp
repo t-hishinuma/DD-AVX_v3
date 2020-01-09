@@ -2,7 +2,7 @@
 #include<vector>
 #include<iostream>
 
-d_real_SpMat make_3dSquare3PointsDirichlet_matrix(int N){
+int main(int N){
 	d_real_SpMat A( N*N*N, N*N*N );
     int d = N;
 
@@ -26,27 +26,4 @@ d_real_SpMat make_3dSquare3PointsDirichlet_matrix(int N){
         }
     }
 	return A;
-}
-
-template<typename FLOAT>
-void jacobi(d_real_SpMat A, FLOAT x, FLOAT y)
-{
-	double tol = 1.0e-12;
-
-	for(int i=0; i<n; i++)
-	
-
-}
-
-int main(int argc, char** argv){
-	d_real_SpMat A = make_3dSquare3PointsDirichlet_matrix(5);
-
-	//A.output();
-	
-	d_real_vector x(A.size(), 0.0);
-	d_real_vector y(A.size(), 0.0);
-
-	jacobi<d_real_vector, d_real_vector>(A, x, y);
-
-	return 0;
 }

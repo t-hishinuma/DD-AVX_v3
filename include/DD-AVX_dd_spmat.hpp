@@ -56,6 +56,7 @@ class d_real_SpMat{
 //--get---------------------------------------
 		long get_row() const{return row;};
 		long get_nnz() const{return nnz;};
+		long size() const{return row;};
 
 		double at(const long r, const long c);
 		void insert(const long r, const long c, const double a);
