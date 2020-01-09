@@ -25,7 +25,7 @@ AVX2(+FMA), OpenMPによるBLAS Lv1, Sparse BLASの機能をもち，Krylov部�
 
 
 ## Current Status and Restrictions
-現在はβ版あり，いくつかの制約や変更予定箇所がある
+現在はβ版で，いくつかの制約や変更予定箇所がある．
 * templateで明示的に型を切り替えて作りたい場合はtest/の関数を利用する．これらは本体に組み込まれる予定である．
 * 現状では、AVX2やOpenMPの無効化はできない。(OpenMPのスレッド数を変更したい場合は環境変数にて行うこと)
 	* AVX512に拡張するためにSIMD型の定義とファイル定義を修正中．
