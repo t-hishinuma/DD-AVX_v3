@@ -19,7 +19,7 @@ AVX2(+FMA), OpenMPによるBLAS Lv1, Sparse BLASの機能をもち，Krylov部�
 
 それぞれの演算は全ての型の組み合わせについて実装されており，D, DDのどちらの型を入力しても動作する．
 
-使い方は[内積のテストコード](https://github.com/t-hishinuma/DD-AVX_v3/blob/master/test/vector_blas/dot.cpp)
+使い方は[axpyのテストコード](https://github.com/t-hishinuma/DD-AVX_v3/blob/master/test/vector_blas/axpy.cpp)
 を見るとわかりやすい．
 
 
