@@ -74,3 +74,6 @@ BLAS / Sparse BLAS関数の宣言
 倍々精度ベクトル型の定義
 * DD-AVX\_AVX2\_core/
 AVX2化されたDDのAdd, Mul, 積和演算の実装
+* template型の内部演算とオーバーロード型の内部演算が両方実装されている．
+どちらも同じ性能なことを確認してある．
+切り替えはinclude/DD-AVX.hppのifdefで行う
