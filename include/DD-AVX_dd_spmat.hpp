@@ -5,7 +5,7 @@ class d_real_vector;
 class dd_real_vector;
 struct dd_real;
 
-class d_real_SpMat{
+class dd_real_SpMat{
 	public:
 		long row=0;
 		long nnz=0;
@@ -13,9 +13,9 @@ class d_real_SpMat{
 		std::vector<long> row_ptr;
 		std::vector<long> col_ind;
 
-		d_real_SpMat(){}
+		dd_real_SpMat(){}
 
-		d_real_SpMat(long r, long c){
+		dd_real_SpMat(long r, long c){
 			if(r != c){
 				std::cerr << "error, r!=c, square matrix only now" << std::endl;
 				assert(1);
@@ -27,7 +27,7 @@ class d_real_SpMat{
 			col_ind.resize(nnz, -1.0);
 		}
 
-		d_real_SpMat(long r, long c, long NNZ){
+		dd_real_SpMat(long r, long c, long NNZ){
 			if(r != c){
 				std::cerr << "error, r!=c, square matrix only now" << std::endl;
 				assert(1);
