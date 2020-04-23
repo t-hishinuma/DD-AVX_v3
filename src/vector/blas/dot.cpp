@@ -21,7 +21,7 @@ namespace dd_avx{
 			AVXreg r_hi = regs.zeros;
 			AVXreg r_lo = regs.zeros;
 
-			for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
+			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
 
 				AVXreg x_hi = load(x.hi[i]);
 				AVXreg x_lo = load(x.lo[i]);
@@ -67,7 +67,7 @@ namespace dd_avx{
 			AVXreg r_hi = regs.zeros;
 			AVXreg r_lo = regs.zeros;
 
-			for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
+			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
 
 				AVXreg x_hi = load(x.data()[i]);
 
@@ -111,7 +111,7 @@ namespace dd_avx{
 			AVXreg r_hi = regs.zeros;
 			AVXreg r_lo = regs.zeros;
 
-			for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
+			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
 
 				AVXreg x_hi = load(x.hi[i]);
 				AVXreg x_lo = load(x.lo[i]);
@@ -155,7 +155,7 @@ namespace dd_avx{
 			AVXreg r_hi = regs.zeros;
 			AVXreg r_lo = regs.zeros;
 
-			for(i = is; i < ie - AVX_SIZE - 1; i += AVX_SIZE){
+			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
 
 				AVXreg x_hi = load(x.data()[i]);
 				AVXreg x_lo = regs.zeros;

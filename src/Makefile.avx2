@@ -32,4 +32,4 @@ $(TARGET): $(OBJS)
 
 $(OBJDIR)/%.o: %.cpp 
 	mkdir -p obj
-	g++ $(CXXFLAGS) $(QD_LINK) -I../include -c $< -o $@
+	g++ $(CXXFLAGS) $(QD_LINK) -c $< -o $@

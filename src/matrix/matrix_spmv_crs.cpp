@@ -21,7 +21,7 @@ namespace dd_avx{
 			AVXreg y_lo = regs.zeros;
 			long j = 0;
 
-			for(j = A.row_ptr[i]; j < A.row_ptr[i+1] - 3; j+=4){
+			for(j = A.row_ptr[i]; j < A.row_ptr[i+1] - (SIMD_Length-1); j+=SIMD_Length){
 
 				AVXreg x_hi = set(x.hi[A.col_ind[j+0]], x.hi[A.col_ind[j+1]], x.hi[A.col_ind[j+2]], x.hi[A.col_ind[j+3]]);
 				AVXreg x_lo = set(x.lo[A.col_ind[j+0]], x.lo[A.col_ind[j+1]], x.lo[A.col_ind[j+2]], x.lo[A.col_ind[j+3]]);
@@ -31,7 +31,8 @@ namespace dd_avx{
 				Fmad(y_hi, y_lo, y_hi, y_lo, x_hi, x_lo, Areg, regs);
 			}
 
-			//Fraction Processing
+			// Fraction Processing (SIMD_Length=4)
+			// ここは関数化したいな．．
 			if(j == A.row_ptr[i+1]-3){
 				AVXreg x_hi = set(0.0, x.hi[A.col_ind[j+2]], x.hi[A.col_ind[j+1]], x.hi[A.col_ind[j+0]]);
 				AVXreg x_lo = set(0.0, x.lo[A.col_ind[j+2]], x.lo[A.col_ind[j+1]], x.lo[A.col_ind[j+0]]);
@@ -83,7 +84,7 @@ namespace dd_avx{
 			AVXreg y_lo = regs.zeros;
 			long j = 0;
 
-			for(j = A.row_ptr[i]; j < A.row_ptr[i+1] - 3; j+=4){
+			for(j = A.row_ptr[i]; j < A.row_ptr[i+1] - (SIMD_Length-1); j+=SIMD_Length){
 
 				AVXreg x_hi = set(x[A.col_ind[j+0]], x[A.col_ind[j+1]], x[A.col_ind[j+2]], x[A.col_ind[j+3]]);
 				AVXreg x_lo = regs.zeros;
@@ -145,7 +146,7 @@ namespace dd_avx{
 			AVXreg y_lo = regs.zeros;
 			long j = 0;
 
-			for(j = A.row_ptr[i]; j < A.row_ptr[i+1] - 3; j+=4){
+			for(j = A.row_ptr[i]; j < A.row_ptr[i+1] - (SIMD_Length-1); j+=SIMD_Length){
 
 				AVXreg x_hi = set(x.hi[A.col_ind[j+0]], x.hi[A.col_ind[j+1]], x.hi[A.col_ind[j+2]], x.hi[A.col_ind[j+3]]);
 				AVXreg x_lo = set(x.lo[A.col_ind[j+0]], x.lo[A.col_ind[j+1]], x.lo[A.col_ind[j+2]], x.lo[A.col_ind[j+3]]);
