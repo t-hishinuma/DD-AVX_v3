@@ -40,18 +40,14 @@ AVX2(+FMA), OpenMPによるBLAS Lv1, Sparse BLASの機能をもち，Krylov部�
 
 submoduleとしてスカラ演算のためのQDライブラリが必要で、`make`でgitを使って自動的にダウンロードされる。
 
-インストール先は`DD\AVX_DIR`およびによって指定できる。QDもここにインストールされる。
+インストール先は`DDAVX_DIR`およびによって指定できる。QDもここにインストールされる。
 
 ## Current Status and Restrictions
 現在はβ版で，いくつかの制約や変更予定箇所がある．
-* templateで明示的に型を切り替えて作りたい場合はtest/の関数を利用する．これらは本体に組み込まれる予定である．
 * 現状では、AVX2やOpenMPの無効化はできない。(OpenMPのスレッド数を変更したい場合は環境変数にて行うこと)
-	* AVX512に拡張するためにSIMD型の定義とファイル定義を修正中．
-* 疎行列クラスのFrontISTR組み込み用に行列の行操作，列操作の実装をしたいのでクラス設計を修正予定．
+* 疎行列クラスには行操作，列操作の実装をしたいのでクラス設計を修正予定．
 * レジスタ用のクラスの定義をupdateする
-	* SIMD\_REGクラスだとScalarとの共通化がしにくいのでREGクラスにする．
-	* コードをもっと書きやすくするためにSIMDクラスのオペレータも定義する
-		* SETが問題．ここだけはifdefするしかないのか．．
+	* SIMD\_REGクラスだとScalarとの共通化がしにくいのでREGクラスにしたい．
 * BCRS形式への変換ルーチンは現在はマルチスレッド化して作り直そうと思っているため動作しない
 * OpenMPのON/OFF切り替えはできない
 
@@ -67,7 +63,7 @@ Doxygenを用いて生成できる．
 > cd test; make
 ```
 
-# 後輩向け：
+# For Developer
 includeの中はそれぞれ：
 * DD-AVX.hpp
 BLAS / Sparse BLAS関数の宣言
@@ -77,7 +73,7 @@ BLAS / Sparse BLAS関数の宣言
 倍精度ベクトル型の定義 (std::vector<double>を継承している)
 * DD-AVX\_dd\_vector.hpp
 倍々精度ベクトル型の定義
-* DD-AVX\_AVX2\_core/
+* core/AVX2
 AVX2化されたDDのAdd, Mul, 積和演算の実装
 * template型の内部演算とオーバーロード型の内部演算が両方実装されている．
 どちらも同じ性能なことを確認してある．
