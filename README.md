@@ -5,8 +5,7 @@
 高速な混合精度演算ライブラリである．
 
 ## About
-DD-AVXは高速・簡単なインタフェースでDouble / Double-Double精度を組み合わせて使うことを目的としたライブラリである．
-
+DD-AVXは高速・簡単なインタフェースでDouble / Double-Double精度を組み合わせて使うことを目的としたライブラリで，
 AVX2(+FMA), OpenMPによるBLAS Lv1, Sparse BLASの機能をもち，Krylov部分空間法の実装が簡単に作れる．
 
 独自型として，std::vectorと同様のI/Fで使える以下のベクトル型
@@ -23,6 +22,18 @@ AVX2(+FMA), OpenMPによるBLAS Lv1, Sparse BLASの機能をもち，Krylov部�
 を見るとわかりやすい．
 
 
+# Build and Install
+
+以下のコマンドでビルドおよびインストールができる:
+
+```
+> make avx2
+> make install
+```
+
+submoduleとしてスカラ演算のためのQDライブラリが必要で、`make`でgitを使って自動的にダウンロードされる。
+
+インストール先は`DD\AVX_DIR`およびによって指定できる。QDもここにインストールされる。
 
 ## Current Status and Restrictions
 現在はβ版で，いくつかの制約や変更予定箇所がある．
@@ -36,19 +47,6 @@ AVX2(+FMA), OpenMPによるBLAS Lv1, Sparse BLASの機能をもち，Krylov部�
 		* SETが問題．ここだけはifdefするしかないのか．．
 * BCRS形式への変換ルーチンは現在はマルチスレッド化して作り直そうと思っているため動作しない
 * OpenMPのON/OFF切り替えはできない
-
-# Build and Install
-
-以下のコマンドでビルドおよびインストールができる:
-
-```
-> make
-> make install
-```
-
-submoduleとしてスカラ演算のためのQDライブラリが必要で、`make`でgitを使って自動的にダウンロードされる。
-
-インストール先は`DD\AVX_DIR`および`DD_AVX_INC`によって指定できる。QDもここにインストールされる。
 
 # Document
 
