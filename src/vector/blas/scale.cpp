@@ -7,8 +7,8 @@ namespace dd_avx{
 
 #pragma omp parallel private(regs)
 		{
-			long i=0, is=0, ie=0;
-			get_isie((long)x.size(), is, ie);
+			size_t i=0, is=0, ie=0;
+			get_isie((size_t)x.size(), is, ie);
 			AVXreg alpha_hi = broadcast(alpha.x[0]);
 			AVXreg alpha_lo = broadcast(alpha.x[1]);
 			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
@@ -32,8 +32,8 @@ namespace dd_avx{
 
 #pragma omp parallel private(regs)
 		{
-			long i=0, is=0, ie=0;
-			get_isie((long)x.size(), is, ie);
+			size_t i=0, is=0, ie=0;
+			get_isie((size_t)x.size(), is, ie);
 			AVXreg alpha_hi = broadcast(alpha);
 			AVXreg alpha_lo = regs.zeros;
 			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
@@ -57,8 +57,8 @@ namespace dd_avx{
 
 #pragma omp parallel private(regs)
 		{
-			long i=0, is=0, ie=0;
-			get_isie((long)x.size(), is, ie);
+			size_t i=0, is=0, ie=0;
+			get_isie((size_t)x.size(), is, ie);
 			AVXreg alpha_hi = broadcast(alpha.x[0]);
 			AVXreg alpha_lo = broadcast(alpha.x[1]);
 			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
@@ -81,8 +81,8 @@ namespace dd_avx{
 
 #pragma omp parallel private(regs)
 		{
-			long i=0, is=0, ie=0;
-			get_isie((long)x.size(), is, ie);
+			size_t i=0, is=0, ie=0;
+			get_isie((size_t)x.size(), is, ie);
 			AVXreg alpha_hi = broadcast(alpha);
 			AVXreg alpha_lo = regs.zeros;
 			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){

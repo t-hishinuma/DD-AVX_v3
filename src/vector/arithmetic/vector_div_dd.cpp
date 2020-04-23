@@ -8,13 +8,13 @@ using namespace ddavx_core;
 
 void dd_real_vector::div(dd_real_vector& vec1, dd_real_vector& vec2)
 {
-	if((long)size() != (long)vec1.size() || (long)size() != (long)vec2.size()){
+	if((size_t)size() != (size_t)vec1.size() || (size_t)size() != (size_t)vec2.size()){
 		std::cerr << "error bad vector size" << std::endl;
 		assert(1);
 	}
 
 #pragma omp parallel for
-	for(long i=0 ; i<(long)size() ; i++){
+	for(size_t i=0 ; i<(size_t)size() ; i++){
 		dd_real a, b, c;
 		a.x[0] = hi[i];
 		a.x[1] = lo[i];
@@ -30,13 +30,13 @@ void dd_real_vector::div(dd_real_vector& vec1, dd_real_vector& vec2)
 
 void dd_real_vector::div(d_real_vector& vec1, dd_real_vector& vec2)
 {
-	if((long)size() != (long)vec1.size() || (long)size() != (long)vec2.size()){
+	if((size_t)size() != (size_t)vec1.size() || (size_t)size() != (size_t)vec2.size()){
 		std::cerr << "error bad vector size" << std::endl;
 		assert(1);
 	}
 
 #pragma omp parallel for
-	for(long i=0 ; i<(long)size() ; i++){
+	for(size_t i=0 ; i<(size_t)size() ; i++){
 		dd_real a, b, c;
 		a.x[0] = hi[i];
 		a.x[1] = lo[i];
@@ -53,13 +53,13 @@ void dd_real_vector::div(d_real_vector& vec1, dd_real_vector& vec2)
 
 void dd_real_vector::div(dd_real_vector& vec1, d_real_vector& vec2)
 {
-	if((long)size() != (long)vec1.size() || (long)size() != (long)vec2.size()){
+	if((size_t)size() != (size_t)vec1.size() || (size_t)size() != (size_t)vec2.size()){
 		std::cerr << "error bad vector size" << std::endl;
 		assert(1);
 	}
 
 #pragma omp parallel for
-	for(long i=0 ; i<(long)size() ; i++){
+	for(size_t i=0 ; i<(size_t)size() ; i++){
 		dd_real a, b, c;
 		a.x[0] = hi[i];
 		a.x[1] = lo[i];
@@ -75,13 +75,13 @@ void dd_real_vector::div(dd_real_vector& vec1, d_real_vector& vec2)
 
 void dd_real_vector::div(d_real_vector& vec1, d_real_vector& vec2)
 {
-	if((long)size() != (long)vec1.size() || (long)size() != (long)vec2.size()){
+	if((size_t)size() != (size_t)vec1.size() || (size_t)size() != (size_t)vec2.size()){
 		std::cerr << "error bad vector size" << std::endl;
 		assert(1);
 	}
 
 #pragma omp parallel for
-	for(long i=0 ; i<(long)size() ; i++){
+	for(size_t i=0 ; i<(size_t)size() ; i++){
 		dd_real a, b, c;
 		a.x[0] = hi[i];
 		a.x[1] = lo[i];

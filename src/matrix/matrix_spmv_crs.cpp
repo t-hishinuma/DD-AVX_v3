@@ -4,11 +4,11 @@ using namespace ddavx_core;
 namespace dd_avx{
 	// D, DD, DD
 	void matvec(const d_real_SpMat& A, const dd_real_vector& x, dd_real_vector& y){
-		if((long)x.size() != (long)y.size()){
+		if((size_t)x.size() != (size_t)y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		}
-		if((long)x.size() != (long)A.get_row()){
+		if((size_t)x.size() != (size_t)A.get_row()){
 			std::cerr << "error bad matrix size" << std::endl;
 			assert(1);
 		}
@@ -16,10 +16,10 @@ namespace dd_avx{
 		registers regs;
 
 #pragma omp parallel for schedule(guided) private(regs)
-		for(long i=0; i<A.get_row(); i++){
+		for(size_t i=0; i<A.get_row(); i++){
 			AVXreg y_hi = regs.zeros;
 			AVXreg y_lo = regs.zeros;
-			long j = 0;
+			size_t j = 0;
 
 			for(j = A.row_ptr[i]; j < A.row_ptr[i+1] - (SIMD_Length-1); j+=SIMD_Length){
 
@@ -67,11 +67,11 @@ namespace dd_avx{
 
 	// D, D, DD
 	void matvec(const d_real_SpMat& A, const d_real_vector& x, dd_real_vector& y){
-		if((long)x.size() != (long)y.size()){
+		if((size_t)x.size() != (size_t)y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		}
-		if((long)x.size() != (long)A.get_row()){
+		if((size_t)x.size() != (size_t)A.get_row()){
 			std::cerr << "error bad matrix size" << std::endl;
 			assert(1);
 		}
@@ -79,10 +79,10 @@ namespace dd_avx{
 		registers regs;
 
 #pragma omp parallel for schedule(guided) private(regs)
-		for(long i=0; i<A.get_row(); i++){
+		for(size_t i=0; i<A.get_row(); i++){
 			AVXreg y_hi = regs.zeros;
 			AVXreg y_lo = regs.zeros;
-			long j = 0;
+			size_t j = 0;
 
 			for(j = A.row_ptr[i]; j < A.row_ptr[i+1] - (SIMD_Length-1); j+=SIMD_Length){
 
@@ -129,11 +129,11 @@ namespace dd_avx{
 
 	// D, DD, D
 	void matvec(const d_real_SpMat& A, const dd_real_vector& x, d_real_vector& y){
-		if((long)x.size() != (long)y.size()){
+		if((size_t)x.size() != (size_t)y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		}
-		if((long)x.size() != (long)A.get_row()){
+		if((size_t)x.size() != (size_t)A.get_row()){
 			std::cerr << "error bad matrix size" << std::endl;
 			assert(1);
 		}
@@ -141,10 +141,10 @@ namespace dd_avx{
 		registers regs;
 
 #pragma omp parallel for schedule(guided) private(regs)
-		for(long i=0; i<A.get_row(); i++){
+		for(size_t i=0; i<A.get_row(); i++){
 			AVXreg y_hi = regs.zeros;
 			AVXreg y_lo = regs.zeros;
-			long j = 0;
+			size_t j = 0;
 
 			for(j = A.row_ptr[i]; j < A.row_ptr[i+1] - (SIMD_Length-1); j+=SIMD_Length){
 
@@ -191,18 +191,18 @@ namespace dd_avx{
 
 	// D, D, D
 	void matvec(const d_real_SpMat& A, const d_real_vector& x, d_real_vector& y){
-		if((long)x.size() != (long)y.size()){
+		if((size_t)x.size() != (size_t)y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		}
-		if((long)x.size() != (long)A.get_row()){
+		if((size_t)x.size() != (size_t)A.get_row()){
 			std::cerr << "error bad matrix size" << std::endl;
 			assert(1);
 		}
 
 #pragma omp parallel for schedule(guided) 
-		for(long i=0; i<A.get_row(); i++){
-			for(long j = A.row_ptr[i]; j < A.row_ptr[i+1]; j++){
+		for(size_t i=0; i<A.get_row(); i++){
+			for(size_t j = A.row_ptr[i]; j < A.row_ptr[i+1]; j++){
 				y.data()[i] += A.val[j] * x[A.col_ind[j]];
 			}
 		}

@@ -4,7 +4,7 @@ using namespace ddavx_core;
 namespace dd_avx{
 
 	dd_real dot(const dd_real_vector& x, const dd_real_vector& y){
-		if((long)x.size() != (long)y.size()){
+		if((size_t)x.size() != (size_t)y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		}
@@ -15,8 +15,8 @@ namespace dd_avx{
 #pragma omp parallel private(regs)
 		{
 			int thN = omp_get_thread_num();
-			long i=0, is=0, ie=0;
-			get_isie((long)y.size(), is, ie);
+			size_t i=0, is=0, ie=0;
+			get_isie((size_t)y.size(), is, ie);
 
 			AVXreg r_hi = regs.zeros;
 			AVXreg r_lo = regs.zeros;
@@ -50,7 +50,7 @@ namespace dd_avx{
 
 
 	dd_real dot(const d_real_vector& x, const dd_real_vector& y){
-		if((long)x.size() != (long)y.size()){
+		if((size_t)x.size() != (size_t)y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		}
@@ -61,8 +61,8 @@ namespace dd_avx{
 #pragma omp parallel private(regs)
 		{
 			int thN = omp_get_thread_num();
-			long i=0, is=0, ie=0;
-			get_isie((long)y.size(), is, ie);
+			size_t i=0, is=0, ie=0;
+			get_isie((size_t)y.size(), is, ie);
 
 			AVXreg r_hi = regs.zeros;
 			AVXreg r_lo = regs.zeros;
@@ -94,7 +94,7 @@ namespace dd_avx{
 	}
 
 	dd_real dot(const dd_real_vector& x, const d_real_vector& y){
-		if((long)x.size() != (long)y.size()){
+		if((size_t)x.size() != (size_t)y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		}
@@ -105,8 +105,8 @@ namespace dd_avx{
 #pragma omp parallel private(regs)
 		{
 			int thN = omp_get_thread_num();
-			long i=0, is=0, ie=0;
-			get_isie((long)y.size(), is, ie);
+			size_t i=0, is=0, ie=0;
+			get_isie((size_t)y.size(), is, ie);
 
 			AVXreg r_hi = regs.zeros;
 			AVXreg r_lo = regs.zeros;
@@ -138,7 +138,7 @@ namespace dd_avx{
 	}
 
 	dd_real dot(const d_real_vector& x, const d_real_vector& y){
-		if((long)x.size() != (long)y.size()){
+		if((size_t)x.size() != (size_t)y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		}
@@ -149,8 +149,8 @@ namespace dd_avx{
 #pragma omp parallel private(regs)
 		{
 			int thN = omp_get_thread_num();
-			long i=0, is=0, ie=0;
-			get_isie((long)y.size(), is, ie);
+			size_t i=0, is=0, ie=0;
+			get_isie((size_t)y.size(), is, ie);
 
 			AVXreg r_hi = regs.zeros;
 			AVXreg r_lo = regs.zeros;

@@ -19,9 +19,9 @@ avx512:
 
 install:
 	mkdir -p $(DD_AVX_DIR)/lib/
-	mkdir -p $(DD_AVX_INC)/include/
+	mkdir -p $(DD_AVX_DIR)/include/
 	cp -r ./lib/* $(DD_AVX_DIR)/lib/
-	cp -r ./include/* $(DD_AVX_INC)/include/
+	cp -r ./include/* $(DD_AVX_DIR)/include/
 
 clean:
 	- rm -rf src/obj
@@ -30,8 +30,8 @@ clean:
 	- rm -rf ./lib/libdd-avx.so
 	- rm -rf  $(DD_AVX_DIR)/lib/libqd.*
 	- rm -rf  $(DD_AVX_DIR)/lib/libdd-avx.*
-	- rm -rf  $(DD_AVX_INC)/include/DD-AVX*
-	- rm -rf  $(DD_AVX_INC)/include/qd
+	- rm -rf  $(DD_AVX_DIR)/include/DD-AVX*
+	- rm -rf  $(DD_AVX_DIR)/include/qd
 	- $(MAKE) -C submodules -f Makefile.qd clean
 
 clean_lib:
@@ -39,5 +39,5 @@ clean_lib:
 	- rm -rf ./lib/libdd-avx.so
 	- rm -rf  $(DD_AVX_DIR)/lib/libqd.*
 	- rm -rf  $(DD_AVX_DIR)/lib/libdd-avx.*
-	- rm -rf  $(DD_AVX_INC)/include/DD-AVX*
-	- rm -rf  $(DD_AVX_INC)/include/qd
+	- rm -rf  $(DD_AVX_DIR)/include/DD-AVX*
+	- rm -rf  $(DD_AVX_DIR)/include/qd

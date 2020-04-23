@@ -31,6 +31,13 @@ AVX2(+FMA), OpenMPによるBLAS Lv1, Sparse BLASの機能をもち，Krylov部�
 > make install
 ```
 
+まだ未実装だが，将来的にAVX512の場合は以下のコマンドでビルドおよびインストールができる:
+
+```
+> make avx512
+> make install
+```
+
 submoduleとしてスカラ演算のためのQDライブラリが必要で、`make`でgitを使って自動的にダウンロードされる。
 
 インストール先は`DD\AVX_DIR`およびによって指定できる。QDもここにインストールされる。

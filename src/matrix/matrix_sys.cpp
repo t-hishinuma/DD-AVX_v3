@@ -1,7 +1,7 @@
 #include<DD-AVX.hpp>
 
-double d_real_SpMat::at(const long r, const long c){
-		for(int j = row_ptr[r]; j < row_ptr[r+1]; j++){
+double d_real_SpMat::at(const size_t r, const size_t c){
+		for(size_t j = row_ptr[r]; j < row_ptr[r+1]; j++){
 			if(col_ind[j] == c){
 				return val[j];
 			}
@@ -9,10 +9,10 @@ double d_real_SpMat::at(const long r, const long c){
 		return 0.0;
 }
 
-void d_real_SpMat::insert(const long r, const long c, const double a){
+void d_real_SpMat::insert(const size_t r, const size_t c, const double a){
 	//printf("insert start r = %d, c = %d, a = %f\n", r, c, a);
 
-	for(int j = row_ptr[r]; j < row_ptr[r+1]; j++){
+	for(size_t j = row_ptr[r]; j < row_ptr[r+1]; j++){
 		if(col_ind[j] == c){
 			val[j] = a;
 			return;
@@ -20,9 +20,9 @@ void d_real_SpMat::insert(const long r, const long c, const double a){
 	}
 
 	//pos_check
-	int pos = row_ptr[r+1]; 
+	size_t pos = row_ptr[r+1]; 
 
-	for(int j = row_ptr[r]; j < row_ptr[r+1]; j++){
+	for(size_t j = row_ptr[r]; j < row_ptr[r+1]; j++){
 		if( c < col_ind[j]){
 			pos = j;
 			break;
@@ -35,7 +35,7 @@ void d_real_SpMat::insert(const long r, const long c, const double a){
 	col_ind.insert(col_ind.begin() + pos, c);
 	nnz++;
 
-	for(int i = r+1; i < row+1; i++){
+	for(size_t i = r+1; i < row+1; i++){
 		row_ptr[i]++; 
 	}
 	//printf("row_ptr: %d, %d, %d\n", row_ptr[0], row_ptr[1], row_ptr[2]);
@@ -55,7 +55,7 @@ d_real_SpMat& d_real_SpMat::operator=(const d_real_SpMat& mat){
 }
 
 ////////////////////////////////////////////////
-d_real_vector d_real_SpMat::get_row_vec(const long r){
+d_real_vector d_real_SpMat::get_row_vec(const size_t r){
 	if(row < r){
 		std::cerr << "error bad row" << std::endl;
 		assert(1);
@@ -63,14 +63,14 @@ d_real_vector d_real_SpMat::get_row_vec(const long r){
 
 	std::vector<double> ret(row, 0.0);
 
-	for(int j = row_ptr[r]; j < row_ptr[r+1]; j++){
+	for(size_t j = row_ptr[r]; j < row_ptr[r+1]; j++){
 		ret.data()[col_ind[j]] = val[j];
 	}
 	return ret;
 }
 
 
-d_real_vector d_real_SpMat::get_col_vec(const long c){
+d_real_vector d_real_SpMat::get_col_vec(const size_t c){
 	if(row < c){
 		std::cerr << "error bad col" << std::endl;
 		assert(1);
@@ -78,8 +78,8 @@ d_real_vector d_real_SpMat::get_col_vec(const long c){
 	std::vector<double> ret(row, 0.0);
 
 #pragma omp parallel for
-	for(int i=0; i<row; i++){
-		for(int j = row_ptr[i]; j < row_ptr[i+1]; j++){
+	for(size_t i=0; i<row; i++){
+		for(size_t j = row_ptr[i]; j < row_ptr[i+1]; j++){
 			if(col_ind[j] == c)
 				ret.data()[i] = val[j];
 		}
@@ -92,8 +92,8 @@ d_real_vector d_real_SpMat::get_diag_vec(){
 	std::vector<double> ret(row, 0.0);
 
 #pragma omp parallel for
-	for(int i=0; i<row; i++){
-		for(int j = row_ptr[i]; j < row_ptr[i+1]; j++){
+	for(size_t i=0; i<row; i++){
+		for(size_t j = row_ptr[i]; j < row_ptr[i+1]; j++){
 			if(i == col_ind[j])
 				ret.data()[i] = val[j];
 		}

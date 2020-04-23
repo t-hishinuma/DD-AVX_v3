@@ -8,13 +8,13 @@ OBJS= input.o spmv.o util.o
 all: $(OBJS)
 
 input.o : input.cpp
-	g++ $(RPATH) $(LIB) $^ -o $@
+	g++ $(RPATH) $^ -o $@ $(LIB)
 
 spmv.o : spmv.cpp
-	g++ $(RPATH) $(LIB) $^ -o $@
+	g++ $(RPATH) $^ -o $@ $(LIB)
 
 util.o : util.cpp
-	g++ $(RPATH) $(LIB) $^ -o $@
+	g++ $(RPATH) $^ -o $@ $(LIB)
 
 clean:
 	- rm $(OBJS)

@@ -58,7 +58,7 @@ void d_real_SpMat::input_mm(const char* filename){
      } while (buf[0] == '%');
 
      //check size
-     long rowN, colN, NNZ;
+     size_t rowN, colN, NNZ;
 
      std::istringstream data(buf);
      data >> rowN >> colN >> NNZ;
@@ -77,12 +77,12 @@ void d_real_SpMat::input_mm(const char* filename){
      row_ptr.resize(row+1, 0);
      col_ind.resize(nnz, 0);
 
-	 long c_row = 1;
+	 size_t c_row = 1;
 	 row_ptr[0] = 0;
 	 //input MM data as selected matrix storage format
- 	 for (long i = 0; i < NNZ; i++) {
-		 long idx, jdx;
-		 long value;
+ 	 for (size_t i = 0; i < NNZ; i++) {
+		 size_t idx, jdx;
+		 size_t value;
 
 		 getline(ifs, buf);
 		 std::istringstream data(buf);
@@ -114,8 +114,8 @@ void d_real_SpMat::output(){
          std::cerr << "This matrix is brank" << std::endl;
 	}
 
-	for(long i = 0; i < row; i++){
-		for(long j = row_ptr[i]; j < row_ptr[i+1]; j++){
+	for(size_t i = 0; i < row; i++){
+		for(size_t j = row_ptr[i]; j < row_ptr[i+1]; j++){
 			std::cout << i+1 << "\t" << col_ind[j]+1 << "\t" << val[j] << std::endl;
 		}
 	}
@@ -130,8 +130,8 @@ void d_real_SpMat::output_mm(const char* filename){
     out << (MM_BANNER " " MM_MAT " " MM_FMT " " MM_TYPE_REAL " " MM_TYPE_GENERAL) << std::endl;
     out << row << " " << row << " " << nnz << std::endl;
 
-	for(long i = 0; i < row; i++){
-		for(long j = row_ptr[i]; j < row_ptr[i+1]; j++){
+	for(size_t i = 0; i < row; i++){
+		for(size_t j = row_ptr[i]; j < row_ptr[i+1]; j++){
 			out << i+1 << " " << col_ind[j]+1 << " " << val[j] << std::endl;
 		}
 	}
