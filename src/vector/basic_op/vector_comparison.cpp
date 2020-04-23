@@ -2,7 +2,7 @@
 //Double
 //==
 bool d_real_vector::operator==(const dd_real_vector& vec){
-	bool ret = ((size_t)size() == (size_t)vec.size());
+	bool ret = (size() == vec.size());
 	if(ret == false) return false;
 
 	ret = ret && std::equal(vec.hi.cbegin(), vec.hi.cend(), cbegin());
@@ -10,7 +10,7 @@ bool d_real_vector::operator==(const dd_real_vector& vec){
 }
 
 bool d_real_vector::operator==(const d_real_vector& vec){
-	bool ret = ((size_t)size() == (size_t)vec.size());
+	bool ret = (size() == vec.size());
 	if(ret == false) return false;
 
 	ret = ret && std::equal(vec.cbegin(), vec.cend(), cbegin());
@@ -18,7 +18,7 @@ bool d_real_vector::operator==(const d_real_vector& vec){
 }
 
 bool d_real_vector::operator==(const std::vector<double>& vec){
-	bool ret = ((size_t)size() == (size_t)vec.size());
+	bool ret = (size() == vec.size());
 	if(ret == false) return false;
 
 	ret = ret && std::equal(vec.cbegin(), vec.cend(), cbegin());
@@ -26,11 +26,11 @@ bool d_real_vector::operator==(const std::vector<double>& vec){
 }
 
 bool d_real_vector::operator==(const std::vector<dd_real>& vec){
-	bool ret = ((size_t)size() == (size_t)vec.size());
+	bool ret = (size() == vec.size());
 	if(ret == false) return false;
 
 //	#pragma omp parallel for 
-	for(size_t i=0; i < (size_t)vec.size(); i++){
+	for(size_t i=0; i < vec.size(); i++){
 		ret = ret && at(i) == vec[i].x[0];
 		if(ret == false) return ret;
 	}
@@ -62,7 +62,7 @@ bool d_real_vector::operator!=(const std::vector<dd_real>& vec){
 //DD
 //==
 bool dd_real_vector::operator==(const dd_real_vector& vec){
-	bool ret = (size() == (size_t)vec.size());
+	bool ret = (size() == vec.size());
 	if(ret == false) return false;
 
 	ret = ret && std::equal(vec.hi.cbegin(), vec.hi.cend(), hi.cbegin());
@@ -71,7 +71,7 @@ bool dd_real_vector::operator==(const dd_real_vector& vec){
 }
 
 bool dd_real_vector::operator==(const d_real_vector& vec){
-	bool ret = (size() == (size_t)vec.size());
+	bool ret = (size() == vec.size());
 	if(ret == false) return false;
 
 	ret = ret && std::equal(vec.cbegin(), vec.cend(), hi.cbegin());
@@ -79,7 +79,7 @@ bool dd_real_vector::operator==(const d_real_vector& vec){
 }
 
 bool dd_real_vector::operator==(const std::vector<double>& vec){
-	bool ret = (size() == (size_t)vec.size());
+	bool ret = (size() == vec.size());
 	if(ret == false) return false;
 
 	ret = ret && std::equal(vec.cbegin(), vec.cend(), hi.cbegin());
@@ -87,11 +87,11 @@ bool dd_real_vector::operator==(const std::vector<double>& vec){
 }
 
 bool dd_real_vector::operator==(const std::vector<dd_real>& vec){
-	bool ret = (size() == (size_t)vec.size());
+	bool ret = (size() == vec.size());
 	if(ret == false) return false;
 
 //	#pragma omp parallel for 
-	for(size_t i=0; i < (size_t)vec.size(); i++){
+	for(size_t i=0; i < vec.size(); i++){
 		ret = ret && hi[i] == vec[i].x[0] && lo[i] == vec[i].x[1];
 		if(ret == false) return ret;
 	}

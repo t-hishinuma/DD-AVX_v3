@@ -9,12 +9,14 @@ avx2:
 	git submodule update -i
 	$(MAKE) -C submodules -f Makefile.qd
 	$(MAKE) -C submodules -f Makefile.qd install
+	mkdir -p src/obj
 	$(MAKE) -j -C src/ -f Makefile.avx2 
 
 avx512:
 	git submodule update -i
 	$(MAKE) -C submodules -f Makefile.qd
 	$(MAKE) -C submodules -f Makefile.qd install
+	mkdir -p src/obj
 	$(MAKE) -j -C src/ -f Makefile.avx512
 
 install:

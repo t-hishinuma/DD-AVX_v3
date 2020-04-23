@@ -4,11 +4,11 @@ using namespace ddavx_core;
 namespace dd_avx{
 	// D, DD, DD
 	void matvec(const d_real_SpMat& A, const dd_real_vector& x, dd_real_vector& y){
-		if((size_t)x.size() != (size_t)y.size()){
+		if(x.size() != y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		}
-		if((size_t)x.size() != (size_t)A.get_row()){
+		if(x.size() != A.get_row()){
 			std::cerr << "error bad matrix size" << std::endl;
 			assert(1);
 		}
@@ -67,11 +67,11 @@ namespace dd_avx{
 
 	// D, D, DD
 	void matvec(const d_real_SpMat& A, const d_real_vector& x, dd_real_vector& y){
-		if((size_t)x.size() != (size_t)y.size()){
+		if(x.size() != y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		}
-		if((size_t)x.size() != (size_t)A.get_row()){
+		if(x.size() != A.get_row()){
 			std::cerr << "error bad matrix size" << std::endl;
 			assert(1);
 		}
@@ -129,11 +129,11 @@ namespace dd_avx{
 
 	// D, DD, D
 	void matvec(const d_real_SpMat& A, const dd_real_vector& x, d_real_vector& y){
-		if((size_t)x.size() != (size_t)y.size()){
+		if(x.size() != y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		}
-		if((size_t)x.size() != (size_t)A.get_row()){
+		if(x.size() != A.get_row()){
 			std::cerr << "error bad matrix size" << std::endl;
 			assert(1);
 		}
@@ -191,11 +191,11 @@ namespace dd_avx{
 
 	// D, D, D
 	void matvec(const d_real_SpMat& A, const d_real_vector& x, d_real_vector& y){
-		if((size_t)x.size() != (size_t)y.size()){
+		if(x.size() != y.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		}
-		if((size_t)x.size() != (size_t)A.get_row()){
+		if(x.size() != A.get_row()){
 			std::cerr << "error bad matrix size" << std::endl;
 			assert(1);
 		}
@@ -207,6 +207,4 @@ namespace dd_avx{
 			}
 		}
 	}
-
-
 }

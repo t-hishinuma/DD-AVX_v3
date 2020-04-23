@@ -4,7 +4,7 @@ using namespace ddavx_core;
 namespace dd_avx{
 //alpha = DD, z = DD ///////////////////////////////////////////
 	void axpyz(const dd_real& alpha, const dd_real_vector& x, const dd_real_vector& y, dd_real_vector& z){
-		if((size_t)x.size() != (size_t)y.size() && (size_t) x.size() != (size_t) z.size()){
+		if(x.size() != y.size() &&  x.size() !=  z.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		}
@@ -13,7 +13,7 @@ namespace dd_avx{
 #pragma omp parallel private(regs)
 		{
 			size_t i=0, is=0, ie=0;
-			get_isie((size_t)y.size(), is, ie);
+			get_isie(y.size(), is, ie);
 			AVXreg alpha_hi = broadcast(alpha.x[0]);
 			AVXreg alpha_lo = broadcast(alpha.x[1]);
 			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
@@ -39,7 +39,7 @@ namespace dd_avx{
 	}
 
 	void axpyz(const dd_real& alpha, const d_real_vector& x, const dd_real_vector& y, dd_real_vector& z){
-		if((size_t)x.size() != (size_t)y.size() && (size_t) x.size() != (size_t) z.size()){
+		if(x.size() != y.size() &&  x.size() !=  z.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		}
@@ -48,7 +48,7 @@ namespace dd_avx{
 #pragma omp parallel private(regs)
 		{
 			size_t i=0, is=0, ie=0;
-			get_isie((size_t)y.size(), is, ie);
+			get_isie(y.size(), is, ie);
 			AVXreg alpha_hi = broadcast(alpha.x[0]);
 			AVXreg alpha_lo = broadcast(alpha.x[1]);
 			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
@@ -74,7 +74,7 @@ namespace dd_avx{
 	}
 
 	void axpyz(const dd_real& alpha, const dd_real_vector& x, const d_real_vector& y, dd_real_vector& z){
-		if((size_t)x.size() != (size_t)y.size() && (size_t) x.size() != (size_t) z.size()){
+		if(x.size() != y.size() &&  x.size() !=  z.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		}
@@ -83,7 +83,7 @@ namespace dd_avx{
 #pragma omp parallel private(regs)
 		{
 			size_t i=0, is=0, ie=0;
-			get_isie((size_t)y.size(), is, ie);
+			get_isie(y.size(), is, ie);
 			AVXreg alpha_hi = broadcast(alpha.x[0]);
 			AVXreg alpha_lo = broadcast(alpha.x[1]);
 			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
@@ -109,7 +109,7 @@ namespace dd_avx{
 	}
 
 	void axpyz(const dd_real& alpha, const d_real_vector& x, const d_real_vector& y, dd_real_vector& z){
-		if((size_t)x.size() != (size_t)y.size() && (size_t) x.size() != (size_t) z.size()){
+		if(x.size() != y.size() &&  x.size() !=  z.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		}
@@ -118,7 +118,7 @@ namespace dd_avx{
 #pragma omp parallel private(regs)
 		{
 			size_t i=0, is=0, ie=0;
-			get_isie((size_t)y.size(), is, ie);
+			get_isie(y.size(), is, ie);
 			AVXreg alpha_hi = broadcast(alpha.x[0]);
 			AVXreg alpha_lo = broadcast(alpha.x[1]);
 			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
@@ -144,7 +144,7 @@ namespace dd_avx{
 	}
 //alpha = D, z = DD ///////////////////////////////////////////
 	void axpyz(const d_real& alpha, const dd_real_vector& x, const dd_real_vector& y, dd_real_vector& z){
-		if((size_t)x.size() != (size_t)y.size() && (size_t) x.size() != (size_t) z.size()){
+		if(x.size() != y.size() &&  x.size() !=  z.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		}
@@ -153,7 +153,7 @@ namespace dd_avx{
 #pragma omp parallel private(regs)
 		{
 			size_t i=0, is=0, ie=0;
-			get_isie((size_t)y.size(), is, ie);
+			get_isie(y.size(), is, ie);
 			AVXreg alpha_hi = broadcast(alpha);
 			AVXreg alpha_lo = regs.zeros;
 			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
@@ -179,7 +179,7 @@ namespace dd_avx{
 	}
 
 	void axpyz(const d_real& alpha, const d_real_vector& x, const dd_real_vector& y, dd_real_vector& z){
-		if((size_t)x.size() != (size_t)y.size() && (size_t) x.size() != (size_t) z.size()){
+		if(x.size() != y.size() &&  x.size() !=  z.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		}
@@ -188,7 +188,7 @@ namespace dd_avx{
 #pragma omp parallel private(regs)
 		{
 			size_t i=0, is=0, ie=0;
-			get_isie((size_t)y.size(), is, ie);
+			get_isie(y.size(), is, ie);
 			AVXreg alpha_hi = broadcast(alpha);
 			AVXreg alpha_lo = regs.zeros;
 			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
@@ -214,7 +214,7 @@ namespace dd_avx{
 	}
 
 	void axpyz(const d_real& alpha, const dd_real_vector& x, const d_real_vector& y, dd_real_vector& z){
-		if((size_t)x.size() != (size_t)y.size() && (size_t) x.size() != (size_t) z.size()){
+		if(x.size() != y.size() &&  x.size() !=  z.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		}
@@ -223,7 +223,7 @@ namespace dd_avx{
 #pragma omp parallel private(regs)
 		{
 			size_t i=0, is=0, ie=0;
-			get_isie((size_t)y.size(), is, ie);
+			get_isie(y.size(), is, ie);
 			AVXreg alpha_hi = broadcast(alpha);
 			AVXreg alpha_lo = regs.zeros;
 			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
@@ -249,7 +249,7 @@ namespace dd_avx{
 	}
 
 	void axpyz(const d_real& alpha, const d_real_vector& x, const d_real_vector& y, dd_real_vector& z){
-		if((size_t)x.size() != (size_t)y.size() && (size_t) x.size() != (size_t) z.size()){
+		if(x.size() != y.size() &&  x.size() !=  z.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		}
@@ -258,7 +258,7 @@ namespace dd_avx{
 #pragma omp parallel private(regs)
 		{
 			size_t i=0, is=0, ie=0;
-			get_isie((size_t)y.size(), is, ie);
+			get_isie(y.size(), is, ie);
 			AVXreg alpha_hi = broadcast(alpha);
 			AVXreg alpha_lo = regs.zeros;
 			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
@@ -285,7 +285,7 @@ namespace dd_avx{
 
 //alpha = DD, z = D ///////////////////////////////////////////
 	void axpyz(const dd_real& alpha, const dd_real_vector& x, const dd_real_vector& y, d_real_vector& z){
-		if((size_t)x.size() != (size_t)y.size() && (size_t) x.size() != (size_t) z.size()){
+		if(x.size() != y.size() &&  x.size() !=  z.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		}
@@ -294,7 +294,7 @@ namespace dd_avx{
 #pragma omp parallel private(regs)
 		{
 			size_t i=0, is=0, ie=0;
-			get_isie((size_t)y.size(), is, ie);
+			get_isie(y.size(), is, ie);
 			AVXreg alpha_hi = broadcast(alpha.x[0]);
 			AVXreg alpha_lo = broadcast(alpha.x[1]);
 			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
@@ -319,7 +319,7 @@ namespace dd_avx{
 	}
 
 	void axpyz(const dd_real& alpha, const d_real_vector& x, const dd_real_vector& y, d_real_vector& z){
-		if((size_t)x.size() != (size_t)y.size() && (size_t) x.size() != (size_t) z.size()){
+		if(x.size() != y.size() &&  x.size() !=  z.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		}
@@ -328,7 +328,7 @@ namespace dd_avx{
 #pragma omp parallel private(regs)
 		{
 			size_t i=0, is=0, ie=0;
-			get_isie((size_t)y.size(), is, ie);
+			get_isie(y.size(), is, ie);
 			AVXreg alpha_hi = broadcast(alpha.x[0]);
 			AVXreg alpha_lo = broadcast(alpha.x[1]);
 			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
@@ -353,7 +353,7 @@ namespace dd_avx{
 	}
 
 	void axpyz(const dd_real& alpha, const dd_real_vector& x, const d_real_vector& y, d_real_vector& z){
-		if((size_t)x.size() != (size_t)y.size() && (size_t) x.size() != (size_t) z.size()){
+		if(x.size() != y.size() &&  x.size() !=  z.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		}
@@ -362,7 +362,7 @@ namespace dd_avx{
 #pragma omp parallel private(regs)
 		{
 			size_t i=0, is=0, ie=0;
-			get_isie((size_t)y.size(), is, ie);
+			get_isie(y.size(), is, ie);
 			AVXreg alpha_hi = broadcast(alpha.x[0]);
 			AVXreg alpha_lo = broadcast(alpha.x[1]);
 			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
@@ -387,7 +387,7 @@ namespace dd_avx{
 	}
 
 	void axpyz(const dd_real& alpha, const d_real_vector& x, const d_real_vector& y, d_real_vector& z){
-		if((size_t)x.size() != (size_t)y.size() && (size_t) x.size() != (size_t) z.size()){
+		if(x.size() != y.size() &&  x.size() !=  z.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		}
@@ -396,7 +396,7 @@ namespace dd_avx{
 #pragma omp parallel private(regs)
 		{
 			size_t i=0, is=0, ie=0;
-			get_isie((size_t)y.size(), is, ie);
+			get_isie(y.size(), is, ie);
 			AVXreg alpha_hi = broadcast(alpha.x[0]);
 			AVXreg alpha_lo = broadcast(alpha.x[1]);
 			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
@@ -421,7 +421,7 @@ namespace dd_avx{
 	}
 //alpha = D ///////////////////////////////////////////
 	void axpyz(const d_real& alpha, const dd_real_vector& x, const dd_real_vector& y, d_real_vector& z){
-		if((size_t)x.size() != (size_t)y.size() && (size_t) x.size() != (size_t) z.size()){
+		if(x.size() != y.size() &&  x.size() !=  z.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		}
@@ -430,7 +430,7 @@ namespace dd_avx{
 #pragma omp parallel private(regs)
 		{
 			size_t i=0, is=0, ie=0;
-			get_isie((size_t)y.size(), is, ie);
+			get_isie(y.size(), is, ie);
 			AVXreg alpha_hi = broadcast(alpha);
 			AVXreg alpha_lo = regs.zeros;
 			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
@@ -455,7 +455,7 @@ namespace dd_avx{
 	}
 
 	void axpyz(const d_real& alpha, const d_real_vector& x, const dd_real_vector& y, d_real_vector& z){
-		if((size_t)x.size() != (size_t)y.size() && (size_t) x.size() != (size_t) z.size()){
+		if(x.size() != y.size() &&  x.size() !=  z.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		}
@@ -464,7 +464,7 @@ namespace dd_avx{
 #pragma omp parallel private(regs)
 		{
 			size_t i=0, is=0, ie=0;
-			get_isie((size_t)y.size(), is, ie);
+			get_isie(y.size(), is, ie);
 			AVXreg alpha_hi = broadcast(alpha);
 			AVXreg alpha_lo = regs.zeros;
 			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
@@ -489,7 +489,7 @@ namespace dd_avx{
 	}
 
 	void axpyz(const d_real& alpha, const dd_real_vector& x, const d_real_vector& y, d_real_vector& z){
-		if((size_t)x.size() != (size_t)y.size() && (size_t) x.size() != (size_t) z.size()){
+		if(x.size() != y.size() &&  x.size() !=  z.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		}
@@ -498,7 +498,7 @@ namespace dd_avx{
 #pragma omp parallel private(regs)
 		{
 			size_t i=0, is=0, ie=0;
-			get_isie((size_t)y.size(), is, ie);
+			get_isie(y.size(), is, ie);
 			AVXreg alpha_hi = broadcast(alpha);
 			AVXreg alpha_lo = regs.zeros;
 			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
@@ -523,7 +523,7 @@ namespace dd_avx{
 	}
 
 	void axpyz(const d_real& alpha, const d_real_vector& x, const d_real_vector& y, d_real_vector& z){
-		if((size_t)x.size() != (size_t)y.size() && (size_t) x.size() != (size_t) z.size()){
+		if(x.size() != y.size() &&  x.size() !=  z.size()){
 			std::cerr << "error bad vector size" << std::endl;
 			assert(1);
 		}
@@ -532,7 +532,7 @@ namespace dd_avx{
 #pragma omp parallel private(regs)
 		{
 			size_t i=0, is=0, ie=0;
-			get_isie((size_t)y.size(), is, ie);
+			get_isie(y.size(), is, ie);
 			AVXreg alpha_hi = broadcast(alpha);
 			AVXreg alpha_lo = regs.zeros;
 			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){

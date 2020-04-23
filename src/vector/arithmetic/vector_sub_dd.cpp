@@ -8,7 +8,7 @@ using namespace ddavx_core;
 
 void dd_real_vector::sub(dd_real_vector& vec1, dd_real_vector& vec2)
 {
-	if((size_t)size() != (size_t)vec1.size() || (size_t)size() != (size_t)vec2.size()){
+	if(size() != vec1.size() || size() != vec2.size()){
 		std::cerr << "error bad vector size" << std::endl;
 		assert(1);
 	}
@@ -43,7 +43,7 @@ void dd_real_vector::sub(dd_real_vector& vec1, dd_real_vector& vec2)
 
 void dd_real_vector::sub(d_real_vector& vec1, dd_real_vector& vec2)
 {
-	if((size_t)size() != (size_t)vec1.size() || (size_t)size() != (size_t)vec2.size()){
+	if(size() != vec1.size() || size() != vec2.size()){
 		std::cerr << "error bad vector size" << std::endl;
 		assert(1);
 	}
@@ -78,7 +78,7 @@ void dd_real_vector::sub(d_real_vector& vec1, dd_real_vector& vec2)
 
 void dd_real_vector::sub(dd_real_vector& vec1, d_real_vector& vec2)
 {
-	if((size_t)size() != (size_t)vec1.size() || (size_t)size() != (size_t)vec2.size()){
+	if(size() != vec1.size() || size() != vec2.size()){
 		std::cerr << "error bad vector size" << std::endl;
 		assert(1);
 	}
@@ -114,7 +114,7 @@ void dd_real_vector::sub(dd_real_vector& vec1, d_real_vector& vec2)
 
 void dd_real_vector::sub(d_real_vector& vec1, d_real_vector& vec2)
 {
-	if((size_t)size() != (size_t)vec1.size() || (size_t)size() != (size_t)vec2.size()){
+	if(size() != vec1.size() || size() != vec2.size()){
 		std::cout << "error vecvor size is" << size() << vec1.size() << vec2.size() << std::endl;
 		assert(1);
 	}

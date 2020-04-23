@@ -31,5 +31,4 @@ $(TARGET): $(OBJS)
 	g++ $(CXXFLAGS) $(LIBFLAGS) $(QD_LINK) $(OBJS) -o $(TARGET)
 
 $(OBJDIR)/%.o: %.cpp 
-	mkdir -p obj
 	g++ $(CXXFLAGS) $(QD_LINK) -c $< -o $@
