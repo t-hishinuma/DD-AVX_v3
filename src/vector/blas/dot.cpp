@@ -16,12 +16,14 @@ namespace dd_avx{
 		{
 			int thN = omp_get_thread_num();
 			size_t i=0, is=0, ie=0;
-			get_isie(y.size(), is, ie);
+			get_isie((int)y.size(), is, ie);
+			printf("%ld, %ld\n", is, ie);
 
 			AVXreg r_hi = regs.zeros;
 			AVXreg r_lo = regs.zeros;
 
-			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
+			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
+				printf("a");
 
 				AVXreg x_hi = load(x.hi[i]);
 				AVXreg x_lo = load(x.lo[i]);
@@ -67,7 +69,7 @@ namespace dd_avx{
 			AVXreg r_hi = regs.zeros;
 			AVXreg r_lo = regs.zeros;
 
-			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
+			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
 				AVXreg x_hi = load(x.data()[i]);
 
@@ -111,7 +113,7 @@ namespace dd_avx{
 			AVXreg r_hi = regs.zeros;
 			AVXreg r_lo = regs.zeros;
 
-			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
+			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
 				AVXreg x_hi = load(x.hi[i]);
 				AVXreg x_lo = load(x.lo[i]);
@@ -155,7 +157,7 @@ namespace dd_avx{
 			AVXreg r_hi = regs.zeros;
 			AVXreg r_lo = regs.zeros;
 
-			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
+			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
 				AVXreg x_hi = load(x.data()[i]);
 				AVXreg x_lo = regs.zeros;

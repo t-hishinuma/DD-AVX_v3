@@ -32,10 +32,11 @@ int test(long N)
 	Y y;
 
 	for(int i=0; i<N; i++)
-		x.push_back(rand());
+		//x.push_back(rand());
+		x.push_back(i);
 
 	for(int i=0; i<N; i++)
-		y.push_back(rand());
+		y.push_back(1);
 
 	alpha = dd_avx::dot(x, y);
 
@@ -67,33 +68,33 @@ int main(int argc, char** argv){
 	ret = test<dd_real, dd_real_vector, dd_real_vector>(N);
 	if(ret == false) return ret;
 
-	std::cout << "DD, D, DD" << std::endl;
-	ret = test<dd_real, d_real_vector, dd_real_vector>(N);
-	if(ret == false) return ret;
-
-	std::cout << "DD, D, DD" << std::endl;
-	ret = test<dd_real, d_real_vector, dd_real_vector>(N);
-	if(ret == false) return ret;
-
-	std::cout << "DD, D, D" << std::endl;
-	ret = test<dd_real, d_real_vector, d_real_vector>(N);
-	if(ret == false) return ret;
-
-	std::cout << "D, DD, DD" << std::endl;
-	ret = test<d_real, dd_real_vector, dd_real_vector>(N);
-	if(ret == false) return ret;
-
-	std::cout << "D, DD, D" << std::endl;
-	ret = test<d_real, dd_real_vector, d_real_vector>(N);
-	if(ret == false) return ret;
-
-	std::cout << "D, D, DD" << std::endl;
-	ret = test<d_real, d_real_vector, dd_real_vector>(N);
-	if(ret == false) return ret;
-
-	std::cout << "D, D, D" << std::endl;
-	ret = test<d_real, d_real_vector, d_real_vector>(N);
-	if(ret == false) return ret;
+// 	std::cout << "DD, D, DD" << std::endl;
+// 	ret = test<dd_real, d_real_vector, dd_real_vector>(N);
+// 	if(ret == false) return ret;
+// 
+// 	std::cout << "DD, D, DD" << std::endl;
+// 	ret = test<dd_real, d_real_vector, dd_real_vector>(N);
+// 	if(ret == false) return ret;
+// 
+// 	std::cout << "DD, D, D" << std::endl;
+// 	ret = test<dd_real, d_real_vector, d_real_vector>(N);
+// 	if(ret == false) return ret;
+// 
+// 	std::cout << "D, DD, DD" << std::endl;
+// 	ret = test<d_real, dd_real_vector, dd_real_vector>(N);
+// 	if(ret == false) return ret;
+// 
+// 	std::cout << "D, DD, D" << std::endl;
+// 	ret = test<d_real, dd_real_vector, d_real_vector>(N);
+// 	if(ret == false) return ret;
+// 
+// 	std::cout << "D, D, DD" << std::endl;
+// 	ret = test<d_real, d_real_vector, dd_real_vector>(N);
+// 	if(ret == false) return ret;
+// 
+// 	std::cout << "D, D, D" << std::endl;
+// 	ret = test<d_real, d_real_vector, d_real_vector>(N);
+// 	if(ret == false) return ret;
 
 	return 0;
 }

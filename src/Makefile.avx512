@@ -3,6 +3,7 @@ QD_LINK=-I../include/ -L../lib/ -lqd
 
 CXXFLAGS+=-O3 -std=c++14 -fopenmp -lm -g -Wall -Wno-unused-variable -fPIC 
 CXXFLAGS+= -DUSE_AVX512 -mavx2 -mfma
+CXXFLAGS+= -Wno-class-conversion
 LIBFLAGS=-shared
 
 SRCS =$(notdir $(wildcard ./*.cpp))

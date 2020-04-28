@@ -18,7 +18,7 @@ void dd_real_vector::mul(dd_real_vector& vec1, dd_real_vector& vec2)
 	{
 		size_t i=0, is=0, ie=0;
 		get_isie(size(), is, ie);
-		for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
+		for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 			AVXreg a_hi = load(hi[i]);
 			AVXreg a_lo = load(lo[i]);
 
@@ -51,7 +51,7 @@ void dd_real_vector::mul(dd_real_vector& vec1, d_real_vector& vec2)
 	{
 		size_t i=0, is=0, ie=0;
 		get_isie(size(), is, ie);
-		for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
+		for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 			AVXreg a_hi = load(hi[i]);
 			AVXreg a_lo = load(lo[i]);
 
@@ -89,7 +89,7 @@ void dd_real_vector::mul(d_real_vector& vec1, d_real_vector& vec2)
 	{
 		size_t i=0, is=0, ie=0;
 		get_isie(size(), is, ie);
-		for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
+		for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 			AVXreg a_hi = load(hi[i]);
 			AVXreg a_lo = load(lo[i]);
 

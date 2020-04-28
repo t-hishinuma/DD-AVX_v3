@@ -8,7 +8,7 @@ void dd_real_vector::minus(){
 		size_t i=0, is=0, ie=0;
 		get_isie(size(), is, ie);
 
-		for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
+		for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 			to_minus(hi.data()[i], regs);
 			to_minus(lo.data()[i], regs);
 		}
@@ -26,7 +26,7 @@ void d_real_vector::minus(){
 		size_t i=0, is=0, ie=0;
 		get_isie(size(), is, ie);
 
-		for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
+		for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 			to_minus(data()[i], regs);
 		}
 		for(;i<ie;i++){

@@ -11,7 +11,7 @@ namespace dd_avx{
 			get_isie(x.size(), is, ie);
 			AVXreg alpha_hi = broadcast(alpha.x[0]);
 			AVXreg alpha_lo = broadcast(alpha.x[1]);
-			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
+			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
 				AVXreg x_hi = load(x.hi[i]);
 				AVXreg x_lo = load(x.lo[i]);
@@ -36,7 +36,7 @@ namespace dd_avx{
 			get_isie(x.size(), is, ie);
 			AVXreg alpha_hi = broadcast(alpha);
 			AVXreg alpha_lo = regs.zeros;
-			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
+			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
 				AVXreg x_hi = load(x.hi[i]);
 				AVXreg x_lo = load(x.lo[i]);
@@ -61,7 +61,7 @@ namespace dd_avx{
 			get_isie(x.size(), is, ie);
 			AVXreg alpha_hi = broadcast(alpha.x[0]);
 			AVXreg alpha_lo = broadcast(alpha.x[1]);
-			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
+			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
 				AVXreg x_hi = load(x.data()[i]);
 				AVXreg x_lo = regs.zeros;
@@ -85,7 +85,7 @@ namespace dd_avx{
 			get_isie(x.size(), is, ie);
 			AVXreg alpha_hi = broadcast(alpha);
 			AVXreg alpha_lo = regs.zeros;
-			for(i = is; i < ie - SIMD_Length - 1; i += SIMD_Length){
+			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
 				AVXreg x_hi = load(x.data()[i]);
 				AVXreg x_lo = regs.zeros;
