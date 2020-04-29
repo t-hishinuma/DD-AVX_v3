@@ -4,14 +4,14 @@
 
 #include <immintrin.h>
 #define DD_AVX_FUNC(NAME) _mm256_##NAME
-using AVXreg = __m256d;
+using SIMDreg = __m256d;
 
 namespace ddavx_core{
 
 	inline void Mul(
-			__m256d& a_hi, __m256d& a_lo,
-			const __m256d& b_hi, const __m256d& b_lo,
-			const __m256d& c_hi, const __m256d& c_lo,
+			SIMDreg& a_hi, SIMDreg& a_lo,
+			const SIMDreg& b_hi, const SIMDreg& b_lo,
+			const SIMDreg& c_hi, const SIMDreg& c_lo,
 			registers c
 			)
 	{
@@ -59,9 +59,9 @@ namespace ddavx_core{
 	}
 
 	inline void Mul(
-			__m256d& a_hi, 
-			const __m256d& b_hi, const __m256d& b_lo,
-			const __m256d& c_hi, const __m256d& c_lo,
+			SIMDreg& a_hi, 
+			const SIMDreg& b_hi, const SIMDreg& b_lo,
+			const SIMDreg& c_hi, const SIMDreg& c_lo,
 			registers c
 			)
 	{
@@ -107,9 +107,9 @@ namespace ddavx_core{
 
 
 	inline void Muld(
-			__m256d& a_hi, __m256d& a_lo,
-			const __m256d& b_hi, const __m256d& b_lo,
-			const __m256d& c_hi,
+			SIMDreg& a_hi, SIMDreg& a_lo,
+			const SIMDreg& b_hi, const SIMDreg& b_lo,
+			const SIMDreg& c_hi,
 			registers c
 			)
 	{

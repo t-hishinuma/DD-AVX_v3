@@ -19,14 +19,14 @@ void dd_real_vector::mul(dd_real_vector& vec1, dd_real_vector& vec2)
 		size_t i=0, is=0, ie=0;
 		get_isie(size(), is, ie);
 		for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
-			AVXreg a_hi = load(hi[i]);
-			AVXreg a_lo = load(lo[i]);
+			SIMDreg a_hi = load(hi[i]);
+			SIMDreg a_lo = load(lo[i]);
 
-			AVXreg b_hi = load(vec1.hi[i]);
-			AVXreg b_lo = load(vec1.lo[i]);
+			SIMDreg b_hi = load(vec1.hi[i]);
+			SIMDreg b_lo = load(vec1.lo[i]);
 
-			AVXreg c_hi = load(vec2.hi[i]);
-			AVXreg c_lo = load(vec2.lo[i]);
+			SIMDreg c_hi = load(vec2.hi[i]);
+			SIMDreg c_lo = load(vec2.lo[i]);
 
 			Mul(a_hi, a_lo, b_hi, b_lo, c_hi, c_lo, regs);
 
@@ -52,13 +52,13 @@ void dd_real_vector::mul(dd_real_vector& vec1, d_real_vector& vec2)
 		size_t i=0, is=0, ie=0;
 		get_isie(size(), is, ie);
 		for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
-			AVXreg a_hi = load(hi[i]);
-			AVXreg a_lo = load(lo[i]);
+			SIMDreg a_hi = load(hi[i]);
+			SIMDreg a_lo = load(lo[i]);
 
-			AVXreg b_hi = load(vec1.hi[i]);
-			AVXreg b_lo = load(vec1.lo[i]);
+			SIMDreg b_hi = load(vec1.hi[i]);
+			SIMDreg b_lo = load(vec1.lo[i]);
 
-			AVXreg c_hi = load(vec2.data()[i]);
+			SIMDreg c_hi = load(vec2.data()[i]);
 
 			Muld(a_hi, a_lo, b_hi, b_lo, c_hi, regs);
 
@@ -90,14 +90,14 @@ void dd_real_vector::mul(d_real_vector& vec1, d_real_vector& vec2)
 		size_t i=0, is=0, ie=0;
 		get_isie(size(), is, ie);
 		for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
-			AVXreg a_hi = load(hi[i]);
-			AVXreg a_lo = load(lo[i]);
+			SIMDreg a_hi = load(hi[i]);
+			SIMDreg a_lo = load(lo[i]);
 
-			AVXreg b_hi = load(vec1.data()[i]);
-			AVXreg b_lo = regs.zeros;
+			SIMDreg b_hi = load(vec1.data()[i]);
+			SIMDreg b_lo = regs.zeros;
 
-			AVXreg c_hi = load(vec2.data()[i]);
-			AVXreg c_lo = regs.zeros;
+			SIMDreg c_hi = load(vec2.data()[i]);
+			SIMDreg c_lo = regs.zeros;
 
 			Mul(a_hi, a_lo, b_hi, b_lo, c_hi, c_lo, regs);
 

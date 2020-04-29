@@ -4,7 +4,7 @@
 
 #include <immintrin.h>
 #define DD_AVX_FUNC(NAME) _mm256_##NAME
-using AVXreg = __m256d;
+using SIMDreg = __m256d;
 struct dd_real;
 
 namespace ddavx_core{
@@ -12,36 +12,36 @@ namespace ddavx_core{
 	class registers{
 		public:
 			double splitter = 134217729.0;
-			__m256d sp = DD_AVX_FUNC(broadcast_sd)(&splitter); 
-			__m256d minus = DD_AVX_FUNC(set_pd)(-1.0,-1.0,-1.0,-1.0);
-			__m256d zeros = DD_AVX_FUNC(set_pd)(0,0,0,0);
-			__m256d one,bh,bl,ch,cl,sh,sl,wh,wl,th,tl,p1,p2,t0,t1,t2,eh,t3; 
+			SIMDreg sp = DD_AVX_FUNC(broadcast_sd)(&splitter); 
+			SIMDreg minus = DD_AVX_FUNC(set_pd)(-1.0,-1.0,-1.0,-1.0);
+			SIMDreg zeros = DD_AVX_FUNC(set_pd)(0,0,0,0);
+			SIMDreg one,bh,bl,ch,cl,sh,sl,wh,wl,th,tl,p1,p2,t0,t1,t2,eh,t3; 
 	};
 
 
 	//load
-	inline __m256d load(const double& val){
+	inline SIMDreg load(const double& val){
 		return DD_AVX_FUNC(loadu_pd)((double*)&(val)); 
 	}
 
 	//set
-	inline __m256d set(const double a, const double b, const double c, const double d){
-		__m256d ret = DD_AVX_FUNC(set_pd)(a, b, c, d);
+	inline SIMDreg set(const double a, const double b, const double c, const double d){
+		SIMDreg ret = DD_AVX_FUNC(set_pd)(a, b, c, d);
 		return ret;
 	}
 
 	//broadcast
-	inline __m256d broadcast(const double a){
-		__m256d ret = DD_AVX_FUNC(broadcast_sd)(&a); 
+	inline SIMDreg broadcast(const double a){
+		SIMDreg ret = DD_AVX_FUNC(broadcast_sd)(&a); 
 		return ret;
 	}
 
 	//store
-	inline void store(double& ret, const __m256d val){
+	inline void store(double& ret, const SIMDreg val){
 		DD_AVX_FUNC(storeu_pd)((double*)&(ret), val);
 	}
 
-	inline dd_real reduction(AVXreg a_hi, AVXreg a_lo){
+	inline dd_real reduction(SIMDreg a_hi, SIMDreg a_lo){
 		double hi[4];
 		double lo[4];
 		DD_AVX_FUNC(storeu_pd)((double*)&(hi), a_hi); 
@@ -54,7 +54,7 @@ namespace ddavx_core{
 		return d + a + b + c;
 	}
 
-	inline void store(double& ret1, double& ret2, double& ret3, double& ret4, const __m256d val){
+	inline void store(double& ret1, double& ret2, double& ret3, double& ret4, const SIMDreg val){
 		double tmp[4];
 		DD_AVX_FUNC(storeu_pd)((double*)&(tmp), val); 
 		ret1 = tmp[0];
@@ -63,7 +63,7 @@ namespace ddavx_core{
 		ret4 = tmp[3];
 	}
 
-	inline void print(AVXreg a){
+	inline void print(SIMDreg a){
 		double tmp[4];
 		DD_AVX_FUNC(storeu_pd)((double*)&(tmp), a); 
 		printf("%f, %f, %f, %f\n", tmp[0], tmp[1], tmp[2], tmp[3]);
@@ -88,12 +88,12 @@ namespace ddavx_core{
 		ie = ie + is;
 	}
 	inline void to_minus(double& val, registers& regs){
-		AVXreg reg = load(val);
+		SIMDreg reg = load(val);
  		reg = DD_AVX_FUNC(mul_pd)(reg, regs.minus);
  		store(val, reg);
 	}
 
-	inline void to_minus(AVXreg& reg, registers& regs){
+	inline void to_minus(SIMDreg& reg, registers& regs){
  		reg = DD_AVX_FUNC(mul_pd)(reg, regs.minus);
 	}
 }

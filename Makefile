@@ -1,16 +1,6 @@
 DD_AVX_DIR?=$(HOME)/lib/dd_avx/
 
-PHONY: avx2
-PHONY: avx512
-
 all: avx2
-
-avx2:
-	git submodule update -i
-	$(MAKE) -C submodules -f Makefile.qd
-	$(MAKE) -C submodules -f Makefile.qd install
-	mkdir -p src/obj
-	$(MAKE) -j -C src/ -f Makefile.avx2 
 
 avx512:
 	git submodule update -i
@@ -18,6 +8,13 @@ avx512:
 	$(MAKE) -C submodules -f Makefile.qd install
 	mkdir -p src/obj
 	$(MAKE) -j -C src/ -f Makefile.avx512
+
+avx2:
+	git submodule update -i
+	$(MAKE) -C submodules -f Makefile.qd
+	$(MAKE) -C submodules -f Makefile.qd install
+	mkdir -p src/obj
+	$(MAKE) -j -C src/ -f Makefile.avx2 
 
 install:
 	mkdir -p $(DD_AVX_DIR)/lib/

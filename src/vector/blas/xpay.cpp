@@ -15,15 +15,15 @@ namespace dd_avx{
 		{
 			size_t i=0, is=0, ie=0;
 			get_isie(y.size(), is, ie);
-			AVXreg alpha_hi = broadcast(alpha.x[0]);
-			AVXreg alpha_lo = broadcast(alpha.x[1]);
+			SIMDreg alpha_hi = broadcast(alpha.x[0]);
+			SIMDreg alpha_lo = broadcast(alpha.x[1]);
 			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
-				AVXreg x_hi = load(x.hi[i]);
-				AVXreg x_lo = load(x.lo[i]);
+				SIMDreg x_hi = load(x.hi[i]);
+				SIMDreg x_lo = load(x.lo[i]);
 
-				AVXreg y_hi = load(y.hi[i]);
-				AVXreg y_lo = load(y.lo[i]);
+				SIMDreg y_hi = load(y.hi[i]);
+				SIMDreg y_lo = load(y.lo[i]);
 
 				Fma(y_hi, y_lo, x_hi, x_lo, alpha_hi, alpha_lo, y_hi, y_lo, regs);
 
@@ -47,15 +47,15 @@ namespace dd_avx{
 		{
 			size_t i=0, is=0, ie=0;
 			get_isie(y.size(), is, ie);
-			AVXreg alpha_hi = broadcast(alpha.x[0]);
-			AVXreg alpha_lo = broadcast(alpha.x[1]);
+			SIMDreg alpha_hi = broadcast(alpha.x[0]);
+			SIMDreg alpha_lo = broadcast(alpha.x[1]);
 			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
-				AVXreg x_hi = load(x.data()[i]);
-				AVXreg x_lo = regs.zeros;
+				SIMDreg x_hi = load(x.data()[i]);
+				SIMDreg x_lo = regs.zeros;
 
-				AVXreg y_hi = load(y.hi[i]);
-				AVXreg y_lo = load(y.lo[i]);
+				SIMDreg y_hi = load(y.hi[i]);
+				SIMDreg y_lo = load(y.lo[i]);
 
 				Fma(y_hi, y_lo, x_hi, x_lo, alpha_hi, alpha_lo, y_hi, y_lo, regs);
 
@@ -79,15 +79,15 @@ namespace dd_avx{
 		{
 			size_t i=0, is=0, ie=0;
 			get_isie(y.size(), is, ie);
-			AVXreg alpha_hi = broadcast(alpha.x[0]);
-			AVXreg alpha_lo = broadcast(alpha.x[1]);
+			SIMDreg alpha_hi = broadcast(alpha.x[0]);
+			SIMDreg alpha_lo = broadcast(alpha.x[1]);
 			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
-				AVXreg x_hi = load(x.hi[i]);
-				AVXreg x_lo = load(x.lo[i]);
+				SIMDreg x_hi = load(x.hi[i]);
+				SIMDreg x_lo = load(x.lo[i]);
 
-				AVXreg y_hi = load(y.data()[i]);
-				AVXreg y_lo = regs.zeros;
+				SIMDreg y_hi = load(y.data()[i]);
+				SIMDreg y_lo = regs.zeros;
 
 				Fma(y_hi, y_lo, x_hi, x_lo, alpha_hi, alpha_lo, y_hi, y_lo, regs);
 
@@ -110,15 +110,15 @@ namespace dd_avx{
 		{
 			size_t i=0, is=0, ie=0;
 			get_isie(y.size(), is, ie);
-			AVXreg alpha_hi = broadcast(alpha.x[0]);
-			AVXreg alpha_lo = broadcast(alpha.x[1]);
+			SIMDreg alpha_hi = broadcast(alpha.x[0]);
+			SIMDreg alpha_lo = broadcast(alpha.x[1]);
 			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
-				AVXreg x_hi = load(x.data()[i]);
-				AVXreg x_lo = regs.zeros;
+				SIMDreg x_hi = load(x.data()[i]);
+				SIMDreg x_lo = regs.zeros;
 
-				AVXreg y_hi = load(y.data()[i]);
-				AVXreg y_lo = regs.zeros;
+				SIMDreg y_hi = load(y.data()[i]);
+				SIMDreg y_lo = regs.zeros;
 
 				Fma(y_hi, y_lo, x_hi, x_lo, alpha_hi, alpha_lo, y_hi, y_lo, regs);
 
@@ -142,15 +142,15 @@ namespace dd_avx{
 		{
 			size_t i=0, is=0, ie=0;
 			get_isie(y.size(), is, ie);
-			AVXreg alpha_hi = broadcast(alpha);
-			AVXreg alpha_lo = regs.zeros;
+			SIMDreg alpha_hi = broadcast(alpha);
+			SIMDreg alpha_lo = regs.zeros;
 			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
-				AVXreg x_hi = load(x.hi[i]);
-				AVXreg x_lo = load(x.lo[i]);
+				SIMDreg x_hi = load(x.hi[i]);
+				SIMDreg x_lo = load(x.lo[i]);
 
-				AVXreg y_hi = load(y.hi[i]);
-				AVXreg y_lo = load(y.lo[i]);
+				SIMDreg y_hi = load(y.hi[i]);
+				SIMDreg y_lo = load(y.lo[i]);
 
 				Fma(y_hi, y_lo, x_hi, x_lo, alpha_hi, alpha_lo, y_hi, y_lo, regs);
 
@@ -174,15 +174,15 @@ namespace dd_avx{
 		{
 			size_t i=0, is=0, ie=0;
 			get_isie(y.size(), is, ie);
-			AVXreg alpha_hi = broadcast(alpha);
-			AVXreg alpha_lo = regs.zeros;
+			SIMDreg alpha_hi = broadcast(alpha);
+			SIMDreg alpha_lo = regs.zeros;
 			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
-				AVXreg x_hi = load(x.data()[i]);
-				AVXreg x_lo = regs.zeros;
+				SIMDreg x_hi = load(x.data()[i]);
+				SIMDreg x_lo = regs.zeros;
 
-				AVXreg y_hi = load(y.hi[i]);
-				AVXreg y_lo = load(y.lo[i]);
+				SIMDreg y_hi = load(y.hi[i]);
+				SIMDreg y_lo = load(y.lo[i]);
 
 				Fma(y_hi, y_lo, x_hi, x_lo, alpha_hi, alpha_lo, y_hi, y_lo, regs);
 
@@ -206,15 +206,15 @@ namespace dd_avx{
 		{
 			size_t i=0, is=0, ie=0;
 			get_isie(y.size(), is, ie);
-			AVXreg alpha_hi = broadcast(alpha);
-			AVXreg alpha_lo = regs.zeros;
+			SIMDreg alpha_hi = broadcast(alpha);
+			SIMDreg alpha_lo = regs.zeros;
 			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
-				AVXreg x_hi = load(x.hi[i]);
-				AVXreg x_lo = load(x.lo[i]);
+				SIMDreg x_hi = load(x.hi[i]);
+				SIMDreg x_lo = load(x.lo[i]);
 
-				AVXreg y_hi = load(y.data()[i]);
-				AVXreg y_lo = regs.zeros;
+				SIMDreg y_hi = load(y.data()[i]);
+				SIMDreg y_lo = regs.zeros;
 
 				Fma(y_hi, y_lo, x_hi, x_lo, alpha_hi, alpha_lo, y_hi, y_lo, regs);
 
@@ -237,15 +237,15 @@ namespace dd_avx{
 		{
 			size_t i=0, is=0, ie=0;
 			get_isie(y.size(), is, ie);
-			AVXreg alpha_hi = broadcast(alpha);
-			AVXreg alpha_lo = regs.zeros;
+			SIMDreg alpha_hi = broadcast(alpha);
+			SIMDreg alpha_lo = regs.zeros;
 			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
-				AVXreg x_hi = load(x.data()[i]);
-				AVXreg x_lo = regs.zeros;
+				SIMDreg x_hi = load(x.data()[i]);
+				SIMDreg x_lo = regs.zeros;
 
-				AVXreg y_hi = load(y.data()[i]);
-				AVXreg y_lo = regs.zeros;
+				SIMDreg y_hi = load(y.data()[i]);
+				SIMDreg y_lo = regs.zeros;
 
 				Fma(y_hi, y_lo, x_hi, x_lo, alpha_hi, alpha_lo, y_hi, y_lo, regs);
 

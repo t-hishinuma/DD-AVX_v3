@@ -19,17 +19,17 @@ namespace dd_avx{
 			get_isie((int)y.size(), is, ie);
 			printf("%ld, %ld\n", is, ie);
 
-			AVXreg r_hi = regs.zeros;
-			AVXreg r_lo = regs.zeros;
+			SIMDreg r_hi = regs.zeros;
+			SIMDreg r_lo = regs.zeros;
 
 			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 				printf("a");
 
-				AVXreg x_hi = load(x.hi[i]);
-				AVXreg x_lo = load(x.lo[i]);
+				SIMDreg x_hi = load(x.hi[i]);
+				SIMDreg x_lo = load(x.lo[i]);
 
-				AVXreg y_hi = load(y.hi[i]);
-				AVXreg y_lo = load(y.lo[i]);
+				SIMDreg y_hi = load(y.hi[i]);
+				SIMDreg y_lo = load(y.lo[i]);
 
 				Fma(r_hi, r_lo, r_hi, r_lo, x_hi, x_lo, y_hi, y_lo, regs);
 			}
@@ -66,15 +66,15 @@ namespace dd_avx{
 			size_t i=0, is=0, ie=0;
 			get_isie(y.size(), is, ie);
 
-			AVXreg r_hi = regs.zeros;
-			AVXreg r_lo = regs.zeros;
+			SIMDreg r_hi = regs.zeros;
+			SIMDreg r_lo = regs.zeros;
 
 			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
-				AVXreg x_hi = load(x.data()[i]);
+				SIMDreg x_hi = load(x.data()[i]);
 
-				AVXreg y_hi = load(y.hi[i]);
-				AVXreg y_lo = load(y.lo[i]);
+				SIMDreg y_hi = load(y.hi[i]);
+				SIMDreg y_lo = load(y.lo[i]);
 
 				Fmad(r_hi, r_lo, r_hi, r_lo, y_hi, y_lo, x_hi, regs);
 			}
@@ -110,15 +110,15 @@ namespace dd_avx{
 			size_t i=0, is=0, ie=0;
 			get_isie(y.size(), is, ie);
 
-			AVXreg r_hi = regs.zeros;
-			AVXreg r_lo = regs.zeros;
+			SIMDreg r_hi = regs.zeros;
+			SIMDreg r_lo = regs.zeros;
 
 			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
-				AVXreg x_hi = load(x.hi[i]);
-				AVXreg x_lo = load(x.lo[i]);
+				SIMDreg x_hi = load(x.hi[i]);
+				SIMDreg x_lo = load(x.lo[i]);
 
-				AVXreg y_hi = load(y.data()[i]);
+				SIMDreg y_hi = load(y.data()[i]);
 
 
 				Fmad(r_hi, r_lo, r_hi, r_lo, x_hi, x_lo, y_hi, regs);
@@ -154,15 +154,15 @@ namespace dd_avx{
 			size_t i=0, is=0, ie=0;
 			get_isie(y.size(), is, ie);
 
-			AVXreg r_hi = regs.zeros;
-			AVXreg r_lo = regs.zeros;
+			SIMDreg r_hi = regs.zeros;
+			SIMDreg r_lo = regs.zeros;
 
 			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
-				AVXreg x_hi = load(x.data()[i]);
-				AVXreg x_lo = regs.zeros;
+				SIMDreg x_hi = load(x.data()[i]);
+				SIMDreg x_lo = regs.zeros;
 
-				AVXreg y_hi = load(y.data()[i]);
+				SIMDreg y_hi = load(y.data()[i]);
 
 
 				Fmad(r_hi, r_lo, r_hi, r_lo, x_hi, x_lo, y_hi, regs);
