@@ -3,15 +3,14 @@
 #define DD_AVX_CORE_MUL_HPP_
 
 #include <immintrin.h>
-#define DD_AVX_FUNC(NAME) _mm256_##NAME
-using AVXreg = __m256d;
+using SIMDreg = __m256d;
 
 namespace ddavx_core{
 
 	inline void Mul(
-			__m256d& a_hi, __m256d& a_lo,
-			const __m256d& b_hi, const __m256d& b_lo,
-			const __m256d& c_hi, const __m256d& c_lo,
+			SIMDreg& a_hi, SIMDreg& a_lo,
+			const SIMDreg& b_hi, const SIMDreg& b_lo,
+			const SIMDreg& c_hi, const SIMDreg& c_lo,
 			registers c
 			)
 	{
@@ -21,47 +20,47 @@ namespace ddavx_core{
 		c.cl = c_lo;
 
 #if 1
-		c.p1 = DD_AVX_FUNC(mul_pd)(c.minus, c.bh); 
-		c.p1 = DD_AVX_FUNC(mul_pd)(c.p1, c.ch); 
-		c.p2 = DD_AVX_FUNC(fmadd_pd)(c.bh, c.ch, c.p1); 
-		c.p1 = DD_AVX_FUNC(mul_pd)(c.minus, c.p1); 
-		c.p2 = DD_AVX_FUNC(fmadd_pd)(c.bh, c.cl, c.p2); 
-		c.p2 = DD_AVX_FUNC(fmadd_pd)(c.bl, c.ch, c.p2);
-		c.ch = DD_AVX_FUNC(add_pd)(c.p1, c.p2);
+		c.p1 = mul(c.minus, c.bh); 
+		c.p1 = mul(c.p1, c.ch); 
+		c.p2 = fmadd(c.bh, c.ch, c.p1); 
+		c.p1 = mul(c.minus, c.p1); 
+		c.p2 = fmadd(c.bh, c.cl, c.p2); 
+		c.p2 = fmadd(c.bl, c.ch, c.p2);
+		c.ch = add(c.p1, c.p2);
 #else
-		c.p1  = DD_AVX_FUNC(mul_pd)(c.bh, c.ch);
-		c.sh  = DD_AVX_FUNC(mul_pd)(c.sp, c.bh);
-		c.sl  = DD_AVX_FUNC(mul_pd)(c.sp, c.ch);
-		c.th  = DD_AVX_FUNC(sub_pd)(c.sh, c.bh);
-		c.tl  = DD_AVX_FUNC(sub_pd)(c.sl, c.ch);
-		c.sh  = DD_AVX_FUNC(sub_pd)(c.sh, c.th);
-		c.sl  = DD_AVX_FUNC(sub_pd)(c.sl, c.tl);
-		c.t1  = DD_AVX_FUNC(mul_pd)(c.bh, c.cl);
-		c.wh  = DD_AVX_FUNC(sub_pd)(c.bh, c.sh);
-		c.t2  = DD_AVX_FUNC(mul_pd)(c.ch, c.bl);
-		c.wl  = DD_AVX_FUNC(sub_pd)(c.ch, c.sl);
-		c.t0  = DD_AVX_FUNC(mul_pd)(c.wh, c.wl);
-		c.p2  = DD_AVX_FUNC(mul_pd)(c.sh, c.sl);
-		c.sh  = DD_AVX_FUNC(mul_pd)(c.sh, c.wl);
-		c.sl  = DD_AVX_FUNC(mul_pd)(c.sl, c.wh);
-		c.p2  = DD_AVX_FUNC(sub_pd)(c.p2, c.p1);
-		c.p2  = DD_AVX_FUNC(add_pd)(c.p2, c.sh);
-		c.p2  = DD_AVX_FUNC(add_pd)(c.p2, c.sl);
-		c.p2  = DD_AVX_FUNC(add_pd)(c.p2, c.t0);
-		c.p2  = DD_AVX_FUNC(add_pd)(c.p2, c.t1);
-		c.p2  = DD_AVX_FUNC(add_pd)(c.p2, c.t2);
-		c.ch  = DD_AVX_FUNC(add_pd)(c.p1, c.p2);
+		c.p1  = mul(c.bh, c.ch);
+		c.sh  = mul(c.sp, c.bh);
+		c.sl  = mul(c.sp, c.ch);
+		c.th  = sub(c.sh, c.bh);
+		c.tl  = sub(c.sl, c.ch);
+		c.sh  = sub(c.sh, c.th);
+		c.sl  = sub(c.sl, c.tl);
+		c.t1  = mul(c.bh, c.cl);
+		c.wh  = sub(c.bh, c.sh);
+		c.t2  = mul(c.ch, c.bl);
+		c.wl  = sub(c.ch, c.sl);
+		c.t0  = mul(c.wh, c.wl);
+		c.p2  = mul(c.sh, c.sl);
+		c.sh  = mul(c.sh, c.wl);
+		c.sl  = mul(c.sl, c.wh);
+		c.p2  = sub(c.p2, c.p1);
+		c.p2  = add(c.p2, c.sh);
+		c.p2  = add(c.p2, c.sl);
+		c.p2  = add(c.p2, c.t0);
+		c.p2  = add(c.p2, c.t1);
+		c.p2  = add(c.p2, c.t2);
+		c.ch  = add(c.p1, c.p2);
 #endif
 		a_hi  = c.ch;
-		c.ch  = DD_AVX_FUNC(sub_pd)(c.ch, c.p1);
-		c.p2  = DD_AVX_FUNC(sub_pd)(c.p2, c.ch);
+		c.ch  = sub(c.ch, c.p1);
+		c.p2  = sub(c.p2, c.ch);
 		a_lo  = c.p2;
 	}
 
 	inline void Mul(
-			__m256d& a_hi, 
-			const __m256d& b_hi, const __m256d& b_lo,
-			const __m256d& c_hi, const __m256d& c_lo,
+			SIMDreg& a_hi, 
+			const SIMDreg& b_hi, const SIMDreg& b_lo,
+			const SIMDreg& c_hi, const SIMDreg& c_lo,
 			registers c
 			)
 	{
@@ -71,45 +70,45 @@ namespace ddavx_core{
 		c.cl = c_lo;
 
 #if 1
-		c.p1 = DD_AVX_FUNC(mul_pd)(c.minus, c.bh); 
-		c.p1 = DD_AVX_FUNC(mul_pd)(c.p1, c.ch); 
-		c.p2 = DD_AVX_FUNC(fmadd_pd)(c.bh, c.ch, c.p1); 
-		c.p1 = DD_AVX_FUNC(mul_pd)(c.minus, c.p1); 
-		c.p2 = DD_AVX_FUNC(fmadd_pd)(c.bh, c.cl, c.p2); 
-		c.p2 = DD_AVX_FUNC(fmadd_pd)(c.bl, c.ch, c.p2);
-		c.ch = DD_AVX_FUNC(add_pd)(c.p1, c.p2);
+		c.p1 = mul(c.minus, c.bh); 
+		c.p1 = mul(c.p1, c.ch); 
+		c.p2 = fmadd(c.bh, c.ch, c.p1); 
+		c.p1 = mul(c.minus, c.p1); 
+		c.p2 = fmadd(c.bh, c.cl, c.p2); 
+		c.p2 = fmadd(c.bl, c.ch, c.p2);
+		c.ch = add(c.p1, c.p2);
 #else
-		c.p1  = DD_AVX_FUNC(mul_pd)(c.bh, c.ch);
-		c.sh  = DD_AVX_FUNC(mul_pd)(c.sp, c.bh);
-		c.sl  = DD_AVX_FUNC(mul_pd)(c.sp, c.ch);
-		c.th  = DD_AVX_FUNC(sub_pd)(c.sh, c.bh);
-		c.tl  = DD_AVX_FUNC(sub_pd)(c.sl, c.ch);
-		c.sh  = DD_AVX_FUNC(sub_pd)(c.sh, c.th);
-		c.sl  = DD_AVX_FUNC(sub_pd)(c.sl, c.tl);
-		c.t1  = DD_AVX_FUNC(mul_pd)(c.bh, c.cl);
-		c.wh  = DD_AVX_FUNC(sub_pd)(c.bh, c.sh);
-		c.t2  = DD_AVX_FUNC(mul_pd)(c.ch, c.bl);
-		c.wl  = DD_AVX_FUNC(sub_pd)(c.ch, c.sl);
-		c.t0  = DD_AVX_FUNC(mul_pd)(c.wh, c.wl);
-		c.p2  = DD_AVX_FUNC(mul_pd)(c.sh, c.sl);
-		c.sh  = DD_AVX_FUNC(mul_pd)(c.sh, c.wl);
-		c.sl  = DD_AVX_FUNC(mul_pd)(c.sl, c.wh);
-		c.p2  = DD_AVX_FUNC(sub_pd)(c.p2, c.p1);
-		c.p2  = DD_AVX_FUNC(add_pd)(c.p2, c.sh);
-		c.p2  = DD_AVX_FUNC(add_pd)(c.p2, c.sl);
-		c.p2  = DD_AVX_FUNC(add_pd)(c.p2, c.t0);
-		c.p2  = DD_AVX_FUNC(add_pd)(c.p2, c.t1);
-		c.p2  = DD_AVX_FUNC(add_pd)(c.p2, c.t2);
-		c.ch  = DD_AVX_FUNC(add_pd)(c.p1, c.p2);
+		c.p1  = mul(c.bh, c.ch);
+		c.sh  = mul(c.sp, c.bh);
+		c.sl  = mul(c.sp, c.ch);
+		c.th  = sub(c.sh, c.bh);
+		c.tl  = sub(c.sl, c.ch);
+		c.sh  = sub(c.sh, c.th);
+		c.sl  = sub(c.sl, c.tl);
+		c.t1  = mul(c.bh, c.cl);
+		c.wh  = sub(c.bh, c.sh);
+		c.t2  = mul(c.ch, c.bl);
+		c.wl  = sub(c.ch, c.sl);
+		c.t0  = mul(c.wh, c.wl);
+		c.p2  = mul(c.sh, c.sl);
+		c.sh  = mul(c.sh, c.wl);
+		c.sl  = mul(c.sl, c.wh);
+		c.p2  = sub(c.p2, c.p1);
+		c.p2  = add(c.p2, c.sh);
+		c.p2  = add(c.p2, c.sl);
+		c.p2  = add(c.p2, c.t0);
+		c.p2  = add(c.p2, c.t1);
+		c.p2  = add(c.p2, c.t2);
+		c.ch  = add(c.p1, c.p2);
 #endif
 		a_hi  = c.ch;
 	}
 
 
 	inline void Muld(
-			__m256d& a_hi, __m256d& a_lo,
-			const __m256d& b_hi, const __m256d& b_lo,
-			const __m256d& c_hi,
+			SIMDreg& a_hi, SIMDreg& a_lo,
+			const SIMDreg& b_hi, const SIMDreg& b_lo,
+			const SIMDreg& c_hi,
 			registers c
 			)
 	{
@@ -119,37 +118,37 @@ namespace ddavx_core{
 		c.ch  = c_hi;
 
 #if 1
-		c.p1 = DD_AVX_FUNC(mul_pd)(c.minus, c.bh); 
-		c.p1 = DD_AVX_FUNC(mul_pd)(c.p1, c.ch); 
-		c.p2 = DD_AVX_FUNC(fmadd_pd)(c.bh, c.ch, c.p1); 
-		c.p1 = DD_AVX_FUNC(mul_pd)(c.minus, c.p1); 
-		c.p2 = DD_AVX_FUNC(fmadd_pd)(c.bl, c.ch, c.p2); 
-		c.ch = DD_AVX_FUNC(add_pd)(c.p1, c.p2);
+		c.p1 = mul(c.minus, c.bh); 
+		c.p1 = mul(c.p1, c.ch); 
+		c.p2 = fmadd(c.bh, c.ch, c.p1); 
+		c.p1 = mul(c.minus, c.p1); 
+		c.p2 = fmadd(c.bl, c.ch, c.p2); 
+		c.ch = add(c.p1, c.p2);
 #else
-		c.p1  = DD_AVX_AVX_FUNC(mul_pd)(c.bh, c.ch);
-		c.bl  = DD_AVX_AVX_FUNC(mul_pd)(c.bl, c.ch);
-		c.sh  = DD_AVX_AVX_FUNC(mul_pd)(c.sp, c.bh);
-		c.th  = DD_AVX_AVX_FUNC(sub_pd)(c.sh, c.bh);
-		c.sh  = DD_AVX_AVX_FUNC(sub_pd)(c.sh, c.th);
-		c.bh  = DD_AVX_AVX_FUNC(sub_pd)(c.bh, c.sh);
-		c.sl  = DD_AVX_AVX_FUNC(mul_pd)(c.sp, c.ch);
-		c.tl  = DD_AVX_AVX_FUNC(sub_pd)(c.sl, c.ch);
-		c.sl  = DD_AVX_AVX_FUNC(sub_pd)(c.sl, c.tl);
-		c.ch  = DD_AVX_AVX_FUNC(sub_pd)(c.ch, c.sl);
-		c.t2  = DD_AVX_AVX_FUNC(mul_pd)(c.bh, c.ch);
-		c.p2  = DD_AVX_AVX_FUNC(mul_pd)(c.sh, c.sl);
-		c.t0  = DD_AVX_AVX_FUNC(mul_pd)(c.sh, c.ch);
-		c.t1  = DD_AVX_AVX_FUNC(mul_pd)(c.sl, c.bh);
-		c.p2  = DD_AVX_AVX_FUNC(sub_pd)(c.p2, c.p1);
-		c.p2  = DD_AVX_AVX_FUNC(add_pd)(c.p2, c.t0);
-		c.p2  = DD_AVX_AVX_FUNC(add_pd)(c.p2, c.t1);
-		c.p2  = DD_AVX_AVX_FUNC(add_pd)(c.p2, c.t2);
-		c.p2  = DD_AVX_AVX_FUNC(add_pd)(c.p2, c.bl);
-		c.ch  = DD_AVX_AVX_FUNC(add_pd)(c.p1, c.p2);
+		c.p1  = mul(c.bh, c.ch);
+		c.bl  = mul(c.bl, c.ch);
+		c.sh  = mul(c.sp, c.bh);
+		c.th  = sub(c.sh, c.bh);
+		c.sh  = sub(c.sh, c.th);
+		c.bh  = sub(c.bh, c.sh);
+		c.sl  = mul(c.sp, c.ch);
+		c.tl  = sub(c.sl, c.ch);
+		c.sl  = sub(c.sl, c.tl);
+		c.ch  = sub(c.ch, c.sl);
+		c.t2  = mul(c.bh, c.ch);
+		c.p2  = mul(c.sh, c.sl);
+		c.t0  = mul(c.sh, c.ch);
+		c.t1  = mul(c.sl, c.bh);
+		c.p2  = sub(c.p2, c.p1);
+		c.p2  = add(c.p2, c.t0);
+		c.p2  = add(c.p2, c.t1);
+		c.p2  = add(c.p2, c.t2);
+		c.p2  = add(c.p2, c.bl);
+		c.ch  = add(c.p1, c.p2);
 #endif
 		a_hi  = c.ch;
-		c.ch  = DD_AVX_FUNC(sub_pd)(c.ch, c.p1);
-		c.p2  = DD_AVX_FUNC(sub_pd)(c.p2, c.ch);
+		c.ch  = sub(c.ch, c.p1);
+		c.p2  = sub(c.p2, c.ch);
 		a_lo  = c.p2;
 	}
 
