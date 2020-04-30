@@ -2,10 +2,6 @@
 #ifndef DD_AVX_CORE_FMA_HPP_
 #define DD_AVX_CORE_FMA_HPP_
 
-#include <immintrin.h>
-
-using SIMDreg = __m256d;
-
 namespace ddavx_core{
 
 	//d = a + b * c

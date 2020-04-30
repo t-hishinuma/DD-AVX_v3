@@ -2,9 +2,6 @@
 #ifndef DD_AVX_CORE_MUL_HPP_
 #define DD_AVX_CORE_MUL_HPP_
 
-#include <immintrin.h>
-using SIMDreg = __m256d;
-
 namespace ddavx_core{
 
 	inline void Mul(

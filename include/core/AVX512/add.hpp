@@ -2,9 +2,6 @@
 #ifndef DD_AVX_CORE_ADD_HPP_
 #define DD_AVX_CORE_ADD_HPP_
 
-#include <immintrin.h>
-using SIMDreg = __m256d;
-
 namespace ddavx_core{
 	inline void Add(
 			SIMDreg& a_hi, SIMDreg& a_lo,
