@@ -29,6 +29,7 @@ namespace ddavx_core{
 	}
 
 	//set
+	// need to change for AVX512
 	inline SIMDreg set(const double a, const double b, const double c, const double d){
 		SIMDreg ret = SIMD_FUNC(set_pd)(a, b, c, d);
 		return ret;
