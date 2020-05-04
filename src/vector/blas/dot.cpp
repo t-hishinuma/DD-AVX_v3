@@ -17,13 +17,11 @@ namespace dd_avx{
 			int thN = omp_get_thread_num();
 			size_t i=0, is=0, ie=0;
 			get_isie((int)y.size(), is, ie);
-			printf("%ld, %ld\n", is, ie);
 
 			SIMDreg r_hi = regs.zeros;
 			SIMDreg r_lo = regs.zeros;
 
 			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
-				printf("a");
 
 				SIMDreg x_hi = load(x.hi[i]);
 				SIMDreg x_lo = load(x.lo[i]);
