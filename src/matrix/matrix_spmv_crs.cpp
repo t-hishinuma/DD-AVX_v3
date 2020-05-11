@@ -24,10 +24,10 @@ namespace dd_avx{
 		registers regs;
 
 #pragma omp parallel for schedule(guided) private(regs)
-		for(size_t i=0; i<A.get_row(); i++){
+		for(int i=0; i<A.get_row(); i++){
 			SIMDreg y_hi = regs.zeros;
 			SIMDreg y_lo = regs.zeros;
-			size_t j = 0;
+			int j = 0;
 
 			for(j = A.row_ptr[i]; j < A.row_ptr[i+1] - (SIMD_Length-1); j+=SIMD_Length){
 
@@ -89,10 +89,10 @@ namespace dd_avx{
 		registers regs;
 
 #pragma omp parallel for schedule(guided) private(regs)
-		for(size_t i=0; i<A.get_row(); i++){
+		for(int i=0; i<A.get_row(); i++){
 			SIMDreg y_hi = regs.zeros;
 			SIMDreg y_lo = regs.zeros;
-			size_t j = 0;
+			int j = 0;
 
 			for(j = A.row_ptr[i]; j < A.row_ptr[i+1] - (SIMD_Length-1); j+=SIMD_Length){
 
@@ -151,10 +151,10 @@ namespace dd_avx{
 		registers regs;
 
 #pragma omp parallel for schedule(guided) private(regs)
-		for(size_t i=0; i<A.get_row(); i++){
+		for(int i=0; i<A.get_row(); i++){
 			SIMDreg y_hi = regs.zeros;
 			SIMDreg y_lo = regs.zeros;
-			size_t j = 0;
+			int j = 0;
 
 			for(j = A.row_ptr[i]; j < A.row_ptr[i+1] - (SIMD_Length-1); j+=SIMD_Length){
 
