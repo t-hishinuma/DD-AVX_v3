@@ -20,16 +20,13 @@
 #include"./DD-AVX_d_spmat.hpp"
 
 #if USE_AVX2==1
-	#include "./core/AVX2/core.hpp"
-	#include "./core/AVX2/add.hpp"
-	#include "./core/AVX2/mul.hpp"
-	#include "./core/AVX2/fma.hpp"
+	#include "./core/AVX2_core.hpp"
 #elif USE_AVX512==1 // for AVX512
-	#include "./core/AVX512/core.hpp"
-	#include "./core/AVX512/add.hpp"
-	#include "./core/AVX512/mul.hpp"
-	#include "./core/AVX512/fma.hpp"
+	#include "./core/AVX512_core.hpp"
 #endif
+	#include "./core/add.hpp"
+	#include "./core/mul.hpp"
+	#include "./core/fma.hpp"
 
 using d_real = double;
 
