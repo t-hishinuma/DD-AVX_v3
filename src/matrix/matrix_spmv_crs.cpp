@@ -29,12 +29,11 @@ namespace dd_avx{
 			SIMDreg y_lo = regs.zeros;
 			int j = 0;
 
-			for(j = A.row_ptr[i]; j < A.row_ptr[i+1] - (SIMD_Length-1); j+=SIMD_Length){
+			int ww =  A.row_ptr[i+1] - (SIMD_Length-1);
+			for(j = (int)A.row_ptr[i]; j < ww; j+=(int)SIMD_Length){
 
-				SIMDreg x_hi = set_all(x.hi, A.col_ind, j);
-				SIMDreg x_lo = set_all(x.lo, A.col_ind, j);
-// 				SIMDreg x_hi = set(x.hi[A.col_ind[j+0]], x.hi[A.col_ind[j+1]], x.hi[A.col_ind[j+2]], x.hi[A.col_ind[j+3]]);
-// 				SIMDreg x_lo = set(x.lo[A.col_ind[j+0]], x.lo[A.col_ind[j+1]], x.lo[A.col_ind[j+2]], x.lo[A.col_ind[j+3]]);
+ 				SIMDreg x_hi = set_all(x.hi, A.col_ind, j);
+ 				SIMDreg x_lo = set_all(x.lo, A.col_ind, j);
 
 				SIMDreg Areg = load(A.val[j]);
 
@@ -94,7 +93,8 @@ namespace dd_avx{
 			SIMDreg y_lo = regs.zeros;
 			int j = 0;
 
-			for(j = A.row_ptr[i]; j < A.row_ptr[i+1] - (SIMD_Length-1); j+=SIMD_Length){
+			int ww =  A.row_ptr[i+1] - (SIMD_Length-1);
+			for(j = (int)A.row_ptr[i]; j < ww; j+=(int)SIMD_Length){
 
 				SIMDreg x_hi = set_all(x, A.col_ind, j);
 				SIMDreg x_lo = regs.zeros;
@@ -156,7 +156,8 @@ namespace dd_avx{
 			SIMDreg y_lo = regs.zeros;
 			int j = 0;
 
-			for(j = A.row_ptr[i]; j < A.row_ptr[i+1] - (SIMD_Length-1); j+=SIMD_Length){
+			int ww =  A.row_ptr[i+1] - (SIMD_Length-1);
+			for(j = (int)A.row_ptr[i]; j < ww; j+=(int)SIMD_Length){
 
 				SIMDreg x_hi = set_all(x.hi, A.col_ind, j);
 				SIMDreg x_lo = set_all(x.lo, A.col_ind, j);
