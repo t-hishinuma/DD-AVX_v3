@@ -51,7 +51,9 @@ int main(int argc, char** argv){
 	bool ret=0;
 
 	d_real_SpMat A;
-	A.input_mm("./test.mtx");
+    std::cout << "hello" << std::endl;
+	A.input_mm("./cage9/a");
+    std::cout << "hello" << std::endl;
 
 	std::cout << "DD = DMat * DD" << std::endl;
 	ret = test<dd_real_vector, dd_real_vector>(A);

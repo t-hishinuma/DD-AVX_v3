@@ -4,7 +4,7 @@ using namespace ddavx_core;
 namespace dd_avx{
 
 	// 実験的にsetを関数化して書き直しの箇所を減らしてみます
-	inline SIMDreg set_all(const std::vector<double>& x, const std::vector<size_t> index, const size_t i){
+	inline SIMDreg set_all(const std::vector<double>& x, const std::vector<size_t>& index, const size_t i){
 		SIMDreg tmp;
 		tmp = set(x[index[i+0]], x[index[i+1]], x[index[i+2]], x[index[i+3]]);
 		return tmp;

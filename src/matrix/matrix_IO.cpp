@@ -62,6 +62,8 @@ void d_real_SpMat::input_mm(const char* filename){
 
      std::istringstream data(buf);
      data >> rowN >> colN >> NNZ;
+
+     //symmetric check!
      if (colN != rowN) {
          std::cerr << "Matrix.input: Matrix is not square" << std::endl;
          exit(-1);
