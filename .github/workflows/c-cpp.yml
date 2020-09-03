@@ -3,6 +3,7 @@ name: C/C++ CI
 on:
   push:
     branches: [ master ]
+    branches: [ dev ]
   pull_request:
     branches: [ master ]
 
@@ -17,3 +18,12 @@ jobs:
       run: make avx2
     - name: make install
       run: make install
+
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: make
+      run: cd test; make

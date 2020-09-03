@@ -1,11 +1,11 @@
 all: 
-	$(MAKE) -C scalar
-	$(MAKE) -C vector
-	$(MAKE) -C vector_blas
-	$(MAKE) -C matrix
+	$(MAKE) -j -C scalar
+	$(MAKE) -j -C vector
+	$(MAKE) -j -C vector_blas
+	$(MAKE) -j -C matrix
 
 clean:
-	- $(MAKE) -C scalar clean
-	- $(MAKE) -C vector clean
-	- $(MAKE) -C vector_blas clean
-	- $(MAKE) -C matrix clean
+	- $(MAKE) -j -C scalar clean
+	- $(MAKE) -j -C vector clean
+	- $(MAKE) -j -C vector_blas clean
+	- $(MAKE) -j -C matrix clean
