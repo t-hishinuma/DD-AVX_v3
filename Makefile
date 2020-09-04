@@ -36,7 +36,5 @@ clean:
 clean_lib:
 	- rm -rf src/obj/*
 	- rm -rf ./lib/libdd-avx.so
-	- rm -rf  $(DD_AVX_DIR)/lib/libqd.*
-	- rm -rf  $(DD_AVX_DIR)/lib/libdd-avx.*
-	- rm -rf  $(DD_AVX_DIR)/include/DD-AVX*
-	- rm -rf  $(DD_AVX_DIR)/include/qd
+	- rm -rf  $(DD_AVX_DIR)/lib/
+	- rm -rf  $(DD_AVX_DIR)/include/
