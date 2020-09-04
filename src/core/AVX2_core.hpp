@@ -8,7 +8,7 @@ using SIMDreg = __m256d;
 struct dd_real;
 
 namespace ddavx_core{
-	const size_t SIMD_Length=4;
+	const int SIMD_Length=4;
 	class registers{
 		public:
 			double splitter = 134217729.0;
@@ -29,6 +29,7 @@ namespace ddavx_core{
 	}
 
 	//set
+	// need to change for AVX512
 	inline SIMDreg set(const double a, const double b, const double c, const double d){
 		SIMDreg ret = SIMD_FUNC(set_pd)(a, b, c, d);
 		return ret;
@@ -103,7 +104,7 @@ namespace ddavx_core{
 	inline void print(SIMDreg a){
 		double tmp[SIMD_Length];
 		store(*tmp, a); 
-		for(size_t i=0; i<SIMD_Length; i++){
+		for(int i=0; i<SIMD_Length; i++){
 			printf("%f ", tmp[i]);
 		}
 		printf("\n");
@@ -111,9 +112,9 @@ namespace ddavx_core{
 	}
 
 	//isie
-	inline void get_isie(size_t size, size_t& is, size_t& ie){
-		size_t maxid = omp_get_max_threads();
-		size_t tid = omp_get_thread_num();
+	inline void get_isie(int size, int& is, int& ie){
+		int maxid = omp_get_max_threads();
+		int tid = omp_get_thread_num();
 
 		if( tid < (size % maxid) ) 
 		{ 

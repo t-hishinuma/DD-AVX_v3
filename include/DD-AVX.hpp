@@ -19,15 +19,6 @@
 #include"./DD-AVX_d_vector.hpp"
 #include"./DD-AVX_d_spmat.hpp"
 
-#if USE_AVX2==1
-	#include "./core/AVX2_core.hpp"
-#elif USE_AVX512==1 // for AVX512
-	#include "./core/AVX512_core.hpp"
-#endif
-	#include "./core/add.hpp"
-	#include "./core/mul.hpp"
-	#include "./core/fma.hpp"
-
 using d_real = double;
 
 inline dd_real dd_rand(){

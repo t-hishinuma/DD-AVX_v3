@@ -7,15 +7,15 @@ struct dd_real;
 
 class dd_real_SpMat{
 	public:
-		size_t row=0;
-		size_t nnz=0;
+		int row=0;
+		int nnz=0;
 		dd_real_vector val;
-		std::vector<size_t> row_ptr;
-		std::vector<size_t> col_ind;
+		std::vector<int> row_ptr;
+		std::vector<int> col_ind;
 
 		dd_real_SpMat(){}
 
-		dd_real_SpMat(size_t r, size_t c){
+		dd_real_SpMat(int r, int c){
 			if(r != c){
 				std::cerr << "error, r!=c, square matrix only now" << std::endl;
 				assert(1);
@@ -27,7 +27,7 @@ class dd_real_SpMat{
 			col_ind.resize(nnz, -1.0);
 		}
 
-		dd_real_SpMat(size_t r, size_t c, size_t NNZ){
+		dd_real_SpMat(int r, int c, int NNZ){
 			if(r != c){
 				std::cerr << "error, r!=c, square matrix only now" << std::endl;
 				assert(1);
@@ -54,18 +54,18 @@ class dd_real_SpMat{
 		void output();
 
 //--get---------------------------------------
-		size_t get_row() const{return row;};
-		size_t get_nnz() const{return nnz;};
-		size_t size() const{return row;};
+		int get_row() const{return row;};
+		int get_nnz() const{return nnz;};
+		int size() const{return row;};
 
-		double at(const size_t r, const size_t c);
-		void insert(const size_t r, const size_t c, const double a);
+		double at(const int r, const int c);
+		void insert(const int r, const int c, const double a);
 
-		d_real_vector get_row_vec(const size_t r);
-		d_real_vector get_col_vec(const size_t c);
+		d_real_vector get_row_vec(const int r);
+		d_real_vector get_col_vec(const int c);
 		d_real_vector get_diag_vec();
 
-		std::vector<double>::reference datas(size_t r, size_t c) {
+		std::vector<double>::reference datas(int r, int c) {
 			return val[0];
 		}
 

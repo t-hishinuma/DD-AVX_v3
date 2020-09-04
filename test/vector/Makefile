@@ -16,13 +16,13 @@ test: $(OBJS)
 	./div.out $(TEST_SIZE)
 
 $(OBJS):$(SRCS)
-	make FUNC=std -f ../Makefile_avx2.mk
-	make FUNC=copy -f ../Makefile_avx2.mk
-	make FUNC=minus -f ../Makefile_avx2.mk
-	make FUNC=add -f ../Makefile_avx2.mk
-	make FUNC=sub -f ../Makefile_avx2.mk
-	make FUNC=mul -f ../Makefile_avx2.mk
-	make FUNC=div -f ../Makefile_avx2.mk
+	make FUNC=std -f ../Makefile_core.mk
+	make FUNC=copy -f ../Makefile_core.mk
+	make FUNC=minus -f ../Makefile_core.mk
+	make FUNC=add -f ../Makefile_core.mk
+	make FUNC=sub -f ../Makefile_core.mk
+	make FUNC=mul -f ../Makefile_core.mk
+	make FUNC=div -f ../Makefile_core.mk
 
 clean:
 	- rm $(OBJS)

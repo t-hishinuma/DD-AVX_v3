@@ -12,9 +12,9 @@ test: $(OBJS)
 	./util.out 
 
 $(OBJS):$(SRCS)
-	make FUNC=input -f ../Makefile_avx2.mk
-	make FUNC=spmv -f ../Makefile_avx2.mk
-	make FUNC=util -f ../Makefile_avx2.mk
+	make FUNC=input -f ../Makefile_core.mk
+	make FUNC=spmv -f ../Makefile_core.mk
+	make FUNC=util -f ../Makefile_core.mk
 
 clean:
 	- rm $(OBJS)

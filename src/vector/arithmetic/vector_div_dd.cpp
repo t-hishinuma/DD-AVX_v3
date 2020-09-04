@@ -1,4 +1,4 @@
-#include<DD-AVX.hpp>
+#include<DD-AVX_internal.hpp>
 
 using namespace ddavx_core;
 
@@ -14,7 +14,7 @@ void dd_real_vector::div(dd_real_vector& vec1, dd_real_vector& vec2)
 	}
 
 #pragma omp parallel for
-	for(size_t i=0 ; i<size() ; i++){
+	for(int i=0 ; i<size() ; i++){
 		dd_real a, b, c;
 		a.x[0] = hi[i];
 		a.x[1] = lo[i];
@@ -36,7 +36,7 @@ void dd_real_vector::div(d_real_vector& vec1, dd_real_vector& vec2)
 	}
 
 #pragma omp parallel for
-	for(size_t i=0 ; i<size() ; i++){
+	for(int i=0 ; i<size() ; i++){
 		dd_real a, b, c;
 		a.x[0] = hi[i];
 		a.x[1] = lo[i];
@@ -59,7 +59,7 @@ void dd_real_vector::div(dd_real_vector& vec1, d_real_vector& vec2)
 	}
 
 #pragma omp parallel for
-	for(size_t i=0 ; i<size() ; i++){
+	for(int i=0 ; i<size() ; i++){
 		dd_real a, b, c;
 		a.x[0] = hi[i];
 		a.x[1] = lo[i];
@@ -81,7 +81,7 @@ void dd_real_vector::div(d_real_vector& vec1, d_real_vector& vec2)
 	}
 
 #pragma omp parallel for
-	for(size_t i=0 ; i<size() ; i++){
+	for(int i=0 ; i<size() ; i++){
 		dd_real a, b, c;
 		a.x[0] = hi[i];
 		a.x[1] = lo[i];

@@ -14,11 +14,9 @@ class d_real_vector : public std::vector<double>{
 		d_real_vector(const std::vector<double>& obj) : std::vector<double>(obj) {}
 		d_real_vector(int xxx) : std::vector<double>(xxx) {}
 		d_real_vector(long xxx) : std::vector<double>(xxx) {}
-		d_real_vector(size_t xxx) : std::vector<double>(xxx) {}
 
 		d_real_vector(int n, double val) : std::vector<double>(n, val) {}
 		d_real_vector(long n, double val) : std::vector<double>(n, val) {}
-		d_real_vector(size_t n, double val) : std::vector<double>(n, val) {}
 
 		std::vector<double> HI(){return *this;}
 		std::vector<double> LO(){
@@ -27,10 +25,10 @@ class d_real_vector : public std::vector<double>{
 		}
 //--I/O---------------------------------------
 		void print_all(){
-			for(size_t i=0; i<(size_t)size(); i++)
+			for(int i=0; i<(int)size(); i++)
 				std::cout << std::vector<double>::at(i) << std::endl;
 		}
-		void print(size_t i){
+		void print(int i){
 			std::cout << std::vector<double>::at(i) << std::endl;
 		}
 
@@ -63,9 +61,6 @@ class d_real_vector : public std::vector<double>{
 		bool operator!=(const std::vector<dd_real>& vec);
 
 //--cast -------------------------------------
-		operator std::vector<double>(){
-			return *this;
-		}
 		operator double*(){
 			return data();
 		}
