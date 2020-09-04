@@ -5,7 +5,7 @@ void dd_real_vector::minus(){
 	registers regs;
 	#pragma omp parallel private(regs)
 	{
-		size_t i=0, is=0, ie=0;
+		int i=0, is=0, ie=0;
 		get_isie(size(), is, ie);
 
 		for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
@@ -23,7 +23,7 @@ void d_real_vector::minus(){
 	registers regs;
 	#pragma omp parallel private(regs)
 	{
-		size_t i=0, is=0, ie=0;
+		int i=0, is=0, ie=0;
 		get_isie(size(), is, ie);
 
 		for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){

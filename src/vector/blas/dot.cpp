@@ -15,7 +15,7 @@ namespace dd_avx{
 #pragma omp parallel private(regs)
 		{
 			int thN = omp_get_thread_num();
-			size_t i=0, is=0, ie=0;
+			int i=0, is=0, ie=0;
 			get_isie((int)y.size(), is, ie);
 
 			SIMDreg r_hi = regs.zeros;
@@ -60,7 +60,7 @@ namespace dd_avx{
 #pragma omp parallel private(regs)
 		{
 			int thN = omp_get_thread_num();
-			size_t i=0, is=0, ie=0;
+			int i=0, is=0, ie=0;
 			get_isie(y.size(), is, ie);
 
 			SIMDreg r_hi = regs.zeros;
@@ -103,7 +103,7 @@ namespace dd_avx{
 #pragma omp parallel private(regs)
 		{
 			int thN = omp_get_thread_num();
-			size_t i=0, is=0, ie=0;
+			int i=0, is=0, ie=0;
 			get_isie(y.size(), is, ie);
 
 			SIMDreg r_hi = regs.zeros;
@@ -147,7 +147,7 @@ namespace dd_avx{
 #pragma omp parallel private(regs)
 		{
 			int thN = omp_get_thread_num();
-			size_t i=0, is=0, ie=0;
+			int i=0, is=0, ie=0;
 			get_isie(y.size(), is, ie);
 
 			SIMDreg r_hi = regs.zeros;

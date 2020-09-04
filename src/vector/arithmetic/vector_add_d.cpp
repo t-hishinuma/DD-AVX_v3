@@ -16,7 +16,7 @@ void d_real_vector::add(dd_real_vector& vec1, dd_real_vector& vec2)
 
 #pragma omp parallel private(regs)
 	{
-		size_t i=0, is=0, ie=0;
+		int i=0, is=0, ie=0;
 		get_isie(size(), is, ie);
 		for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 			SIMDreg a_hi = load(data()[i]);
@@ -48,7 +48,7 @@ void d_real_vector::add(d_real_vector& vec1, dd_real_vector& vec2)
 
 #pragma omp parallel private(regs)
 	{
-		size_t i=0, is=0, ie=0;
+		int i=0, is=0, ie=0;
 		get_isie(size(), is, ie);
 		for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 			SIMDreg a_hi = load(data()[i]);
@@ -82,7 +82,7 @@ void d_real_vector::add(d_real_vector& vec1, d_real_vector& vec2)
 	}
 
 #pragma omp parallel for
-	for(size_t i = 0; i < size(); i++){
+	for(int i = 0; i < size(); i++){
 		data()[i] = vec1.data()[i] + vec2.data()[i];
 
 	}

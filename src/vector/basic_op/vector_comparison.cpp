@@ -30,7 +30,7 @@ bool d_real_vector::operator==(const std::vector<dd_real>& vec){
 	if(ret == false) return false;
 
 //	#pragma omp parallel for 
-	for(size_t i=0; i < vec.size(); i++){
+	for(int i=0; i < vec.size(); i++){
 		ret = ret && at(i) == vec[i].x[0];
 		if(ret == false) return ret;
 	}
@@ -91,7 +91,7 @@ bool dd_real_vector::operator==(const std::vector<dd_real>& vec){
 	if(ret == false) return false;
 
 //	#pragma omp parallel for 
-	for(size_t i=0; i < vec.size(); i++){
+	for(int i=0; i < vec.size(); i++){
 		ret = ret && hi[i] == vec[i].x[0] && lo[i] == vec[i].x[1];
 		if(ret == false) return ret;
 	}

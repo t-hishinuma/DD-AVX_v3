@@ -4,7 +4,7 @@ d_real_vector:: operator dd_real_vector()
 {
 	printf("cast dd=>d\n");
 	dd_real_vector tmp;
-	for(size_t i=0; i<size(); i++){
+	for(int i=0; i<size(); i++){
 		tmp.hi[i]=*this[i];
 		tmp.lo[i]=0.0;
 	}

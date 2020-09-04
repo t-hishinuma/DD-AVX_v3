@@ -64,32 +64,32 @@ dd_real operator/(const double a, const dd_real_vector_ref b);
 class dd_real_vector{
 
 	private:
-		size_t N=0;
+		int N=0;
 
 	public:
 		std::vector<double> hi;
 		std::vector<double> lo;
 		dd_real_vector(){}
 
-		dd_real_vector(size_t n){
+		dd_real_vector(int n){
 			N=n;
  			hi.resize(N);
  			lo.resize(N);
 		}
 
-		dd_real_vector(size_t n, double val){
+		dd_real_vector(int n, double val){
 			N=n;
 			hi.resize(N, val);
 			lo.resize(N, 0.0);
 		}
 
-		dd_real_vector(size_t n, dd_real val){
+		dd_real_vector(int n, dd_real val){
 			N=n;
 			hi.resize(N, val.x[0]);
 			lo.resize(N, val.x[1]);
 		}
 
-		dd_real_vector_ref operator[](size_t n) {
+		dd_real_vector_ref operator[](int n) {
 			return dd_real_vector_ref(hi.begin() + n, lo.begin() + n);
 		}
 //--cast -------------------------------------
@@ -98,7 +98,7 @@ class dd_real_vector{
 		operator d_real_vector();
 
 //--getinfo---------------------------------------
-		size_t size() const{return N;};
+		int size() const{return N;};
 
 		double* data(){return hi.data();};
 		double* hi_data(){return hi.data();};
@@ -107,7 +107,7 @@ class dd_real_vector{
 		std::vector<double> HI(){return this->hi;}
 		std::vector<double> LO(){return this->lo;}
 
-		dd_real at(size_t n){
+		dd_real at(int n){
 			dd_real tmp;
 			tmp.x[0] = hi[n];
 			tmp.x[1] = lo[n];
@@ -115,8 +115,8 @@ class dd_real_vector{
 		};
 
 //--I/O---------------------------------------
-		void print_all(){ for(size_t i=0; i<N; i++) std::cout << hi[i] << ", " << lo[i] << std::endl; }
-		void print(size_t i){ std::cout << hi[i] << ", " << lo[i] << std::endl;}
+		void print_all(){ for(int i=0; i<N; i++) std::cout << hi[i] << ", " << lo[i] << std::endl; }
+		void print(int i){ std::cout << hi[i] << ", " << lo[i] << std::endl;}
 
 		void input(const char* filename);
 		void input_mm(FILE *file);
@@ -125,19 +125,19 @@ class dd_real_vector{
 		void output_plane(const char *filename);
 
 //--allocate, free---------------------------------------
-		void resize(size_t n){
+		void resize(int n){
 			N=n;
 			hi.resize(N);
 			lo.resize(N);
 		}
 
-		void resize(size_t n, double val){
+		void resize(int n, double val){
 			N=n;
 			hi.resize(N, val);
 			lo.resize(N, 0.0);
 		};
 
-		void resize(size_t n, dd_real val){
+		void resize(int n, dd_real val){
 			N=n;
 			hi.resize(N, val.x[0]);
 			lo.resize(N, val.x[1]);

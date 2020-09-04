@@ -7,7 +7,7 @@ namespace dd_avx{
 
 #pragma omp parallel private(regs)
 		{
-			size_t i=0, is=0, ie=0;
+			int i=0, is=0, ie=0;
 			get_isie(x.size(), is, ie);
 			SIMDreg alpha_hi = broadcast(alpha.x[0]);
 			SIMDreg alpha_lo = broadcast(alpha.x[1]);
@@ -32,7 +32,7 @@ namespace dd_avx{
 
 #pragma omp parallel private(regs)
 		{
-			size_t i=0, is=0, ie=0;
+			int i=0, is=0, ie=0;
 			get_isie(x.size(), is, ie);
 			SIMDreg alpha_hi = broadcast(alpha);
 			SIMDreg alpha_lo = regs.zeros;
@@ -57,7 +57,7 @@ namespace dd_avx{
 
 #pragma omp parallel private(regs)
 		{
-			size_t i=0, is=0, ie=0;
+			int i=0, is=0, ie=0;
 			get_isie(x.size(), is, ie);
 			SIMDreg alpha_hi = broadcast(alpha.x[0]);
 			SIMDreg alpha_lo = broadcast(alpha.x[1]);
@@ -81,7 +81,7 @@ namespace dd_avx{
 
 #pragma omp parallel private(regs)
 		{
-			size_t i=0, is=0, ie=0;
+			int i=0, is=0, ie=0;
 			get_isie(x.size(), is, ie);
 			SIMDreg alpha_hi = broadcast(alpha);
 			SIMDreg alpha_lo = regs.zeros;

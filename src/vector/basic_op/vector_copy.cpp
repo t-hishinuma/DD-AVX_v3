@@ -19,7 +19,7 @@ void d_real_vector::copy(const std::vector<dd_real>& vec){
 	resize(vec.size());
 	
 	#pragma omp parallel for
-	for(size_t i=0; i < vec.size(); i++){
+	for(int i=0; i < vec.size(); i++){
 		at(i) = vec[i].x[0];
 	}
 }
@@ -71,7 +71,7 @@ void dd_real_vector::copy(const std::vector<dd_real>& vec){
 	lo.resize(vec.size());
 	
 	#pragma omp parallel for
-	for(size_t i=0; i < vec.size(); i++){
+	for(int i=0; i < vec.size(); i++){
 		hi[i] = vec[i].x[0];
 		lo[i] = vec[i].x[1];
 	}
