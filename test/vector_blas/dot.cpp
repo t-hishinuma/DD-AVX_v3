@@ -34,18 +34,15 @@ int test(long N)
 	for(int i=0; i<N; i++)
 		x.push_back(rand());
 
-	for(int i=0; i<N; i++)
-		x.push_back(rand());
-
 	alpha = dd_avx::dot(x, y);
 
 	auto ref = make_ans(x.HI(), y.HI());
 
 	if(err_check(ref, (d_real&)alpha, TOL)){
-		std::cout << "pass1" << std::endl;
+		std::cout << "pass" << std::endl;
 	}
 	else{
-		std::cout << "fail1" << std::endl;
+		std::cout << "fail" << std::endl;
 		return false;
 	}
 
