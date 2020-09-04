@@ -1,7 +1,7 @@
 #include<DD-AVX.hpp>
 #include<vector>
 #include<iostream>
-#include<random>
+#include<chrono>
 #define TOL 1.0e-4
 
 double make_ans(const std::vector<double> x, const std::vector<double>& y){
@@ -42,13 +42,18 @@ int test(long N)
 
 	auto ref = make_ans(x.HI(), y.HI());
 
-	if(err_check(ref, (d_real&)alpha, TOL)){
-		std::cout << "pass" << std::endl;
-	}
-	else{
-		std::cout << "fail" << std::endl;
+	if(!err_check(ref, (d_real&)alpha, TOL)){
+		std::cout << "...fail" << std::endl;
 		return false;
 	}
+
+	auto start = std::chrono::system_clock::now();
+    for(int i=0; i<100; i++)
+	    alpha = dd_avx::dot(x, y);
+	auto end = std::chrono::system_clock::now();
+	double sec = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count()/1.0e+9/100;
+
+	std::cout << "...pass\t" << sec << std::endl;
 
 	return true;
 }
@@ -62,37 +67,37 @@ int main(int argc, char** argv){
 	}
 
 	long N = atoi(argv[1]);
-	std::cout << "size = " << N << std::endl;
+	std::cout << "dot, size = " << N << std::endl;
 
-	std::cout << "DD, DD, DD" << std::endl;
+	std::cout << "DD, DD, DD" << std::flush;
 	ret = test<dd_real, dd_real_vector, dd_real_vector>(N);
 	if(!ret) return 1;
 
-	std::cout << "DD, D, DD" << std::endl;
+	std::cout << "DD, D, DD" << std::flush;
 	ret = test<dd_real, d_real_vector, dd_real_vector>(N);
 	if(!ret) return 1;
 
-	std::cout << "DD, D, DD" << std::endl;
+	std::cout << "DD, D, DD" << std::flush;
 	ret = test<dd_real, d_real_vector, dd_real_vector>(N);
 	if(!ret) return 1;
 
-	std::cout << "DD, D, D" << std::endl;
+	std::cout << "DD, D, D" << std::flush;
 	ret = test<dd_real, d_real_vector, d_real_vector>(N);
 	if(!ret) return 1;
 
-	std::cout << "D, DD, DD" << std::endl;
+	std::cout << "D, DD, DD" << std::flush;
 	ret = test<d_real, dd_real_vector, dd_real_vector>(N);
 	if(!ret) return 1;
 
-	std::cout << "D, DD, D" << std::endl;
+	std::cout << "D, DD, D" << std::flush;
 	ret = test<d_real, dd_real_vector, d_real_vector>(N);
 	if(!ret) return 1;
 
-	std::cout << "D, D, DD" << std::endl;
+	std::cout << "D, D, DD" << std::flush;
 	ret = test<d_real, d_real_vector, dd_real_vector>(N);
 	if(!ret) return 1;
 
-	std::cout << "D, D, D" << std::endl;
+	std::cout << "D, D, D" << std::flush;
 	ret = test<d_real, d_real_vector, d_real_vector>(N);
 	if(!ret) return 1;
 
