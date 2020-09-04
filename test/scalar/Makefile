@@ -11,8 +11,8 @@ test: $(OBJS)
 	./vector_element.out 
 
 $(OBJS):$(SRCS)
-	make FUNC=scalar -f ../Makefile_avx2.mk
-	make FUNC=vector_element -f ../Makefile_avx2.mk
+	make FUNC=scalar -f ../Makefile_core.mk
+	make FUNC=vector_element -f ../Makefile_core.mk
 
 clean:
 	rm $(OBJS)
