@@ -27,10 +27,8 @@ clean:
 	- rm -rf ./lib/*
 	- rm -rf include/qd
 	- rm -rf ./lib/libdd-avx.so
-	- rm -rf  $(DD_AVX_DIR)/lib/libqd.*
-	- rm -rf  $(DD_AVX_DIR)/lib/libdd-avx.*
-	- rm -rf  $(DD_AVX_DIR)/include/DD-AVX*
-	- rm -rf  $(DD_AVX_DIR)/include/qd
+	- rm -rf  $(DD_AVX_DIR)/lib/
+	- rm -rf  $(DD_AVX_DIR)/include/
 	- $(MAKE) -C submodules -f Makefile.qd clean
 
 clean_lib:
