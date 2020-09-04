@@ -1,19 +1,18 @@
-DD_AVX_DIR?=$(HOME)/lib/dd_avx/
+SRCS =$(notdir $(wildcard ./*.cpp))
+vpath %.cpp ./
+OBJS=$(addprefix ./, $(SRCS:.cpp=.out))
 
-RPATH=-Wl,-rpath,$(DD_AVX_DIR)/lib  -w
-LIB=-I$(DD_AVX_DIR)/include -L$(DD_AVX_DIR)/lib -ldd-avx -lqd
-CXXFLAGS=-O3 -std=c++14 -fopenmp -lm -DUSE_AVX2
+TEST_SIZE?=100
 
-all: build
+all: $(OBJS)
 
-build: 
-	g++ $(RPATH) $(CXXFLAGS) scalar.cpp -o scalar.o $(LIB)
-	g++ $(RPATH) $(CXXFLAGS) vector_element.cpp -o vector_element.o $(LIB) 
+test: $(OBJS)
+	./scalar.out $(TEST_SIZE)
+	./vector_element.out $(TEST_SIZE)
 
-run: build
-	./scalar.o
-	./vector_element.o
+$(OBJS):$(SRCS)
+	make FUNC=scalar -f ../Makefile_avx2.mk
+	make FUNC=vector_element -f ../Makefile_avx2.mk
 
 clean:
-	rm scalar.o
-
+	rm $(OBJS)

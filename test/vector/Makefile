@@ -1,33 +1,28 @@
-DD_AVX_DIR?=$(HOME)/lib/dd_avx
+SRCS =$(notdir $(wildcard ./*.cpp))
+vpath %.cpp ./
+OBJS=$(addprefix ./, $(SRCS:.cpp=.out))
 
-RPATH=-Wl,-rpath,$(DD_AVX_DIR)/lib 
-LIB=-I$(DD_AVX_DIR)/include -L$(DD_AVX_DIR)/lib -lqd -ldd-avx -lqd
-CXXFLAGS=-O3 -std=c++14 -fopenmp -lm -DUSE_AVX2
-
-OBJS= std.o copy.o minus.o add.o sub.o mul.o div.o
+TEST_SIZE?=100
 
 all: $(OBJS)
 
-std.o : std.cpp
-	g++ $(CXXFLAGS) $(RPATH) $^ -o $@ $(LIB)
+test: $(OBJS)
+	./std.out $(TEST_SIZE)
+	./copy.out $(TEST_SIZE)
+	./minus.out $(TEST_SIZE)
+	./add.out $(TEST_SIZE)
+	./sub.out $(TEST_SIZE)
+	./mul.out $(TEST_SIZE)
+	./div.out $(TEST_SIZE)
 
-copy.o : copy.cpp
-	g++ $(CXXFLAGS) $(RPATH) $^ -o $@ $(LIB)
-
-minus.o : minus.cpp
-	g++ $(CXXFLAGS) $(RPATH) $^ -o $@ $(LIB)
-
-add.o : add.cpp
-	g++ $(CXXFLAGS) $(RPATH) $^ -o $@ $(LIB)
-
-sub.o : sub.cpp
-	g++ $(CXXFLAGS) $(RPATH) $^ -o $@ $(LIB)
-
-mul.o : mul.cpp
-	g++ $(CXXFLAGS) $(RPATH) $^ -o $@ $(LIB)
-
-div.o : div.cpp
-	g++ $(CXXFLAGS) $(RPATH) $^ -o $@ $(LIB)
+$(OBJS):$(SRCS)
+	make FUNC=std -f ../Makefile_avx2.mk
+	make FUNC=copy -f ../Makefile_avx2.mk
+	make FUNC=minus -f ../Makefile_avx2.mk
+	make FUNC=add -f ../Makefile_avx2.mk
+	make FUNC=sub -f ../Makefile_avx2.mk
+	make FUNC=mul -f ../Makefile_avx2.mk
+	make FUNC=div -f ../Makefile_avx2.mk
 
 clean:
 	- rm $(OBJS)

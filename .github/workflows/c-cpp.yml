@@ -18,12 +18,7 @@ jobs:
       run: make avx2
     - name: make install
       run: make install
-
-  test:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: make
+    - name: make test
       run: cd test; make
+    - name: test run
+      run: cd test; make test
