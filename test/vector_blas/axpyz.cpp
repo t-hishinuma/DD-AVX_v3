@@ -43,10 +43,10 @@ int test(long N)
 	auto ref = make_ans(alpha, x.HI(), y.HI());
 
 	if(err_check(ref, z.HI(), TOL)){
-		std::cout << "pass1" << std::endl;
+		std::cout << "pass" << std::endl;
 	}
 	else{
-		std::cout << "fail1" << std::endl;
+		std::cout << "fail" << std::endl;
 		return false;
 	}
 
@@ -66,70 +66,70 @@ int main(int argc, char** argv){
 
 	std::cout << "DD, DD, DD, DD" << std::endl;
 	ret = test<dd_real, dd_real_vector, dd_real_vector, dd_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "DD, D, DD, DD" << std::endl;
 	ret = test<dd_real, dd_real_vector, dd_real_vector, dd_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "DD, DD, D, DD" << std::endl;
 	ret = test<dd_real, dd_real_vector, dd_real_vector, dd_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "DD, D, D, DD" << std::endl;
 	ret = test<dd_real, dd_real_vector, dd_real_vector, dd_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 
 	std::cout << "D, DD, DD, DD" << std::endl;
 	ret = test<dd_real, dd_real_vector, dd_real_vector, dd_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "D, D, DD, DD" << std::endl;
 	ret = test<dd_real, dd_real_vector, dd_real_vector, dd_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "D, DD, D, DD" << std::endl;
 	ret = test<dd_real, dd_real_vector, dd_real_vector, dd_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "D, D, D, DD" << std::endl;
 	ret = test<dd_real, dd_real_vector, dd_real_vector, dd_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 
 	std::cout << "DD, DD, DD, D" << std::endl;
 	ret = test<dd_real, dd_real_vector, dd_real_vector, d_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "DD, D, DD, D" << std::endl;
 	ret = test<dd_real, dd_real_vector, dd_real_vector, d_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "DD, DD, D, D" << std::endl;
 	ret = test<dd_real, dd_real_vector, dd_real_vector, d_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "DD, D, D, D" << std::endl;
 	ret = test<dd_real, dd_real_vector, dd_real_vector, d_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 
 	std::cout << "D, DD, DD, D" << std::endl;
 	ret = test<dd_real, dd_real_vector, dd_real_vector, d_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "D, D, DD, D" << std::endl;
 	ret = test<dd_real, dd_real_vector, dd_real_vector, d_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "D, DD, D, D" << std::endl;
 	ret = test<dd_real, dd_real_vector, dd_real_vector, d_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "D, D, D, D" << std::endl;
 	ret = test<dd_real, dd_real_vector, dd_real_vector, d_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	return 0;
 }

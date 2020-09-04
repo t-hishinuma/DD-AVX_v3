@@ -85,36 +85,36 @@ int main(int argc, char** argv){
  	// DD=
 	std::cout << "DD = DD + DD" << std::endl;
 	ret = test<dd_real_vector, dd_real_vector, dd_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "DD = DD + D" << std::endl;
 	ret = test<dd_real_vector, dd_real_vector, d_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "DD = D + DD" << std::endl;
 	ret = test<dd_real_vector, d_real_vector, dd_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "DD = D + D" << std::endl;
 	ret = test<dd_real_vector, d_real_vector, d_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	// D=
 	std::cout << "D = DD + DD" << std::endl;
 	ret = test<d_real_vector, dd_real_vector, dd_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "D = DD + D" << std::endl;
 	ret = test<d_real_vector, dd_real_vector, d_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "D = D + DD" << std::endl;
 	ret = test<d_real_vector, d_real_vector, dd_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "D = D + D" << std::endl;
 	ret = test<d_real_vector, d_real_vector, d_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 	return 0;
 }
 

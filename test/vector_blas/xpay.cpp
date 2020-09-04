@@ -41,10 +41,10 @@ int test(long N)
 	auto ref = make_ans(alpha, x.HI());
 
 	if(err_check(ref, y.HI(), TOL)){
-		std::cout << "pass1" << std::endl;
+		std::cout << "pass" << std::endl;
 	}
 	else{
-		std::cout << "fail1" << std::endl;
+		std::cout << "fail" << std::endl;
 		return false;
 	}
 
@@ -52,7 +52,7 @@ int test(long N)
 }
 
 int main(int argc, char** argv){
-	bool ret=0;
+	bool ret=false;
 
 	if(argc!=2){
 		std::cout << "error, $1 = size" << std::endl;
@@ -64,7 +64,7 @@ int main(int argc, char** argv){
 
 	std::cout << "DD, DD, DD" << std::endl;
 	ret = test<dd_real, dd_real_vector, dd_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return ret;
 
 	std::cout << "DD, DD, D" << std::endl;
 	ret = test<dd_real, dd_real_vector, d_real_vector>(N);

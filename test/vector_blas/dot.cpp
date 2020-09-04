@@ -1,6 +1,7 @@
 #include<DD-AVX.hpp>
 #include<vector>
 #include<iostream>
+#include<random>
 #define TOL 1.0e-4
 
 double make_ans(const std::vector<double> x, const std::vector<double>& y){
@@ -31,8 +32,11 @@ int test(long N)
 	X x;
 	Y y;
 
-	for(int i=0; i<N; i++)
+	for(int i=0; i<N; i++){
 		x.push_back(rand());
+		y.push_back(rand());
+    }
+
 
 	alpha = dd_avx::dot(x, y);
 
@@ -62,35 +66,35 @@ int main(int argc, char** argv){
 
 	std::cout << "DD, DD, DD" << std::endl;
 	ret = test<dd_real, dd_real_vector, dd_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "DD, D, DD" << std::endl;
 	ret = test<dd_real, d_real_vector, dd_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "DD, D, DD" << std::endl;
 	ret = test<dd_real, d_real_vector, dd_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "DD, D, D" << std::endl;
 	ret = test<dd_real, d_real_vector, d_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "D, DD, DD" << std::endl;
 	ret = test<d_real, dd_real_vector, dd_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "D, DD, D" << std::endl;
 	ret = test<d_real, dd_real_vector, d_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "D, D, DD" << std::endl;
 	ret = test<d_real, d_real_vector, dd_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "D, D, D" << std::endl;
 	ret = test<d_real, d_real_vector, d_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	return 0;
 }

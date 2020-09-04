@@ -40,10 +40,10 @@ int test(long N)
 	dd_avx::scale(alpha, x);
 
 	if(err_check(ref, x.HI(), TOL)){
-		std::cout << "pass1" << std::endl;
+		std::cout << "pass" << std::endl;
 	}
 	else{
-		std::cout << "fail1" << std::endl;
+		std::cout << "fail" << std::endl;
 		return false;
 	}
 
@@ -63,19 +63,19 @@ int main(int argc, char** argv){
 
 	std::cout << "DD, DD" << std::endl;
 	ret = test<dd_real, dd_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "D, DD" << std::endl;
 	ret = test<d_real, dd_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "DD, D" << std::endl;
 	ret = test<dd_real, d_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "D, D" << std::endl;
 	ret = test<d_real, d_real_vector>(N);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	return 0;
 }

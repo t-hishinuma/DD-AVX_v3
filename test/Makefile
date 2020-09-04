@@ -7,6 +7,8 @@ all:
 test:
 	make -j -C scalar test
 	make -j -C vector test
+	make -j -C vector_blas test
+	make -j -C matrix test
 
 clean:
 	- make -j -C scalar clean

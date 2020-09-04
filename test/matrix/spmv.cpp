@@ -51,25 +51,23 @@ int main(int argc, char** argv){
 	bool ret=0;
 
 	d_real_SpMat A;
-    std::cout << "hello" << std::endl;
-	A.input_mm("./cage9/a");
-    std::cout << "hello" << std::endl;
+	A.input_mm("./test.mtx");
 
 	std::cout << "DD = DMat * DD" << std::endl;
 	ret = test<dd_real_vector, dd_real_vector>(A);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "D = DMat * DD" << std::endl;
 	ret = test<d_real_vector, dd_real_vector>(A);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	std::cout << "DD = DMat * D" << std::endl;
 	ret = test<dd_real_vector, d_real_vector>(A);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 	
 	std::cout << "D = DMat * D" << std::endl;
 	ret = test<d_real_vector, d_real_vector>(A);
-	if(ret == false) return ret;
+	if(!ret) return 1;
 
 	return 0;
 }

@@ -7,8 +7,8 @@ TEST_SIZE?=100
 all: $(OBJS)
 
 test: $(OBJS)
-	./scalar.out $(TEST_SIZE)
-	./vector_element.out $(TEST_SIZE)
+	./scalar.out 
+	./vector_element.out 
 
 $(OBJS):$(SRCS)
 	make FUNC=scalar -f ../Makefile_avx2.mk

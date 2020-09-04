@@ -1,30 +1,27 @@
-DD_AVX_DIR?=$(HOME)/lib/dd_avx/
+SRCS =$(notdir $(wildcard ./*.cpp))
+vpath %.cpp ./
+OBJS=$(addprefix ./, $(SRCS:.cpp=.out))
 
-RPATH=-Wl,-rpath,$(DD_AVX_DIR)/lib 
-CXXFLAGS=-O3 -std=c++14 -fopenmp -lm -DUSE_AVX2
-LIB=-I$(DD_AVX_DIR)/include -L$(DD_AVX_DIR)/lib -ldd-avx -lqd
-
-OBJS= axpy.o axpyz.o dot.o nrm2.o xpay.o scale.o
+TEST_SIZE?=100
 
 all: $(OBJS)
 
-axpy.o : axpy.cpp
-	g++ $(RPATH) $(CXXFLAGS) $^ -o $@ $(LIB)
+test: $(OBJS)
+	./axpy.out $(TEST_SIZE)
+	./axpyz.out $(TEST_SIZE)
+	./xpay.out $(TEST_SIZE)
+	./scale.out $(TEST_SIZE)
+	./dot.out $(TEST_SIZE)
+	./nrm2.out $(TEST_SIZE)
 
-axpyz.o : axpyz.cpp
-	g++ $(RPATH) $(CXXFLAGS) $^ -o $@ $(LIB)
+$(OBJS):$(SRCS)
+	make FUNC=axpy -f ../Makefile_avx2.mk
+	make FUNC=axpyz -f ../Makefile_avx2.mk
+	make FUNC=xpay -f ../Makefile_avx2.mk
+	make FUNC=scale -f ../Makefile_avx2.mk
+	make FUNC=dot -f ../Makefile_avx2.mk
+	make FUNC=nrm2 -f ../Makefile_avx2.mk
 
-xpay.o : xpay.cpp
-	g++ $(RPATH) $(CXXFLAGS) $^ -o $@ $(LIB)
-
-scale.o : scale.cpp
-	g++ $(RPATH) $(CXXFLAGS) $^ -o $@ $(LIB)
-
-dot.o : dot.cpp
-	g++ $(RPATH) $(CXXFLAGS) $^ -o $@ $(LIB)
-
-nrm2.o : nrm2.cpp
-	g++ $(RPATH) $(CXXFLAGS) $^ -o $@ $(LIB)
 
 clean:
 	- rm $(OBJS)
