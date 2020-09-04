@@ -3,9 +3,15 @@
 
 #include"../../include/DD-AVX.hpp"
 
-#if USE_AVX2==1
+#if defined USE_AVX2
 	#include "./AVX2_core.hpp"
-#elif USE_AVX512==1 // for AVX512
+#endif
+
+#if defined USE_AVX 
+	#include "./AVX2_core.hpp"
+#endif
+
+#if defined USE_AVX512
 	#include "./AVX512_core.hpp"
 #endif
 

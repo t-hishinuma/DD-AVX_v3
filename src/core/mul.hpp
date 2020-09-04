@@ -16,7 +16,7 @@ namespace ddavx_core{
 		c.ch = c_hi; 
 		c.cl = c_lo;
 
-#if 1
+#if defined USE_FMA
 		c.p1 = mul(c.minus, c.bh); 
 		c.p1 = mul(c.p1, c.ch); 
 		c.p2 = fmadd(c.bh, c.ch, c.p1); 
@@ -66,7 +66,7 @@ namespace ddavx_core{
 		c.ch = c_hi; 
 		c.cl = c_lo;
 
-#if 1
+#if defined USE_FMA
 		c.p1 = mul(c.minus, c.bh); 
 		c.p1 = mul(c.p1, c.ch); 
 		c.p2 = fmadd(c.bh, c.ch, c.p1); 
@@ -114,7 +114,7 @@ namespace ddavx_core{
 		c.bl  = b_lo; 
 		c.ch  = c_hi;
 
-#if 1
+#if defined USE_FMA
 		c.p1 = mul(c.minus, c.bh); 
 		c.p1 = mul(c.p1, c.ch); 
 		c.p2 = fmadd(c.bh, c.ch, c.p1); 

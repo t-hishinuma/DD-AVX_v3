@@ -16,6 +16,13 @@ avx2:
 	mkdir -p src/obj
 	$(MAKE) -j -C src/ -f Makefile.avx2 
 
+avx:
+	git submodule update -i
+	$(MAKE) -C submodules -f Makefile.qd
+	$(MAKE) -C submodules -f Makefile.qd install
+	mkdir -p src/obj
+	$(MAKE) -j -C src/ -f Makefile.avx
+
 install:
 	mkdir -p $(DD_AVX_DIR)/lib/
 	mkdir -p $(DD_AVX_DIR)/include/

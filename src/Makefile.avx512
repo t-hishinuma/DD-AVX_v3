@@ -1,9 +1,8 @@
 TARGET=../lib/libdd-avx.so
-QD_LINK=-I../include/ -L../lib/ -lqd
+LINK=-I../include/ -I./core/ -L../lib/ -lqd
 
-CXXFLAGS+=-O3 -std=c++14 -fopenmp -lm -g -Wall -Wno-unused-variable -fPIC 
-CXXFLAGS+= -DUSE_AVX512 -mavx2 -mfma
-CXXFLAGS+= -Wno-class-conversion
+CXXFLAGS+=-O3 -std=c++17 -fopenmp -lm -g -fPIC 
+CXXFLAGS+= -DUSE_AVX512 -DUSE_FMA -mavx512f -mfma
 LIBFLAGS=-shared
 
 SRCS =$(notdir $(wildcard ./*.cpp))
@@ -29,7 +28,7 @@ all: $(TARGET)
 	echo $(OBJS)
 
 $(TARGET): $(OBJS)
-	g++ $(CXXFLAGS) $(LIBFLAGS) $(QD_LINK) $(OBJS) -o $(TARGET)
+	g++ $(CXXFLAGS) $(LIBFLAGS) $(LINK) $(OBJS) -o $(TARGET)
 
 $(OBJDIR)/%.o: %.cpp 
-	g++ $(CXXFLAGS) $(QD_LINK) -c $< -o $@
+	g++ $(CXXFLAGS) $(LINK) -c $< -o $@
