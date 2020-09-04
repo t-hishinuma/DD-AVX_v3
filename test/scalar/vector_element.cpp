@@ -82,5 +82,7 @@ int main()
 	xx[0] = beta;
 	yy[0] = alpha;
 	yy[0] = beta;
+
+    std::cout << "pass" << std::endl;
  	return 0;
 }

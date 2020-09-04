@@ -13,7 +13,12 @@ int main()
 	dd_real zz = 1.0;
 
 	dd_real yy = 1;
-	xx = zz * yy + xx + yy / zz;
+	xx = zz * yy + xx + yy / zz * c / c;
 
-	printf("scalar_test %f %f\n", c.x[0], c.x[1]);
+    if(xx!=3.5){
+        std::cout << xx << std::endl;
+        return 1;
+    }
+        std::cout << "pass" << std::endl;
+    return 0;
 }

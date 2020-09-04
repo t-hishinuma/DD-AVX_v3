@@ -40,12 +40,11 @@ namespace dd_avx{
 		}
 
 		dd_real tmp = 0;
-		for(int i=0; i < omp_get_max_threads() + 1; i++){
+		for(int i=0; i < omp_get_max_threads(); i++){
 			tmp += dot[i];
 		}
 
 		return tmp;
-		
 	}
 
 
@@ -85,12 +84,11 @@ namespace dd_avx{
 		}
 
 		dd_real tmp = 0;
-		for(int i=0; i < omp_get_max_threads() + 1; i++){
+		for(int i=0; i < omp_get_max_threads(); i++){
 			tmp += dot[i];
 		}
 
 		return tmp;
-		
 	}
 
 	dd_real dot(const dd_real_vector& x, const d_real_vector& y){
@@ -130,7 +128,7 @@ namespace dd_avx{
 		}
 
 		dd_real tmp = 0;
-		for(int i=0; i < omp_get_max_threads() + 1; i++){
+		for(int i=0; i < omp_get_max_threads(); i++){
 			tmp += dot[i];
 		}
 
@@ -174,7 +172,7 @@ namespace dd_avx{
 		}
 
 		dd_real tmp = 0;
-		for(int i=0; i < omp_get_max_threads() + 1; i++){
+		for(int i=0; i < omp_get_max_threads(); i++){
 			tmp += dot[i];
 		}
 
