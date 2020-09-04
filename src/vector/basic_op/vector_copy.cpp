@@ -1,4 +1,4 @@
-#include<DD-AVX.hpp>
+#include<DD-AVX_internal.hpp>
 //Double
 void d_real_vector::copy(const dd_real_vector& vec){
 	resize(vec.size());

@@ -1,4 +1,4 @@
-#include<DD-AVX.hpp>
+#include<DD-AVX_internal.hpp>
 using namespace ddavx_core;
 
 void dd_real_vector::minus(){

@@ -1,4 +1,4 @@
-#include<DD-AVX.hpp>
+#include<DD-AVX_internal.hpp>
  
 //Add
 dd_real operator+(const dd_real a, const dd_real_vector_ref b){

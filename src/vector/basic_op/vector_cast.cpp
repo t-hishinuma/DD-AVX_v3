@@ -1,4 +1,4 @@
-#include<DD-AVX.hpp>
+#include<DD-AVX_internal.hpp>
 
 d_real_vector:: operator dd_real_vector()
 {

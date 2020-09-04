@@ -1,4 +1,4 @@
-#include<DD-AVX.hpp>
+#include<DD-AVX_internal.hpp>
 
 double d_real_SpMat::at(const size_t r, const size_t c){
 		for(size_t j = row_ptr[r]; j < row_ptr[r+1]; j++){

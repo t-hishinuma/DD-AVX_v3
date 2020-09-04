@@ -1,8 +1,7 @@
-#include<DD-AVX.hpp>
+#include<DD-AVX_internal.hpp>
 #include <cassert>
 #include <fstream>
 #include <iomanip>
-#include <iostream>
 #include <limits>
 #include <sstream>
 

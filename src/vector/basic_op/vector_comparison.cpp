@@ -1,4 +1,4 @@
-#include<DD-AVX.hpp>
+#include<DD-AVX_internal.hpp>
 //Double
 //==
 bool d_real_vector::operator==(const dd_real_vector& vec){

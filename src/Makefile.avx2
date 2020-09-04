@@ -1,5 +1,5 @@
 TARGET=../lib/libdd-avx.so
-QD_LINK=-I../include/ -L../lib/ -lqd
+QD_LINK=-I../include/ -I./core/ -L../lib/ -lqd
 
 CXXFLAGS+=-O3 -std=c++14 -fopenmp -lm -g -Wall -Wno-unused-variable -fPIC 
 CXXFLAGS+= -DUSE_AVX2 -mavx2 -mfma
