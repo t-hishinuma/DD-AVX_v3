@@ -5,6 +5,8 @@
 ## About
 DD-AVX_v3 is SIMD accelerated simple interface high precision BLAS / Sparse BLAS Library.
 
+BLAS / Sparse BLAS operations can be performed by combining double and double-double precision.
+
 This library provides an easy way to implement a fast and accurate Krylov subspace method.
 
 OpenMP and SIMD AVX / AVX2 speedup are available.
