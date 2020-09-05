@@ -8,7 +8,6 @@ on:
 
 jobs:
   avx:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -34,7 +33,6 @@ jobs:
       run: cd test; make test_matrix
 
   avx2:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -58,3 +56,18 @@ jobs:
 
     - name: test matrix
       run: cd test; make test_matrix
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Doxygen
+        uses: mattnotmitt/doxygen-action@v1.1.0
+        with:
+          doxyfile-path: 'doc/'
+          working-directory: "."
+      
+      - name: Deploy
+           uses: peaceiris/actions-gh-pages@v3
+           with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            publish_dir: ./public
