@@ -1,14 +1,21 @@
 ![master branch CI status](https://github.com/t-hishinuma/DD-AVX_v3/workflows/C/C++%20CI/badge.svg)
 
-# DD-AVX Library (beta): Library of High Precision Sparse Matrix Operations Accelerated by SIMD AVX2
-# About
-DD-AVX is a library with a simple interface and is intended to be used in combination with double / double-double precision.
+# DD-AVX Library: Library of High Precision Sparse Matrix Operations Accelerated by intel SIMD instructions
 
-This library is extensions of Lis_DD_AVXKernals and DD-AVX_v2 (archived)
+## About
+DD-AVX_v3 is SIMD accelerated simple interface high precision BLAS / Sparse BLAS Library.
+
 This library provides an easy way to implement a fast and accurate Krylov subspace method.
+
 OpenMP and SIMD AVX / AVX2 speedup are available.
 
+This library is extensions of 
+[Lis_DD_AVXKernals](https://github.com/t-hishinuma/Lis_DD_AVXkernels) and 
+[DD-AVX_v2](https://github.com/t-hishinuma/DD-AVX_v2) (archived).
+
+## Interface
 This library provides BLAS / Sparse BLAS functions for the following six types.
+
 ### Scalar
 * double
 * dd_real (provided by the QD Library)
@@ -24,13 +31,13 @@ It has BLAS Lv 1 and Sparse BLAS functions for these types.
 All combinations of BLAS functions are implemented.
 It works for both D and DD types.
 
-See the axpy sample code for more information on how to use it.
+See the [axpy sample code](https://github.com/t-hishinuma/DD-AVX_v3/blob/master/test/vector_blas/axpy.cpp) for more information on how to use it.
 
 # Build and Install
 This library requires the QD library for scalar operations as a submodule.
 The QD library is downloaded and built automatically by `make`.
 
-You can specify the destination directory with `DDAVX_DIR' and `make'.
+You can specify the destination directory with `DDAVX_DIR' and `make` .
 The QD libraries are installed in the same directory.
 
 You can build and install the QD library with the following commands:
@@ -74,15 +81,3 @@ We have a complete set of tests for each feature in the test directory. You can 
 > make
 > 
 > make test
-
-# For Developer
-In the include, each of the following is a
-
-Declaration of DD-AVX.hpp BLAS / Sparse BLAS functions
-DD-AVX_d_spmat.hpp Definition of double-precision sparse matrix type
-DD-AVX_d_vector.hpp double-precision vector type definition (inherits from std::vector)
-DD-AVX_dd_vector.hpp Definition of the double-precision vector type
-Core/AVX2 AVX2 implementation of Add, Mul and Integration operations on AVX2ized DD
-Both template type and overloaded type of internal operations are implemented. We have confirmed that they have the same performance. Switching is done by ifdef in include/DD-AVX.hpp
-
-Translated with www.DeepL.com/Translator (free version)
