@@ -67,6 +67,8 @@ In the future, AVX512 can be built with the following command.
 # Current Status and Restrictions
 This is a beta version, and there are some restrictions and changes planned.
 
+The detailed todo is discussed in [Issue](https://github.com/t-hishinuma/DD-AVX_v3/issues)
+
 * SIMD and OpenMP cannot be disabled. (If you want to change the number of OpenMP threads, do so in the environment variable.)
 * The class design will be modified to implement element/row/column operations in the sparse matrix class.
 * (SIMD_REG class is difficult to share with Scalar, so I want to change it to REG class.)
