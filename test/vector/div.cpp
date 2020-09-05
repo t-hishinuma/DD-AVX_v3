@@ -1,6 +1,7 @@
 #include<DD-AVX.hpp>
 #include<vector>
 #include<iostream>
+#include<chrono>
 #define TOL 1.0e-8
 
 std::vector<double> make_ans(std::vector<double> vec1, std::vector<double> vec2){
@@ -38,35 +39,34 @@ int test(long N)
 
  	vec1.div(vec2, vec3); 
 
-	if(err_check(ref, vec1.HI(), TOL)){
-		std::cout << "pass1" << std::endl;
-	}
-	else{
-		std::cout << "fail1" << std::endl;
+	if(!err_check(ref, vec1.HI(), TOL)){
+		std::cout << "...fail1" << std::endl;
 		return false;
 	}
 //=operator================================================
 	ref = make_ans(vec2.HI(), vec3.HI());
 	vec1 = vec2 / vec3; 
 
-	if(err_check(ref, vec1.HI(), TOL)){
-		std::cout << "pass2" << std::endl;
-	}
-	else{
-		std::cout << "fail2" << std::endl;
+	if(!err_check(ref, vec1.HI(), TOL)){
+		std::cout << "...fail2" << std::endl;
 		return false;
 	}
 //=operator================================================
 	ref = make_ans(vec1.HI(), vec2.HI());
 	vec1 /= vec2;
 
-	if(err_check(ref, vec1.HI(), TOL)){
-		std::cout << "pass3" << std::endl;
-	}
-	else{
-		std::cout << "fail3" << std::endl;
+	if(!err_check(ref, vec1.HI(), TOL)){
+		std::cout << "...fail3" << std::endl;
 		return false;
 	}
+
+	auto start = std::chrono::system_clock::now();
+    for(int i=0; i<100; i++)
+ 	    vec1.add(vec2, vec3); 
+	auto end = std::chrono::system_clock::now();
+	double sec = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count()/1.0e+9/100;
+
+	std::cout << "...pass\t" << sec << std::endl;
 
 	return true;
 }
@@ -75,44 +75,44 @@ int main(int argc, char** argv){
 	bool ret=0;
 
 	if(argc!=2){
-		std::cout << "error, $1 = size" << std::endl;
+		std::cout << "div, error, $1 = size" << std::endl;
 		return 1;
 	}
 
 	long N = atoi(argv[1]);
-	std::cout << "size = " << N << std::endl;
+	std::cout << "div, size = " << N << std::endl;
 
  	// DD=
-	std::cout << "DD = DD / DD" << std::endl;
+	std::cout << "DD = DD / DD" << std::flush;
 	ret = test<dd_real_vector, dd_real_vector, dd_real_vector>(N);
 	if(!ret) return 1;
 
-	std::cout << "DD = DD / D" << std::endl;
+	std::cout << "DD = DD / D" << std::flush;
 	ret = test<dd_real_vector, dd_real_vector, d_real_vector>(N);
 	if(!ret) return 1;
 
-	std::cout << "DD = D / DD" << std::endl;
+	std::cout << "DD = D / DD" << std::flush;
 	ret = test<dd_real_vector, d_real_vector, dd_real_vector>(N);
 	if(!ret) return 1;
 
-	std::cout << "DD = D / D" << std::endl;
+	std::cout << "DD = D / D" << std::flush;
 	ret = test<dd_real_vector, d_real_vector, d_real_vector>(N);
 	if(!ret) return 1;
 
 	// D=
-	std::cout << "D = DD / DD" << std::endl;
+	std::cout << "D = DD / DD" << std::flush;
 	ret = test<d_real_vector, dd_real_vector, dd_real_vector>(N);
 	if(!ret) return 1;
 
-	std::cout << "D = DD / D" << std::endl;
+	std::cout << "D = DD / D" << std::flush;
 	ret = test<d_real_vector, dd_real_vector, d_real_vector>(N);
 	if(!ret) return 1;
 
-	std::cout << "D = D / DD" << std::endl;
+	std::cout << "D = D / DD" << std::flush;
 	ret = test<d_real_vector, d_real_vector, dd_real_vector>(N);
 	if(!ret) return 1;
 
-	std::cout << "D = D / D" << std::endl;
+	std::cout << "D = D / D" << std::flush;
 	ret = test<d_real_vector, d_real_vector, d_real_vector>(N);
 	if(!ret) return 1;
 

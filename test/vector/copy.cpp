@@ -1,6 +1,7 @@
 #include<DD-AVX.hpp>
 #include<vector>
 #include<iostream>
+#include<chrono>
 
 template<typename SRC, typename DST>
 bool test(long n)
@@ -12,10 +13,10 @@ bool test(long n)
 		vec2.copy(vec1);
 
  		if(vec1 == vec2){
-			std::cout << "pass" << std::endl;
+            // == operator check
 		} 
  		else {
-			std::cout << "fail" << std::endl;
+			std::cout << "...fail" << std::endl;
 			vec2.print_all();
 			return false;
 		}
@@ -23,13 +24,19 @@ bool test(long n)
 		vec3 = vec1;
 
  		if(vec1 != vec3){
-			std::cout << "fail" << std::endl;
+            //!= operator check
+			std::cout << "...fail" << std::endl;
 			vec3.print_all();
 			return false;
 		}
-		else{
-			std::cout << "pass" << std::endl;
-		}
+
+        auto start = std::chrono::system_clock::now();
+        for(int i=0; i<100; i++)
+		    vec2.copy(vec1);
+        auto end = std::chrono::system_clock::now();
+        double sec = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count()/1.0e+9/100;
+
+        std::cout << "...pass\t" << sec << std::endl;
 
 		return true;
 }
@@ -42,21 +49,21 @@ int main(int argc, char** argv){
 	}
 
 	long N = atoi(argv[1]);
-	std::cout << "size = " << N << std::endl;
+	std::cout << "copy, size = " << N << std::endl;
 
-	std::cout << "DD = DD" << std::endl;
+	std::cout << "DD = DD" << std::flush;
 	ret = test<dd_real_vector, dd_real_vector>(N);
 	if(!ret) return 1;
 
-	std::cout << "D = DD" << std::endl;
+	std::cout << "D = DD" << std::flush;
 	ret = test<dd_real_vector, d_real_vector>(N);
 	if(!ret) return 1;
 	
-	std::cout << "DD = D" << std::endl;
+	std::cout << "DD = D" << std::flush;
 	ret = test<d_real_vector, dd_real_vector>(N);
 	if(!ret) return 1;
 
-	std::cout << "D = D" << std::endl;
+	std::cout << "D = D" << std::flush;
 	ret = test<d_real_vector, d_real_vector>(N);
 	if(!ret) return 1;
 
