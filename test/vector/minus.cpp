@@ -37,7 +37,7 @@ int test(long N)
  	vec1.minus(); 
 
 	if(!err_check(ref, vec1.HI(), TOL)){
-		std::cout << "fail1" << std::endl;
+		std::cout << "...fail1" << std::endl;
 		return false;
 	}
 
@@ -47,7 +47,7 @@ int test(long N)
 	vec1 = -vec1;
 
 	if(!err_check(ref, vec1.HI(), TOL)){
-		std::cout << "fail2" << std::endl;
+		std::cout << "...fail2" << std::endl;
 		return false;
 	}
 

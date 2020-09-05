@@ -16,7 +16,7 @@ bool test(long n)
             // == operator check
 		} 
  		else {
-			std::cout << "fail" << std::endl;
+			std::cout << "...fail" << std::endl;
 			vec2.print_all();
 			return false;
 		}
@@ -25,7 +25,7 @@ bool test(long n)
 
  		if(vec1 != vec3){
             //!= operator check
-			std::cout << "fail" << std::endl;
+			std::cout << "...fail" << std::endl;
 			vec3.print_all();
 			return false;
 		}

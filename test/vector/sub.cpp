@@ -40,7 +40,7 @@ int test(long N)
  	vec1.sub(vec2, vec3); 
 
 	if(!err_check(ref, vec1.HI(), TOL)){
-		std::cout << "fail1" << std::endl;
+		std::cout << "...fail1" << std::endl;
 		return false;
 	}
 //=operator================================================
@@ -48,7 +48,7 @@ int test(long N)
 	vec1 = vec2 - vec3; 
 
 	if(!err_check(ref, vec1.HI(), TOL)){
-		std::cout << "fail2" << std::endl;
+		std::cout << "...fail2" << std::endl;
 		return false;
 	}
 //=operator================================================
@@ -56,7 +56,7 @@ int test(long N)
 	vec1 -= vec2;
 
 	if(!err_check(ref, vec1.HI(), TOL)){
-		std::cout << "fail3" << std::endl;
+		std::cout << "...fail3" << std::endl;
 		return false;
 	}
 
