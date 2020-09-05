@@ -1,6 +1,6 @@
 ![master branch CI status](https://github.com/t-hishinuma/DD-AVX_v3/workflows/C/C++%20CI/badge.svg)
 
-# DD-AVX Library: Library of High Precision Sparse Matrix Operations Accelerated by intel SIMD instructions
+# DD-AVX Library: Library of High Precision Sparse Matrix Operations Accelerated by SIMD
 
 ## About
 DD-AVX_v3 is SIMD accelerated simple interface high precision BLAS / Sparse BLAS Library.
