@@ -8,8 +8,8 @@ all: $(OBJS)
 
 test: $(OBJS)
 	./input.out 
-	./spmv.out 
 	./util.out 
+	./spmv.out test.mtx
 
 $(OBJS):$(SRCS)
 	make FUNC=input -f ../Makefile_core.mk

@@ -1,6 +1,7 @@
 #include<DD-AVX.hpp>
 #include<vector>
 #include<iostream>
+#include<chrono>
 #define TOL 1.0e-6
 
 void make_ans(const d_real_SpMat& A, const std::vector<double>& x, std::vector<double>& y){
@@ -35,14 +36,18 @@ int test(d_real_SpMat& A){
 
 	make_ans(A, x.HI(), ans );
 
-	if(err_check(ans, y.HI(), TOL)){
-		std::cout << "pass" << std::endl;
-	}
-	else{
-		std::cout << "fail" << std::endl;
+	if(!err_check(ans, y.HI(), TOL)){
+		std::cout << "...fail" << std::endl;
 		return false;
 	}
 
+	auto start = std::chrono::system_clock::now();
+    for(int i=0; i<100; i++)
+	    dd_avx::matvec(A, x, y);
+	auto end = std::chrono::system_clock::now();
+	double sec = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count()/1.0e+9/100;
+
+	std::cout << "...pass\t" << sec << std::endl;
 
 	return true;
 }
@@ -50,22 +55,27 @@ int test(d_real_SpMat& A){
 int main(int argc, char** argv){
 	bool ret=0;
 
-	d_real_SpMat A;
-	A.input_mm("./test.mtx");
+	if(argc!=2){
+		std::cout << "error, $1 = matrix file" << std::endl;
+		return 1;
+	}
 
-	std::cout << "DD = DMat * DD" << std::endl;
+	d_real_SpMat A;
+	A.input_mm(argv[1]);
+
+	std::cout << "DD = DMat * DD" << std::flush;
 	ret = test<dd_real_vector, dd_real_vector>(A);
 	if(!ret) return 1;
 
-	std::cout << "D = DMat * DD" << std::endl;
+	std::cout << "D = DMat * DD" << std::flush;
 	ret = test<d_real_vector, dd_real_vector>(A);
 	if(!ret) return 1;
 
-	std::cout << "DD = DMat * D" << std::endl;
+	std::cout << "DD = DMat * D" << std::flush;
 	ret = test<dd_real_vector, d_real_vector>(A);
 	if(!ret) return 1;
 	
-	std::cout << "D = DMat * D" << std::endl;
+	std::cout << "D = DMat * D" << std::flush;
 	ret = test<d_real_vector, d_real_vector>(A);
 	if(!ret) return 1;
 
