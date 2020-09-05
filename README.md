@@ -1,80 +1,83 @@
-# DD-AVX Library (beta): Library of High Precision Sparse Matrix Operations Accelerated by SIMD AVX2
-本ライブラリは
-[DD-AVX\_v1](https://github.com/t-hishinuma/DD-AVX_v3/)，
-[DD-AVX\_v2](https://github.com/t-hishinuma/DD-AVX_v2/)を混合精度に拡張した
-高速な混合精度演算ライブラリである．
+![master branch CI status](https://github.com/t-hishinuma/DD-AVX_v3/workflows/C/C++%20CI/badge.svg)
+
+# DD-AVX Library: Library of High Precision Sparse Matrix Operations Accelerated by SIMD
 
 ## About
-DD-AVXは高速・簡単なインタフェースでDouble / Double-Double精度を組み合わせて使うことを目的としたライブラリで，
-AVX2(+FMA), OpenMPによるBLAS Lv1, Sparse BLASの機能をもち，Krylov部分空間法の実装が簡単に作れる．
+DD-AVX_v3 is SIMD accelerated simple interface high precision BLAS / Sparse BLAS Library.
 
-独自型として，std::vectorと同様のI/Fで使える以下のベクトル型
-* d\_real\_vector
-* dd\_real\_vector
+This library provides an easy way to implement a fast and accurate Krylov subspace method.
 
-および以下のSparse Matrix型が使える
-* d\_real\_SpMat
-* dd\_real\_SpMat
+OpenMP and SIMD AVX / AVX2 speedup are available.
 
-それぞれの演算は全ての型の組み合わせについて実装されており，D, DDのどちらの型を入力しても動作する．
+This library is extensions of 
+[Lis_DD_AVXKernals](https://github.com/t-hishinuma/Lis_DD_AVXkernels) and 
+[DD-AVX_v2](https://github.com/t-hishinuma/DD-AVX_v2) (archived).
 
-使い方は[axpyのテストコード](https://github.com/t-hishinuma/DD-AVX_v3/blob/master/test/vector_blas/axpy.cpp)
-を見るとわかりやすい．
+## Interface
+This library provides BLAS / Sparse BLAS functions for the following six types.
 
+### Scalar
+* double
+* dd_real (provided by the QD Library)
+### Vector
+* d_real_vector
+* dd_real_vector
+### Sparse matrix
+* d_real_SpMat
+* dd_real_SpMat
+
+It has BLAS Lv 1 and Sparse BLAS functions for these types.
+
+All combinations of BLAS functions are implemented.
+It works for both D and DD types.
+
+See the [axpy sample code](https://github.com/t-hishinuma/DD-AVX_v3/blob/master/test/vector_blas/axpy.cpp) for more information on how to use it.
 
 # Build and Install
+This library requires the QD library for scalar operations as a submodule.
+The QD library is downloaded and built automatically by `make`.
 
-以下のコマンドでビルドおよびインストールができる:
+You can specify the destination directory with `DDAVX_DIR' and `make` .
+The QD libraries are installed in the same directory.
 
-```
+You can build and install the QD library with the following commands:
+
+## AVX
+> make avx
+> 
+> make install
+
+## AVX2
 > make avx2
+> 
 > make install
-```
 
-まだ未実装だが，将来的にAVX512の場合は以下のコマンドでビルドおよびインストールができる:
-
-```
+## AVX512 (not yet implemented)
+In the future, AVX512 can be built with the following command.
 > make avx512
+> 
 > make install
-```
 
-submoduleとしてスカラ演算のためのQDライブラリが必要で、`make`でgitを使って自動的にダウンロードされる。
+# System Requirements
+* g++ 7.1 or higher
+* GNU make
 
-インストール先は`DDAVX_DIR`およびによって指定できる。QDもここにインストールされる。
+# Current Status and Restrictions
+This is a beta version, and there are some restrictions and changes planned.
 
-## Current Status and Restrictions
-現在はβ版で，いくつかの制約や変更予定箇所がある．
-* 現状では、AVX2やOpenMPの無効化はできない。(OpenMPのスレッド数を変更したい場合は環境変数にて行うこと)
-* 疎行列クラスには行操作，列操作の実装をしたいのでクラス設計を修正予定．
-* レジスタ用のクラスの定義をupdateする
-	* SIMD\_REGクラスだとScalarとの共通化がしにくいのでREGクラスにしたい．
-* BCRS形式への変換ルーチンは現在はマルチスレッド化して作り直そうと思っているため動作しない
-* OpenMPのON/OFF切り替えはできない
+* SIMD and OpenMP cannot be disabled. (If you want to change the number of OpenMP threads, do so in the environment variable.)
+* The class design will be modified to implement element/row/column operations in the sparse matrix class.
+* (SIMD_REG class is difficult to share with Scalar, so I want to change it to REG class.)
+* The conversion routine to BCRS format doesn't work because I'm currently trying to rework it to make it multi-threaded.
 
 # Document
-
-Doxygenを用いて生成できる．
+It can be generated using Doxygen.
 
 # Testing
-各機能のテストは一通り揃えている。
-`test`ディレクトリにそれぞれ入っている。
+We have a complete set of tests for each feature in the test directory. You can find them in the test directory.
 
-```
-> cd test; make
-```
-
-# For Developer
-includeの中はそれぞれ：
-* DD-AVX.hpp
-BLAS / Sparse BLAS関数の宣言
-* DD-AVX\_d\_spmat.hpp
-倍精度疎行列型の定義
-* DD-AVX\_d\_vector.hpp
-倍精度ベクトル型の定義 (std::vector<double>を継承している)
-* DD-AVX\_dd\_vector.hpp
-倍々精度ベクトル型の定義
-* core/AVX2
-AVX2化されたDDのAdd, Mul, 積和演算の実装
-* template型の内部演算とオーバーロード型の内部演算が両方実装されている．
-どちらも同じ性能なことを確認してある．
-切り替えはinclude/DD-AVX.hppのifdefで行う
+> cd test/
+> 
+> make
+> 
+> make test
