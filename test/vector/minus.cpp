@@ -1,6 +1,7 @@
 #include<DD-AVX.hpp>
 #include<vector>
 #include<iostream>
+#include<chrono>
 #define TOL 1.0e-8
 
 std::vector<double> make_ans(std::vector<double> vec1){
@@ -35,10 +36,7 @@ int test(long N)
 
  	vec1.minus(); 
 
-	if(err_check(ref, vec1.HI(), TOL)){
-		std::cout << "pass1" << std::endl;
-	}
-	else{
+	if(!err_check(ref, vec1.HI(), TOL)){
 		std::cout << "fail1" << std::endl;
 		return false;
 	}
@@ -48,13 +46,18 @@ int test(long N)
 	ref = make_ans(vec1.HI());
 	vec1 = -vec1;
 
-	if(err_check(ref, vec1.HI(), TOL)){
-		std::cout << "pass2" << std::endl;
-	}
-	else{
+	if(!err_check(ref, vec1.HI(), TOL)){
 		std::cout << "fail2" << std::endl;
 		return false;
 	}
+
+	auto start = std::chrono::system_clock::now();
+    for(int i=0; i<100; i++)
+ 	    vec1.minus(); 
+	auto end = std::chrono::system_clock::now();
+	double sec = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count()/1.0e+9/100;
+
+	std::cout << "...pass\t" << sec << std::endl;
 
 	return true;
 }
@@ -68,15 +71,15 @@ int main(int argc, char** argv){
 	}
 
 	long N = atoi(argv[1]);
-	std::cout << "size = " << N << std::endl;
+	std::cout << "minus, size = " << N << std::endl;
 
  	// DD=
-	std::cout << "DD = -DD" << std::endl;
+	std::cout << "DD = -DD" << std::flush;
 	ret = test<dd_real_vector>(N);
 	if(!ret) return 1;
 
 	// D=
-	std::cout << "D = -D" << std::endl;
+	std::cout << "D = -D" << std::flush;
 	ret = test<d_real_vector>(N);
 	if(!ret) return 1;
 
