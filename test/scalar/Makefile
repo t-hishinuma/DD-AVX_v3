@@ -4,15 +4,13 @@ OBJS=$(addprefix ./, $(SRCS:.cpp=.out))
 
 TEST_SIZE?=100
 
-all: $(OBJS)
-
-test: $(OBJS)
-	./scalar.out 
-	./vector_element.out 
-
-$(OBJS):$(SRCS)
+all: 
 	make FUNC=scalar -f ../Makefile_core.mk
 	make FUNC=vector_element -f ../Makefile_core.mk
+
+test: 
+	./scalar.out 
+	./vector_element.out 
 
 clean:
 	rm $(OBJS)
