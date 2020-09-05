@@ -9,7 +9,7 @@ BLAS / Sparse BLAS operations can be performed by combining double and double-do
 
 This library provides an easy way to implement a fast and accurate Krylov subspace method.
 
-OpenMP and SIMD AVX / AVX2 speedup are available.
+OpenMP and SIMD AVX / AVX2 acceleration are available.
 
 This library is extensions of 
 [Lis_DD_AVXKernals](https://github.com/t-hishinuma/Lis_DD_AVXkernels) and 
