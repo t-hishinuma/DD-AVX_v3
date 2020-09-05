@@ -17,10 +17,21 @@ jobs:
       run: make avx
     - name: make install
       run: make install
+
     - name: make test
       run: cd test; make
-    - name: test run
-      run: cd test; make test
+
+    - name: test scalar
+      run: cd test; make test_scalar
+
+    - name: test vector
+      run: cd test; make test_vector
+
+    - name: test vector_blas
+      run: cd test; make test_vector_blas
+
+    - name: test matrix
+      run: cd test; make test_matrix
 
   avx2:
 
@@ -32,8 +43,18 @@ jobs:
       run: make avx2
     - name: make install
       run: make install
+
     - name: make test
       run: cd test; make
-    - name: test run
-      run: cd test; make test
 
+    - name: test scalar
+      run: cd test; make test_scalar
+
+    - name: test vector
+      run: cd test; make test_vector
+
+    - name: test vector_blas
+      run: cd test; make test_vector_blas
+
+    - name: test matrix
+      run: cd test; make test_matrix
