@@ -3,9 +3,9 @@
 # DD-AVX Library: Library of High Precision Sparse Matrix Operations Accelerated by SIMD
 
 ## About
-DD-AVX_v3 is SIMD accelerated simple interface high precision BLAS / Sparse BLAS Library.
+DD-AVX_v3 is SIMD accelerated simple interface high precision BLAS Lv.1 and Sparse BLAS Library.
 
-BLAS / Sparse BLAS operations can be performed by combining double and double-double precision.
+BLAS Lv.1 and Sparse BLAS operations can be performed by combining double and double-double precision.
 
 This library provides an easy way to implement a fast and accurate Krylov subspace method.
 
@@ -19,7 +19,7 @@ This library is extensions of
 This library provides BLAS / Sparse BLAS functions for the following six types.
 
 ### Scalar
-* double
+* d_real (alias of double)
 * dd_real (provided by the QD Library)
 ### Vector
 * d_real_vector
@@ -28,12 +28,14 @@ This library provides BLAS / Sparse BLAS functions for the following six types.
 * d_real_SpMat
 * dd_real_SpMat
 
-It has BLAS Lv 1 and Sparse BLAS functions for these types.
+It has BLAS Lv.1 and Sparse BLAS functions for these types.
 
 All combinations of BLAS functions are implemented.
 It works for both D and DD types.
 
-See the [axpy sample code](https://github.com/t-hishinuma/DD-AVX_v3/blob/master/test/vector_blas/axpy.cpp) for more information on how to use it.
+See the [axpy sample code](https://github.com/t-hishinuma/DD-AVX_v3/blob/master/test/vector_blas/axpy.cpp) and 
+[CG method sample code](https://github.com/t-hishinuma/DD-AVX_v3/blob/master/sample/cg.cpp) 
+for more information on how to use it.
 
 # Build and Install
 This library requires the QD library for scalar operations as a submodule.

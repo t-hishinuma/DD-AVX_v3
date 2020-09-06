@@ -9,12 +9,12 @@ namespace dd_avx{
 		{
 			int i=0, is=0, ie=0;
 			get_isie(x.size(), is, ie);
-			SIMDreg alpha_hi = broadcast(alpha.x[0]);
-			SIMDreg alpha_lo = broadcast(alpha.x[1]);
+			reg alpha_hi = broadcast(alpha.x[0]);
+			reg alpha_lo = broadcast(alpha.x[1]);
 			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
-				SIMDreg x_hi = load(x.hi[i]);
-				SIMDreg x_lo = load(x.lo[i]);
+				reg x_hi = load(x.hi[i]);
+				reg x_lo = load(x.lo[i]);
 
 				Mul(x_hi, x_lo, alpha_hi, alpha_lo, x_hi, x_lo, regs);
 
@@ -34,12 +34,12 @@ namespace dd_avx{
 		{
 			int i=0, is=0, ie=0;
 			get_isie(x.size(), is, ie);
-			SIMDreg alpha_hi = broadcast(alpha);
-			SIMDreg alpha_lo = regs.zeros;
+			reg alpha_hi = broadcast(alpha);
+			reg alpha_lo = regs.zeros;
 			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
-				SIMDreg x_hi = load(x.hi[i]);
-				SIMDreg x_lo = load(x.lo[i]);
+				reg x_hi = load(x.hi[i]);
+				reg x_lo = load(x.lo[i]);
 
 				Mul(x_hi, x_lo, alpha_hi, alpha_lo, x_hi, x_lo, regs);
 
@@ -59,12 +59,12 @@ namespace dd_avx{
 		{
 			int i=0, is=0, ie=0;
 			get_isie(x.size(), is, ie);
-			SIMDreg alpha_hi = broadcast(alpha.x[0]);
-			SIMDreg alpha_lo = broadcast(alpha.x[1]);
+			reg alpha_hi = broadcast(alpha.x[0]);
+			reg alpha_lo = broadcast(alpha.x[1]);
 			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
-				SIMDreg x_hi = load(x.data()[i]);
-				SIMDreg x_lo = regs.zeros;
+				reg x_hi = load(x.data()[i]);
+				reg x_lo = regs.zeros;
 
 				Mul(x_hi, x_lo, alpha_hi, alpha_lo, x_hi, x_lo, regs);
 
@@ -83,12 +83,12 @@ namespace dd_avx{
 		{
 			int i=0, is=0, ie=0;
 			get_isie(x.size(), is, ie);
-			SIMDreg alpha_hi = broadcast(alpha);
-			SIMDreg alpha_lo = regs.zeros;
+			reg alpha_hi = broadcast(alpha);
+			reg alpha_lo = regs.zeros;
 			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
-				SIMDreg x_hi = load(x.data()[i]);
-				SIMDreg x_lo = regs.zeros;
+				reg x_hi = load(x.data()[i]);
+				reg x_lo = regs.zeros;
 
 				Mul(x_hi, x_lo, alpha_hi, alpha_lo, x_hi, x_lo, regs);
 

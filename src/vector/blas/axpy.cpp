@@ -14,15 +14,15 @@ namespace dd_avx{
 		{
 			int i=0, is=0, ie=0;
 			get_isie(y.size(), is, ie);
-			SIMDreg alpha_hi = broadcast(alpha.x[0]);
-			SIMDreg alpha_lo = broadcast(alpha.x[1]);
+			reg alpha_hi = broadcast(alpha.x[0]);
+			reg alpha_lo = broadcast(alpha.x[1]);
 			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
-				SIMDreg x_hi = load(x.hi[i]);
-				SIMDreg x_lo = load(x.lo[i]);
+				reg x_hi = load(x.hi[i]);
+				reg x_lo = load(x.lo[i]);
 
-				SIMDreg y_hi = load(y.hi[i]);
-				SIMDreg y_lo = load(y.lo[i]);
+				reg y_hi = load(y.hi[i]);
+				reg y_lo = load(y.lo[i]);
 
 				Fma(y_hi, y_lo, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, x_lo, regs);
 
@@ -46,14 +46,14 @@ namespace dd_avx{
 		{
 			int i=0, is=0, ie=0;
 			get_isie(y.size(), is, ie);
-			SIMDreg alpha_hi = broadcast(alpha.x[0]);
-			SIMDreg alpha_lo = broadcast(alpha.x[1]);
+			reg alpha_hi = broadcast(alpha.x[0]);
+			reg alpha_lo = broadcast(alpha.x[1]);
 			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
-				SIMDreg x_hi = load(x.data()[i]);
+				reg x_hi = load(x.data()[i]);
 
-				SIMDreg y_hi = load(y.hi[i]);
-				SIMDreg y_lo = load(y.lo[i]);
+				reg y_hi = load(y.hi[i]);
+				reg y_lo = load(y.lo[i]);
 
 				Fmad(y_hi, y_lo, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, regs);
 
@@ -77,15 +77,15 @@ namespace dd_avx{
 		{
 			int i=0, is=0, ie=0;
 			get_isie(y.size(), is, ie);
-			SIMDreg alpha_hi = broadcast(alpha.x[0]);
-			SIMDreg alpha_lo = broadcast(alpha.x[1]);
+			reg alpha_hi = broadcast(alpha.x[0]);
+			reg alpha_lo = broadcast(alpha.x[1]);
 			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
-				SIMDreg x_hi = load(x.hi[i]);
-				SIMDreg x_lo = load(x.lo[i]);
+				reg x_hi = load(x.hi[i]);
+				reg x_lo = load(x.lo[i]);
 
-				SIMDreg y_hi = load(y.data()[i]);
-				SIMDreg y_lo = regs.zeros;
+				reg y_hi = load(y.data()[i]);
+				reg y_lo = regs.zeros;
 
 				Fma(y_hi, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, x_lo, regs);
 
@@ -108,14 +108,14 @@ namespace dd_avx{
 		{
 			int i=0, is=0, ie=0;
 			get_isie(y.size(), is, ie);
-			SIMDreg alpha_hi = broadcast(alpha.x[0]);
-			SIMDreg alpha_lo = broadcast(0.0);
+			reg alpha_hi = broadcast(alpha.x[0]);
+			reg alpha_lo = broadcast(0.0);
 			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
-				SIMDreg x_hi = load(x.data()[i]);
+				reg x_hi = load(x.data()[i]);
 
-				SIMDreg y_hi = load(y.data()[i]);
-				SIMDreg y_lo = regs.zeros;
+				reg y_hi = load(y.data()[i]);
+				reg y_lo = regs.zeros;
 
 				Fmad(y_hi, y_lo, y_hi, y_lo, alpha_hi, alpha_lo, x_hi, regs);
 
@@ -139,15 +139,15 @@ namespace dd_avx{
 		{
 			int i=0, is=0, ie=0;
 			get_isie(y.size(), is, ie);
-			SIMDreg alpha_hi = broadcast(alpha);
-			SIMDreg alpha_lo = broadcast(0.0);
+			reg alpha_hi = broadcast(alpha);
+			reg alpha_lo = broadcast(0.0);
 			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
-				SIMDreg x_hi = load(x.hi[i]);
-				SIMDreg x_lo = load(x.lo[i]);
+				reg x_hi = load(x.hi[i]);
+				reg x_lo = load(x.lo[i]);
 
-				SIMDreg y_hi = load(y.hi[i]);
-				SIMDreg y_lo = load(y.lo[i]);
+				reg y_hi = load(y.hi[i]);
+				reg y_lo = load(y.lo[i]);
 
 				Fmad(y_hi, y_lo, y_hi, y_lo, x_hi, x_lo, alpha_hi, regs);
 
@@ -171,15 +171,15 @@ namespace dd_avx{
 		{
 			int i=0, is=0, ie=0;
 			get_isie(y.size(), is, ie);
-			SIMDreg alpha_hi = broadcast(alpha);
-			SIMDreg alpha_lo = broadcast(0.0);
+			reg alpha_hi = broadcast(alpha);
+			reg alpha_lo = broadcast(0.0);
 			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
-				SIMDreg x_hi = load(x.data()[i]);
-				SIMDreg x_lo = regs.zeros;
+				reg x_hi = load(x.data()[i]);
+				reg x_lo = regs.zeros;
 
-				SIMDreg y_hi = load(y.hi[i]);
-				SIMDreg y_lo = load(y.lo[i]);
+				reg y_hi = load(y.hi[i]);
+				reg y_lo = load(y.lo[i]);
 
 				Fmad(y_hi, y_lo, y_hi, y_lo, x_hi, x_lo, alpha_hi, regs);
 
@@ -203,15 +203,15 @@ namespace dd_avx{
 		{
 			int i=0, is=0, ie=0;
 			get_isie(y.size(), is, ie);
-			SIMDreg alpha_hi = broadcast(alpha);
-			SIMDreg alpha_lo = broadcast(0.0);
+			reg alpha_hi = broadcast(alpha);
+			reg alpha_lo = broadcast(0.0);
 			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
-				SIMDreg x_hi = load(x.hi[i]);
-				SIMDreg x_lo = load(x.lo[i]);
+				reg x_hi = load(x.hi[i]);
+				reg x_lo = load(x.lo[i]);
 
-				SIMDreg y_hi = load(y.data()[i]);
-				SIMDreg y_lo = regs.zeros;
+				reg y_hi = load(y.data()[i]);
+				reg y_lo = regs.zeros;
 
 				Fmad(y_hi, y_lo, y_hi, y_lo, x_hi, x_lo, alpha_hi, regs);
 

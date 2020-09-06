@@ -18,16 +18,16 @@ namespace dd_avx{
 			int i=0, is=0, ie=0;
 			get_isie((int)y.size(), is, ie);
 
-			SIMDreg r_hi = regs.zeros;
-			SIMDreg r_lo = regs.zeros;
+			reg r_hi = regs.zeros;
+			reg r_lo = regs.zeros;
 
 			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
-				SIMDreg x_hi = load(x.hi[i]);
-				SIMDreg x_lo = load(x.lo[i]);
+				reg x_hi = load(x.hi[i]);
+				reg x_lo = load(x.lo[i]);
 
-				SIMDreg y_hi = load(y.hi[i]);
-				SIMDreg y_lo = load(y.lo[i]);
+				reg y_hi = load(y.hi[i]);
+				reg y_lo = load(y.lo[i]);
 
 				Fma(r_hi, r_lo, r_hi, r_lo, x_hi, x_lo, y_hi, y_lo, regs);
 			}
@@ -63,15 +63,15 @@ namespace dd_avx{
 			int i=0, is=0, ie=0;
 			get_isie(y.size(), is, ie);
 
-			SIMDreg r_hi = regs.zeros;
-			SIMDreg r_lo = regs.zeros;
+			reg r_hi = regs.zeros;
+			reg r_lo = regs.zeros;
 
 			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
-				SIMDreg x_hi = load(x.data()[i]);
+				reg x_hi = load(x.data()[i]);
 
-				SIMDreg y_hi = load(y.hi[i]);
-				SIMDreg y_lo = load(y.lo[i]);
+				reg y_hi = load(y.hi[i]);
+				reg y_lo = load(y.lo[i]);
 
 				Fmad(r_hi, r_lo, r_hi, r_lo, y_hi, y_lo, x_hi, regs);
 			}
@@ -106,15 +106,15 @@ namespace dd_avx{
 			int i=0, is=0, ie=0;
 			get_isie(y.size(), is, ie);
 
-			SIMDreg r_hi = regs.zeros;
-			SIMDreg r_lo = regs.zeros;
+			reg r_hi = regs.zeros;
+			reg r_lo = regs.zeros;
 
 			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
-				SIMDreg x_hi = load(x.hi[i]);
-				SIMDreg x_lo = load(x.lo[i]);
+				reg x_hi = load(x.hi[i]);
+				reg x_lo = load(x.lo[i]);
 
-				SIMDreg y_hi = load(y.data()[i]);
+				reg y_hi = load(y.data()[i]);
 
 
 				Fmad(r_hi, r_lo, r_hi, r_lo, x_hi, x_lo, y_hi, regs);
@@ -150,15 +150,15 @@ namespace dd_avx{
 			int i=0, is=0, ie=0;
 			get_isie(y.size(), is, ie);
 
-			SIMDreg r_hi = regs.zeros;
-			SIMDreg r_lo = regs.zeros;
+			reg r_hi = regs.zeros;
+			reg r_lo = regs.zeros;
 
 			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
 
-				SIMDreg x_hi = load(x.data()[i]);
-				SIMDreg x_lo = regs.zeros;
+				reg x_hi = load(x.data()[i]);
+				reg x_lo = regs.zeros;
 
-				SIMDreg y_hi = load(y.data()[i]);
+				reg y_hi = load(y.data()[i]);
 
 
 				Fmad(r_hi, r_lo, r_hi, r_lo, x_hi, x_lo, y_hi, regs);

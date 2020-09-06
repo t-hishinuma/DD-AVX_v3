@@ -13,11 +13,11 @@ $(OBJS): cg.cpp
 	$(CXX) $(CXXFLAGS) $(RPATH) $^ -o $@ $(LIB)
 
 test: trimat.mtx
-	./cg.out ./trimat.mtx
+	./cg.out ./trimat.mtx 1.0e-12 0
 
 trimat.mtx: trimat_gen.cpp
-	g++ trimat_gen.cpp -o trimat_gen.out
-	./trimat_gen.out 100 2 > trimat.mtx
+	g++ trimat_gen.cpp -o trimat_gen.out 
+	./trimat_gen.out 10000 2 > trimat.mtx
 
 clean:
 	- rm $(OBJS)
