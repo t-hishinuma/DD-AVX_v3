@@ -212,6 +212,11 @@ namespace dd_avx{
 		}
 
 #pragma omp parallel for schedule(guided) 
+        for(int i=0; i<A.get_row(); i++){
+            y.data()[i] = 0;
+        }
+
+#pragma omp parallel for schedule(guided) 
 		for(int i=0; i<A.get_row(); i++){
 			for(int j = A.row_ptr[i]; j < A.row_ptr[i+1]; j++){
 				y.data()[i] += A.val[j] * x[A.col_ind[j]];
