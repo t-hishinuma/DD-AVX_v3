@@ -24,9 +24,8 @@ This library provides BLAS / Sparse BLAS functions for the following six types.
 ### Vector
 * d_real_vector
 * dd_real_vector
-### Sparse matrix
+### Sparse matrix (CRS format)
 * d_real_SpMat
-* dd_real_SpMat
 
 It has BLAS Lv.1 and Sparse BLAS functions for these types.
 
