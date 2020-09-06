@@ -6,10 +6,10 @@ namespace ddavx_core{
 
 	//d = a + b * c
 	inline void Fma(
-			SIMDreg& d_hi, SIMDreg& d_lo,
-			const SIMDreg& a_hi, const SIMDreg& a_lo,
-			const SIMDreg& b_hi, const SIMDreg& b_lo,
-			const SIMDreg& c_hi, const SIMDreg& c_lo,
+			reg& d_hi, reg& d_lo,
+			const reg& a_hi, const reg& a_lo,
+			const reg& b_hi, const reg& b_lo,
+			const reg& c_hi, const reg& c_lo,
 			registers& c
 			)
 	{
@@ -18,7 +18,7 @@ namespace ddavx_core{
 		c.bl = b_lo;
 		c.cl = c_lo;
 
-#if 1
+#if defined USE_FMA
 		c.p1 = mul(c.minus, c.bh); 
 		c.p1 = mul(c.p1, c.ch); 
 		c.p2 = fmadd(c.bh, c.ch, c.p1); 
@@ -83,10 +83,10 @@ namespace ddavx_core{
 	}
 
 	inline void Fma(
-			SIMDreg& d_hi, 
-			const SIMDreg& a_hi, const SIMDreg& a_lo,
-			const SIMDreg& b_hi, const SIMDreg& b_lo,
-			const SIMDreg& c_hi, const SIMDreg& c_lo,
+			reg& d_hi, 
+			const reg& a_hi, const reg& a_lo,
+			const reg& b_hi, const reg& b_lo,
+			const reg& c_hi, const reg& c_lo,
 			registers& c
 			)
 	{
@@ -95,7 +95,7 @@ namespace ddavx_core{
 		c.bl = b_lo;
 		c.cl = c_lo;
 
-#if 1
+#if defined USE_FMA
 		c.p1 = mul(c.minus, c.bh); 
 		c.p1 = mul(c.p1, c.ch); 
 		c.p2 = fmadd(c.bh, c.ch, c.p1); 
@@ -157,10 +157,10 @@ namespace ddavx_core{
 	}
 
 	inline void Fmad(
-			SIMDreg& d_hi, SIMDreg& d_lo,
-			const SIMDreg& a_hi, const SIMDreg& a_lo,
-			const SIMDreg& b_hi, const SIMDreg& b_lo,
-			const SIMDreg& c_hi, 
+			reg& d_hi, reg& d_lo,
+			const reg& a_hi, const reg& a_lo,
+			const reg& b_hi, const reg& b_lo,
+			const reg& c_hi, 
 			registers& c
 			)
 	{
@@ -168,7 +168,7 @@ namespace ddavx_core{
 		c.bl  = b_lo;
 		c.ch  = c_hi;
 
-#if 1
+#if defined USE_FMA
 		c.p1 = mul(c.minus, c.bh); 
 		c.p1 = mul(c.p1, c.ch); 
 		c.p2 = fmadd(c.bh, c.ch, c.p1); 

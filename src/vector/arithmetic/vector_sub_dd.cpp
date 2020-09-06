@@ -19,14 +19,14 @@ void dd_real_vector::sub(dd_real_vector& vec1, dd_real_vector& vec2)
 		int i=0, is=0, ie=0;
 		get_isie(size(), is, ie);
 		for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
-			SIMDreg a_hi = load(hi[i]);
-			SIMDreg a_lo = load(lo[i]);
+			reg a_hi = load(hi[i]);
+			reg a_lo = load(lo[i]);
 
-			SIMDreg b_hi = load(vec1.hi[i]);
-			SIMDreg b_lo = load(vec1.lo[i]);
+			reg b_hi = load(vec1.hi[i]);
+			reg b_lo = load(vec1.lo[i]);
 
-			SIMDreg c_hi = load(vec2.hi[i]);
-			SIMDreg c_lo = load(vec2.lo[i]);
+			reg c_hi = load(vec2.hi[i]);
+			reg c_lo = load(vec2.lo[i]);
 			to_minus(c_hi, regs);
 			to_minus(c_lo, regs);
 
@@ -54,14 +54,14 @@ void dd_real_vector::sub(d_real_vector& vec1, dd_real_vector& vec2)
 		int i=0, is=0, ie=0;
 		get_isie(size(), is, ie);
 		for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
-			SIMDreg a_hi = load(hi[i]);
-			SIMDreg a_lo = load(lo[i]);
+			reg a_hi = load(hi[i]);
+			reg a_lo = load(lo[i]);
 
-			SIMDreg b_hi = load(vec1.data()[i]);
-			SIMDreg b_lo = regs.zeros;
+			reg b_hi = load(vec1.data()[i]);
+			reg b_lo = regs.zeros;
 
-			SIMDreg c_hi = load(vec2.hi[i]);
-			SIMDreg c_lo = load(vec2.lo[i]);
+			reg c_hi = load(vec2.hi[i]);
+			reg c_lo = load(vec2.lo[i]);
 			to_minus(c_hi, regs);
 			to_minus(c_lo, regs);
 
@@ -89,14 +89,14 @@ void dd_real_vector::sub(dd_real_vector& vec1, d_real_vector& vec2)
 		int i=0, is=0, ie=0;
 		get_isie(size(), is, ie);
 		for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
-			SIMDreg a_hi = load(hi[i]);
-			SIMDreg a_lo = load(lo[i]);
+			reg a_hi = load(hi[i]);
+			reg a_lo = load(lo[i]);
 
-			SIMDreg b_hi = load(vec1.hi[i]);
-			SIMDreg b_lo = load(vec1.lo[i]);
+			reg b_hi = load(vec1.hi[i]);
+			reg b_lo = load(vec1.lo[i]);
 
-			SIMDreg c_hi = load(vec2.data()[i]);
-			SIMDreg c_lo = regs.zeros;
+			reg c_hi = load(vec2.data()[i]);
+			reg c_lo = regs.zeros;
 
 			to_minus(c_hi, regs);
 			to_minus(c_lo, regs);

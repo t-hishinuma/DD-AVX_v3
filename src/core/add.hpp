@@ -4,9 +4,9 @@
 
 namespace ddavx_core{
 	inline void Add(
-			SIMDreg& a_hi, SIMDreg& a_lo,
-			const SIMDreg& b_hi, const SIMDreg& b_lo,
-			const SIMDreg& c_hi, const SIMDreg& c_lo,
+			reg& a_hi, reg& a_lo,
+			const reg& b_hi, const reg& b_lo,
+			const reg& c_hi, const reg& c_lo,
 			registers& c
 			)
 	{
@@ -42,9 +42,9 @@ namespace ddavx_core{
 	}
 
 	inline void Add(
-			SIMDreg& a_hi,
-			const SIMDreg& b_hi, const SIMDreg& b_lo,
-			const SIMDreg& c_hi, const SIMDreg& c_lo,
+			reg& a_hi,
+			const reg& b_hi, const reg& b_lo,
+			const reg& c_hi, const reg& c_lo,
 			registers& c
 			)
 	{
