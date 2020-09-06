@@ -39,7 +39,7 @@ See the [axpy sample code](https://github.com/t-hishinuma/DD-AVX_v3/blob/master/
 This library requires the QD library for scalar operations as a submodule.
 The QD library is downloaded and built automatically by `make`.
 
-You can specify the destination directory with `DDAVX_DIR' and `make` .
+You can specify the destination directory with `DDAVX_DIR` and `make` .
 The QD libraries are installed in the same directory.
 
 You can build and install the QD library with the following commands:
