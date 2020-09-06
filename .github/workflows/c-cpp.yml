@@ -32,6 +32,9 @@ jobs:
     - name: test matrix
       run: cd test; make test_matrix
 
+    - name: test cg
+      run: cd sample/; make; make test
+
   avx2:
     runs-on: ubuntu-latest
 
@@ -56,3 +59,6 @@ jobs:
 
     - name: test matrix
       run: cd test; make test_matrix
+
+    - name: test cg
+      run: cd sample/; make; make test
