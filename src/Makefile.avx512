@@ -1,7 +1,7 @@
 TARGET=../lib/libdd-avx.so
 LINK=-I../include/ -I./core/ -L../lib/ -lqd
 
-CXXFLAGS+=-O3 -std=c++17 -fopenmp -lm -g -fPIC 
+CXXFLAGS= -O3 -std=c++17 -fopenmp -lm -fPIC 
 CXXFLAGS+= -DUSE_AVX512 -DUSE_FMA -mavx512f -mfma
 LIBFLAGS=-shared
 
@@ -31,4 +31,4 @@ $(TARGET): $(OBJS)
 	g++ $(CXXFLAGS) $(LIBFLAGS) $(LINK) $(OBJS) -o $(TARGET)
 
 $(OBJDIR)/%.o: %.cpp 
-	g++ $(CXXFLAGS) $(LINK) -c $< -o $@
+	g++ $(CXXFLAGS) $(LINK) -I../include -c $< -o $@
