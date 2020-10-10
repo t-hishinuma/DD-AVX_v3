@@ -69,7 +69,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: make
-      run: make avx2
+      run: make avx512
     - name: make install
       run: make install
 
