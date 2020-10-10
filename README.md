@@ -3,13 +3,14 @@
 # DD-AVX Library: Library of High Precision Sparse Matrix Operations Accelerated by SIMD
 
 ## About
-DD-AVX_v3 is SIMD accelerated simple interface high precision BLAS Lv.1 and Sparse BLAS Library.
+DD-AVX_v3 is SIMD accelerated simple interface high precision BLAS Lv.1 and Sparse BLAS operations Library.
 
-BLAS Lv.1 and Sparse BLAS operations can be performed by combining double and double-double precision.
+These operations can be performed by combining double and double-double precision.
+
+**Multi-threading** (OpenMP) and **SIMD AVX / AVX2 / AVX512** acceleration are available.
 
 This library provides an easy way to implement a fast and accurate Krylov subspace method.
 
-OpenMP and SIMD AVX / AVX2 acceleration are available.
 
 This library is extensions of 
 [Lis_DD_AVXKernals](https://github.com/t-hishinuma/Lis_DD_AVXkernels) and 
@@ -40,30 +41,38 @@ for more information on how to use it.
 This library requires the QD library for scalar operations as a submodule.
 The QD library is downloaded and built automatically by `make`.
 
-You can specify the destination directory with `DDAVX_DIR` and `make` .
+You can specify the destination directory with `DD_AVX_DIR` and `make` .
 The QD libraries are installed in the same directory.
 
 You can build and install the QD library with the following commands:
 
-## AVX
+## System Requirements
+* g++ 7.1 or higher (C++17)
+* GNU make
+
+## Build for each SIMD instruction
+### AVX
 > make avx
 > 
 > make install
 
-## AVX2
+### AVX2
 > make avx2
 > 
 > make install
 
-## AVX512 (not yet implemented)
-In the future, AVX512 can be built with the following command.
+### AVX512
 > make avx512
 > 
 > make install
 
-# System Requirements
-* g++ 7.1 or higher
-* GNU make
+#### AVX512 testing is inadequate.
+Since github actions's runner does not support AVX512, github actions only verifies the build.
+We performed manual testing on an Intel® Xeon® Platinum 8280.
+
+
+# Document
+It can be generated using Doxygen.
 
 # Current Status and Restrictions
 This is a beta version, and there are some restrictions and changes planned.
@@ -75,14 +84,16 @@ The detailed todo is discussed in [Issue](https://github.com/t-hishinuma/DD-AVX_
 * (SIMD_REG class is difficult to share with Scalar, so I want to change it to REG class.)
 * The conversion routine to BCRS format doesn't work because I'm currently trying to rework it to make it multi-threaded.
 
-# Document
-It can be generated using Doxygen.
 
-# Testing
-We have a complete set of tests for each feature in the test directory. You can find them in the test directory.
+# Test and sample
+## test
+We have a complete set of tests for each feature in the `test/` directory. 
 
 > cd test/
 > 
 > make
 > 
-> make test
+> make test_all
+
+## sample
+We have implemented an example of the CG method, which is available in `sample/`.
