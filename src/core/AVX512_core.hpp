@@ -12,7 +12,7 @@ namespace ddavx_core{
 	class registers{
 		public:
 			double splitter = 134217729.0;
-			reg sp = SIMD_FUNC(set1_pd)(&splitter);
+			reg sp = SIMD_FUNC(set1_pd)(splitter);
 			reg minus = SIMD_FUNC(set_pd)(-1.0,-1.0,-1.0,-1.0,-1.0,-1.0,-1.0,-1.0);
 			reg zeros = SIMD_FUNC(set_pd)(0,0,0,0,0,0,0,0);
 			reg one,bh,bl,ch,cl,sh,sl,wh,wl,th,tl,p1,p2,t0,t1,t2,eh,t3; 
@@ -36,7 +36,7 @@ namespace ddavx_core{
 
 	//broadcast
 	inline reg broadcast(const double a){
-		reg ret = SIMD_FUNC(set1_pd)(&a); 
+		reg ret = SIMD_FUNC(set1_pd)(a); 
 		return ret;
 	}
 
@@ -95,7 +95,7 @@ namespace ddavx_core{
 	}
 
 	// need to change for AVX512
-	inline void store(double& ret1, double& ret2, double& ret3, double& ret4, const reg val){
+	inline void store(double& ret1, double& ret2, double& ret3, double& ret4,double& ret5, double& ret6, double& ret7, double& ret8, const reg val){
 		double tmp[8];
 		store(*tmp, val); 
 		ret1 = tmp[0];

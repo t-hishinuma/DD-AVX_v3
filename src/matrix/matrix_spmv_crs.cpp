@@ -6,7 +6,7 @@ namespace dd_avx{
 #if defined USE_AVX512
 
     // 実験的にsetを関数化して書き直しの箇所を減らしてみます
-    inline reg set_all(const std::vector<double>& x, const std::vector<size_t>& index, const size_t i){
+    inline reg set_all(const std::vector<double>& x, const std::vector<int>& index, const size_t i){
         reg tmp;
         tmp = set(x[index[i+0]], x[index[i+1]], x[index[i+2]], x[index[i+3]], x[index[i+4]], x[index[i+5]], x[index[i+6]], x[index[i+7]]);
         return tmp;
