@@ -97,3 +97,8 @@ We have a complete set of tests for each feature in the `test/` directory.
 
 ## sample
 We have implemented an example of the CG method, which is available in `sample/`.
+
+# Publications
+- [Hishinuma_t's Dr. thesis](https://hishinuma-t.dev/papers/dr_thesis/)
+- [Implementation of AVX512](https://hishinuma-t.dev/papers/wo_review/jsiam_os2020_doi/) thanks to Mr. [Itsuki Doi](https://github.com/doi-master)
+- [and more](https://hishinuma-t.dev/papers/list/)
