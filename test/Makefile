@@ -18,6 +18,12 @@ test_vector_blas:
 test_matrix:
 	make -j -C matrix test
 
+test_all:
+	make -j -C scalar test
+	make -j -C vector test
+	make -j -C vector_blas test
+	make -j -C matrix test
+
 clean:
 	- make -j -C scalar clean
 	- make -j -C vector clean

@@ -62,3 +62,16 @@ jobs:
 
     - name: test cg
       run: cd sample/; make; make test
+
+  avx512:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: make
+      run: make avx512
+    - name: make install
+      run: make install
+
+    - name: make test
+      run: cd test; make
