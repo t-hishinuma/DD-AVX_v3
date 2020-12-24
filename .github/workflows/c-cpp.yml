@@ -1,11 +1,7 @@
-name: C/C++ CI
+name: build and test
 
-on:
-  push:
-    branches: [ master, dev ]
-  pull_request:
-    branches: [ master ]
-
+on: [push, pull_request]
+    
 jobs:
   avx:
     runs-on: ubuntu-latest
