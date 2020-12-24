@@ -25,7 +25,7 @@ class d_real_vector : public std::vector<double>{
 		}
 //--I/O---------------------------------------
 		void print_all(){
-			for(int i=0; i<(int)size(); i++)
+			for(int i=0; i<size(); i++)
 				std::cout << std::vector<double>::at(i) << std::endl;
 		}
 		void print(int i){

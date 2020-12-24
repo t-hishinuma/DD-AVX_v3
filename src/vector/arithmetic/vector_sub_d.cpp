@@ -18,7 +18,7 @@ void d_real_vector::sub(dd_real_vector& vec1, dd_real_vector& vec2)
 	{
 		int i=0, is=0, ie=0;
 		get_isie(size(), is, ie);
-		for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
+		for(i = is; i < (ie-SIMD_Length+1); i += SIMD_Length){
 			reg a_hi = load(data()[i]);
 
 			reg b_hi = load(vec1.hi[i]);
@@ -52,7 +52,7 @@ void d_real_vector::sub(d_real_vector& vec1, dd_real_vector& vec2)
 	{
 		int i=0, is=0, ie=0;
 		get_isie(size(), is, ie);
-		for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
+		for(i = is; i < (ie-SIMD_Length+1); i += SIMD_Length){
 			reg a_hi = load(data()[i]);
 
 			reg b_hi = load(vec1.data()[i]);
@@ -86,7 +86,7 @@ void d_real_vector::sub(dd_real_vector& vec1, d_real_vector& vec2)
 	{
 		int i=0, is=0, ie=0;
 		get_isie(size(), is, ie);
-		for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
+		for(i = is; i < (ie-SIMD_Length+1); i += SIMD_Length){
 			reg a_hi = load(data()[i]);
 
 			reg b_hi = load(vec1.hi[i]);

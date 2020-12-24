@@ -32,7 +32,7 @@ namespace dd_avx{
             int j = 0;
 
             int ww =  A.row_ptr[i+1] - (SIMD_Length-1);
-            for(j = (int)A.row_ptr[i]; j < ww; j+=(int)SIMD_Length){
+            for(j = A.row_ptr[i]; j < ww; j+=SIMD_Length){
 
                 reg x_hi = set_all(x.hi, A.col_ind, j);
                 reg x_lo = set_all(x.lo, A.col_ind, j);
@@ -133,7 +133,7 @@ namespace dd_avx{
             int j = 0;
 
             int ww =  A.row_ptr[i+1] - (SIMD_Length-1);
-            for(j = (int)A.row_ptr[i]; j < ww; j+=(int)SIMD_Length){
+            for(j = A.row_ptr[i]; j < ww; j+=SIMD_Length){
 
                 reg x_hi = set_all(x, A.col_ind, j);
                 reg x_lo = regs.zeros;
@@ -233,7 +233,7 @@ namespace dd_avx{
             int j = 0;
 
             int ww =  A.row_ptr[i+1] - (SIMD_Length-1);
-            for(j = (int)A.row_ptr[i]; j < ww; j+=(int)SIMD_Length){
+            for(j = A.row_ptr[i]; j < ww; j+=SIMD_Length){
 
                 reg x_hi = set_all(x.hi, A.col_ind, j);
                 reg x_lo = set_all(x.lo, A.col_ind, j);
@@ -366,7 +366,7 @@ namespace dd_avx{
             int j = 0;
 
             int ww =  A.row_ptr[i+1] - (SIMD_Length-1);
-            for(j = (int)A.row_ptr[i]; j < ww; j+=(int)SIMD_Length){
+            for(j = A.row_ptr[i]; j < ww; j+=SIMD_Length){
 
                 reg x_hi = set_all(x.hi, A.col_ind, j);
                 reg x_lo = set_all(x.lo, A.col_ind, j);
@@ -430,7 +430,7 @@ namespace dd_avx{
             int j = 0;
 
             int ww =  A.row_ptr[i+1] - (SIMD_Length-1);
-            for(j = (int)A.row_ptr[i]; j < ww; j+=(int)SIMD_Length){
+            for(j = A.row_ptr[i]; j < ww; j+=SIMD_Length){
 
                 reg x_hi = set_all(x, A.col_ind, j);
                 reg x_lo = regs.zeros;
@@ -493,7 +493,7 @@ namespace dd_avx{
             int j = 0;
 
             int ww =  A.row_ptr[i+1] - (SIMD_Length-1);
-            for(j = (int)A.row_ptr[i]; j < ww; j+=(int)SIMD_Length){
+            for(j = A.row_ptr[i]; j < ww; j+=SIMD_Length){
 
                 reg x_hi = set_all(x.hi, A.col_ind, j);
                 reg x_lo = set_all(x.lo, A.col_ind, j);

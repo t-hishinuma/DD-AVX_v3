@@ -17,7 +17,7 @@ namespace dd_avx{
 			get_isie(y.size(), is, ie);
 			reg alpha_hi = broadcast(alpha.x[0]);
 			reg alpha_lo = broadcast(alpha.x[1]);
-			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
+			for(i = is; i < (ie-SIMD_Length+1); i += SIMD_Length){
 
 				reg x_hi = load(x.hi[i]);
 				reg x_lo = load(x.lo[i]);
@@ -49,7 +49,7 @@ namespace dd_avx{
 			get_isie(y.size(), is, ie);
 			reg alpha_hi = broadcast(alpha.x[0]);
 			reg alpha_lo = broadcast(alpha.x[1]);
-			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
+			for(i = is; i < (ie-SIMD_Length+1); i += SIMD_Length){
 
 				reg x_hi = load(x.data()[i]);
 				reg x_lo = regs.zeros;
@@ -81,7 +81,7 @@ namespace dd_avx{
 			get_isie(y.size(), is, ie);
 			reg alpha_hi = broadcast(alpha.x[0]);
 			reg alpha_lo = broadcast(alpha.x[1]);
-			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
+			for(i = is; i < (ie-SIMD_Length+1); i += SIMD_Length){
 
 				reg x_hi = load(x.hi[i]);
 				reg x_lo = load(x.lo[i]);
@@ -112,7 +112,7 @@ namespace dd_avx{
 			get_isie(y.size(), is, ie);
 			reg alpha_hi = broadcast(alpha.x[0]);
 			reg alpha_lo = broadcast(alpha.x[1]);
-			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
+			for(i = is; i < (ie-SIMD_Length+1); i += SIMD_Length){
 
 				reg x_hi = load(x.data()[i]);
 				reg x_lo = regs.zeros;
@@ -144,7 +144,7 @@ namespace dd_avx{
 			get_isie(y.size(), is, ie);
 			reg alpha_hi = broadcast(alpha);
 			reg alpha_lo = regs.zeros;
-			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
+			for(i = is; i < (ie-SIMD_Length+1); i += SIMD_Length){
 
 				reg x_hi = load(x.hi[i]);
 				reg x_lo = load(x.lo[i]);
@@ -176,7 +176,7 @@ namespace dd_avx{
 			get_isie(y.size(), is, ie);
 			reg alpha_hi = broadcast(alpha);
 			reg alpha_lo = regs.zeros;
-			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
+			for(i = is; i < (ie-SIMD_Length+1); i += SIMD_Length){
 
 				reg x_hi = load(x.data()[i]);
 				reg x_lo = regs.zeros;
@@ -208,7 +208,7 @@ namespace dd_avx{
 			get_isie(y.size(), is, ie);
 			reg alpha_hi = broadcast(alpha);
 			reg alpha_lo = regs.zeros;
-			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
+			for(i = is; i < (ie-SIMD_Length+1); i += SIMD_Length){
 
 				reg x_hi = load(x.hi[i]);
 				reg x_lo = load(x.lo[i]);
@@ -239,7 +239,7 @@ namespace dd_avx{
 			get_isie(y.size(), is, ie);
 			reg alpha_hi = broadcast(alpha);
 			reg alpha_lo = regs.zeros;
-			for(i = is; (int)i < (int)(ie-SIMD_Length+1); i += SIMD_Length){
+			for(i = is; i < (ie-SIMD_Length+1); i += SIMD_Length){
 
 				reg x_hi = load(x.data()[i]);
 				reg x_lo = regs.zeros;
