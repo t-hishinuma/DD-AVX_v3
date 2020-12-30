@@ -19,20 +19,23 @@ https://keepachangelog.com/ja/1.0.0/ に基づいて記述していく
 
 Unreleased
 -----------
-## Fixed
+### Added
+- add changelog https://github.com/t-hishinuma/DD-AVX_v3/issues/32
+
+### Fixed
 - delete unnecessary cast https://github.com/t-hishinuma/DD-AVX_v3/pull/30
 
 2.0.0 - 2020/10/10
 -----------
-## Added
+### Added
 - Support AVX512 and add Makefile.avx512 https://github.com/t-hishinuma/DD-AVX_v3/pull/27
 
-## Removed 
+### Removed 
 - delete size_t option, only support int32
 
 1.0.0 - 2020/09/07
 -----------
-## Added
+### Added
 - support Mixed precision
 - support AVX/AVX2
 - support BLAS Lv.1 and SpMV functions
