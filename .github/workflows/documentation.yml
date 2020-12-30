@@ -1,0 +1,23 @@
+name: documentation
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: doxygen
+      uses: mattnotmitt/doxygen-action@v1
+      with:
+          working-directory: 'doc/'
+   
+    - name: deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./doc/html/
+        force_orphan: true
