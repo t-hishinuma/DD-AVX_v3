@@ -1,5 +1,5 @@
 ![master branch CI status](https://github.com/t-hishinuma/DD-AVX_v3/workflows/C/C++%20CI/badge.svg)
-![[doxygen](https://img.shields.io/badge/doc-master-blue)][https://hishinuma-t.dev/DD-AVX_v3/]
+[![doxygen](https://img.shields.io/badge/doc-master-blue)][https://hishinuma-t.dev/DD-AVX_v3/]
 
 # DD-AVX Library: Library of High Precision Sparse Matrix Operations Accelerated by SIMD
 
