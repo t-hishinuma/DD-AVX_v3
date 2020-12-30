@@ -21,6 +21,7 @@ Unreleased
 -----------
 ### Added
 - add changelog https://github.com/t-hishinuma/DD-AVX_v3/issues/32
+- add generate doxygen in github actions https://github.com/t-hishinuma/DD-AVX_v3/issues/31
 
 ### Fixed
 - delete unnecessary cast https://github.com/t-hishinuma/DD-AVX_v3/pull/30
