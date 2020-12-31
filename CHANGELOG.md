@@ -24,6 +24,9 @@ Unreleased
 - add changelog https://github.com/t-hishinuma/DD-AVX_v3/issues/32
 - add generate doxygen in github actions https://github.com/t-hishinuma/DD-AVX_v3/issues/31
 
+### Changed
+- change MIT -> apache 2.0 LICENSE
+
 ### Fixed
 - delete unnecessary cast https://github.com/t-hishinuma/DD-AVX_v3/pull/30
 
