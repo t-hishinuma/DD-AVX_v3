@@ -16,7 +16,10 @@ class d_real_SpMat{
 
 		d_real_SpMat(){}
 
-/** @brief allocate size r * c matrix **/
+/** @brief allocate size r * c matrix 
+   * @param r # of row
+   * @param c # of col
+**/
 		d_real_SpMat(int r, int c){
 			if(r != c){
 				std::cerr << "error, r!=c, square matrix only now" << std::endl;
@@ -42,8 +45,15 @@ class d_real_SpMat{
 			col_ind.resize(nnz, 0);
 		}
 
-/** @brief create CRS matrix from CRS pointer **/
-		d_real_SpMat(int r, int c, int NNZ, int* row_pointer, int* col_index. double* value){
+/** @brief create CRS matrix from CRS pointer 
+   * @param r # of row
+   * @param c # of col
+   * @param NNZ # of non-zero elements
+   * @param row_pointer which stores the starting points of the rows of the arrays value and col_ind (size M+1)
+   * @param col_index which stores the column numbers of the non-zero elements (size nnz)
+   * @param value which stores the non-zero elements (size nnz)
+ **/
+		d_real_SpMat(int r, int c, int NNZ, int* row_pointer, int* col_index, double* value){
 			if(r != c){
 				std::cerr << "error, r!=c, square matrix only now" << std::endl;
 				assert(1);
@@ -64,28 +74,40 @@ class d_real_SpMat{
             }
 		}
 
-/** @brief create CRS matrix from CRS vectors **/
-		d_real_SpMat(std::vector<int> row_pointer, std::vector<int> col_index. std::vector<double> value){
+/** @brief create CRS matrix from CRS vectors 
+   * @param row_pointer which stores the starting points of the rows of the arrays value and col_ind (size M+1)
+   * @param col_index which stores the column numbers of the non-zero elements (size nnz)
+   * @param value which stores the non-zero elements (size nnz)
+ **/
+		d_real_SpMat(std::vector<int>& row_pointer, std::vector<int>& col_index, std::vector<double>& value){
 
 			row_ptr.resize(row_pointer.size());
-            copy(row_pointer.begin(), row_pointer.end(), row_ptr.begin());
+            for(int i=0; i<row_ptr.size()+1; i++){
+                row_ptr[i] = row_pointer[i];
+            }
 
 			val.resize(value.size());
-            copy(value.begin(), value.end(), val.begin());
-
 			col_ind.resize(col_index.size());
-            copy(col_index.begin(), col_index.end(), col_ind.begin());
+            for(int i=0; i<val.size(); i++){
+                val[i] = value[i];
+                col_ind[i] = col_index[i];
+            }
 		}
         
-/** @brief create CRS matrix from COO vectors **/
-		d_real_SpMat(int r, std::vector<int> row_index, std::vector<int> col_index. std::vector<double> value){
+/** @brief create CRS matrix from COO vectors 
+   * @param r # of row
+   * @param row_index which stores the row numbers of the non-zero elements (size nnz)
+   * @param col_index which stores the column numbers of the non-zero elements (size nnz)
+   * @param value which stores the non-zero elements (size nnz)
+**/
+		d_real_SpMat(int r, std::vector<int>& row_index, std::vector<int>& col_index, std::vector<double>& value){
 
 			row_ptr.resize(r+1);
 
             int c_row = 0;
             row_ptr[0] = 0;
             for (int i = 0; i < row_index.size(); i++) {
-                int idx = row_index[0]
+                int idx = row_index[0];
 
                 if(c_row == idx){
                     row_ptr[c_row+1] = i+1;
@@ -97,10 +119,11 @@ class d_real_SpMat{
             }
 
 			val.resize(value.size());
-            copy(value.begin(), value.end(), val.begin());
-
 			col_ind.resize(col_index.size());
-            copy(col_index.begin(), col_index.end(), col_ind.begin());
+            for(int i=0; i<val.size(); i++){
+                val[i] = value[i];
+                col_ind[i] = col_index[i];
+            }
 		}
 
 //--allocate, free---------------------------------------
