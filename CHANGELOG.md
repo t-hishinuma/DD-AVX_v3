@@ -20,6 +20,7 @@ https://keepachangelog.com/ja/1.0.0/ に基づいて記述していく
 Unreleased
 -----------
 ### Added
+- add doxygen comment https://github.com/t-hishinuma/DD-AVX_v3/issues/36
 - add changelog https://github.com/t-hishinuma/DD-AVX_v3/issues/32
 - add generate doxygen in github actions https://github.com/t-hishinuma/DD-AVX_v3/issues/31
 
