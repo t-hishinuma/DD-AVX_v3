@@ -12,20 +12,25 @@ These operations can be performed by combining double and double-double precisio
 
 This library provides an easy way to implement a fast and accurate Krylov subspace method.
 
-
 This library is extensions of 
 [Lis_DD_AVXKernals](https://github.com/t-hishinuma/Lis_DD_AVXkernels) and 
 [DD-AVX_v2](https://github.com/t-hishinuma/DD-AVX_v2) (archived).
 
 ## Interface
-This library provides BLAS / Sparse BLAS functions for the following six types.
+This library provides BLAS Lv.1 and Sparse BLAS functions.
+
+For acceleration, this library provides AoS format double-double precision vector.
+
+This library provides the following six types.
 
 ### Scalar
 * d_real (alias of double)
 * dd_real (provided by the QD Library)
-### Vector
+
+### Vector 
 * d_real_vector
-* dd_real_vector
+* dd_real_vector (AoS format)
+
 ### Sparse matrix (CRS format)
 * d_real_SpMat
 
