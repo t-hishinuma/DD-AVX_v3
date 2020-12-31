@@ -19,6 +19,9 @@ https://keepachangelog.com/ja/1.0.0/ に基づいて記述していく
 
 Unreleased
 -----------
+
+2.1.0 - 2020/12/31
+-----------
 ### Added
 - add doxygen comment https://github.com/t-hishinuma/DD-AVX_v3/issues/36
 - add changelog https://github.com/t-hishinuma/DD-AVX_v3/issues/32
