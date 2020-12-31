@@ -42,6 +42,67 @@ class d_real_SpMat{
 			col_ind.resize(nnz, 0);
 		}
 
+/** @brief create CRS matrix from CRS pointer **/
+		d_real_SpMat(int r, int c, int NNZ, int* row_pointer, int* col_index. double* value){
+			if(r != c){
+				std::cerr << "error, r!=c, square matrix only now" << std::endl;
+				assert(1);
+			}
+			row=r;
+			nnz=NNZ;
+
+			row_ptr.resize(row+1, 0);
+            for(int i=0; i<row+1; i++){
+                row_ptr[i] = row_pointer[i];
+            }
+
+			val.resize(nnz, 0.0);
+			col_ind.resize(nnz, 0);
+            for(int i=0; i<nnz; i++){
+                val[i] = value[i];
+                col_ind[i] = col_index[i];
+            }
+		}
+
+/** @brief create CRS matrix from CRS vectors **/
+		d_real_SpMat(std::vector<int> row_pointer, std::vector<int> col_index. std::vector<double> value){
+
+			row_ptr.resize(row_pointer.size());
+            copy(row_pointer.begin(), row_pointer.end(), row_ptr.begin());
+
+			val.resize(value.size());
+            copy(value.begin(), value.end(), val.begin());
+
+			col_ind.resize(col_index.size());
+            copy(col_index.begin(), col_index.end(), col_ind.begin());
+		}
+        
+/** @brief create CRS matrix from COO vectors **/
+		d_real_SpMat(int r, std::vector<int> row_index, std::vector<int> col_index. std::vector<double> value){
+
+			row_ptr.resize(r+1);
+
+            int c_row = 0;
+            row_ptr[0] = 0;
+            for (int i = 0; i < row_index.size(); i++) {
+                int idx = row_index[0]
+
+                if(c_row == idx){
+                    row_ptr[c_row+1] = i+1;
+                }
+                else{
+                    c_row = c_row + 1;
+                    row_ptr[c_row+1] = i+1;
+                }
+            }
+
+			val.resize(value.size());
+            copy(value.begin(), value.end(), val.begin());
+
+			col_ind.resize(col_index.size());
+            copy(col_index.begin(), col_index.end(), col_ind.begin());
+		}
+
 //--allocate, free---------------------------------------
 /** @brief free **/
 		void clear(){
