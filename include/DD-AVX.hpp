@@ -29,75 +29,120 @@ inline dd_real dd_rand(){
 }
 
 namespace dd_avx{
-	//axpy
+    
+/** @brief axpy: y = ax+y **/
 	void axpy(const dd_real& alpha, const dd_real_vector& x, dd_real_vector& y);
+/** @brief axpy: y = ax+y **/
 	void axpy(const dd_real& alpha, const d_real_vector& x, dd_real_vector& y);
+/** @brief axpy: y = ax+y **/
 	void axpy(const dd_real& alpha, const dd_real_vector& x, d_real_vector& y);
+/** @brief axpy: y = ax+y **/
 	void axpy(const dd_real& alpha, const d_real_vector& x, d_real_vector& y);
 
+/** @brief axpy: y = ax+y **/
 	void axpy(const d_real& alpha, const dd_real_vector& x, dd_real_vector& y);
+/** @brief axpy: y = ax+y **/
 	void axpy(const d_real& alpha, const d_real_vector& x, dd_real_vector& y);
+/** @brief axpy: y = ax+y **/
 	void axpy(const d_real& alpha, const dd_real_vector& x, d_real_vector& y);
+/** @brief axpy: y = ax+y **/
 	void axpy(const d_real& alpha, const d_real_vector& x, d_real_vector& y);
 
-	//axpyz
+
+
+/** @brief axpyz: y = ax+y **/
 	void axpyz(const dd_real& alpha, const dd_real_vector& x, const dd_real_vector& y, dd_real_vector& z);
+/** @brief axpyz: y = ax+y **/
 	void axpyz(const dd_real& alpha, const d_real_vector& x, const dd_real_vector& y, dd_real_vector& z);
+/** @brief axpyz: y = ax+y **/
 	void axpyz(const dd_real& alpha, const dd_real_vector& x, const d_real_vector& y, dd_real_vector& z);
+/** @brief axpyz: y = ax+y **/
 	void axpyz(const dd_real& alpha, const d_real_vector& x, const d_real_vector& y, dd_real_vector& z);
 
+/** @brief axpyz: y = ax+y **/
 	void axpyz(const d_real& alpha, const dd_real_vector& x, const dd_real_vector& y, dd_real_vector& z);
+/** @brief axpyz: y = ax+y **/
 	void axpyz(const d_real& alpha, const d_real_vector& x, const dd_real_vector& y, dd_real_vector& z);
+/** @brief axpyz: y = ax+y **/
 	void axpyz(const d_real& alpha, const dd_real_vector& x, const d_real_vector& y, dd_real_vector& z);
+/** @brief axpyz: y = ax+y **/
 	void axpyz(const d_real& alpha, const d_real_vector& x, const d_real_vector& y, dd_real_vector& z);
 
+/** @brief axpyz: y = ax+y **/
 	void axpyz(const dd_real& alpha, const dd_real_vector& x, const dd_real_vector& y, d_real_vector& z);
+/** @brief axpyz: y = ax+y **/
 	void axpyz(const dd_real& alpha, const d_real_vector& x, const dd_real_vector& y, d_real_vector& z);
+/** @brief axpyz: y = ax+y **/
 	void axpyz(const dd_real& alpha, const dd_real_vector& x, const d_real_vector& y, d_real_vector& z);
+/** @brief axpyz: y = ax+y **/
 	void axpyz(const dd_real& alpha, const d_real_vector& x, const d_real_vector& y, d_real_vector& z);
 
+/** @brief axpyz: y = ax+y **/
 	void axpyz(const dd_real& alpha, const dd_real_vector& x, const dd_real_vector& y, d_real_vector& z);
+/** @brief axpyz: y = ax+y **/
 	void axpyz(const dd_real& alpha, const d_real_vector& x, const dd_real_vector& y, d_real_vector& z);
+/** @brief axpyz: y = ax+y **/
 	void axpyz(const dd_real& alpha, const dd_real_vector& x, const d_real_vector& y, d_real_vector& z);
+/** @brief axpyz: y = ax+y **/
 	void axpyz(const dd_real& alpha, const d_real_vector& x, const d_real_vector& y, d_real_vector& z);
 
-	//xpay
+
+
+/** @brief xpay: y = x+ay **/
 	void xpay(const dd_real& alpha, const dd_real_vector& x, dd_real_vector& y);
+/** @brief xpay: y = x+ay **/
 	void xpay(const dd_real& alpha, const d_real_vector& x, dd_real_vector& y);
+/** @brief xpay: y = x+ay **/
 	void xpay(const dd_real& alpha, const dd_real_vector& x, d_real_vector& y);
+/** @brief xpay: y = x+ay **/
 	void xpay(const dd_real& alpha, const d_real_vector& x, d_real_vector& y);
 
+/** @brief xpay: y = x+ay **/
 	void xpay(const d_real& alpha, const dd_real_vector& x, dd_real_vector& y);
+/** @brief xpay: y = x+ay **/
 	void xpay(const d_real& alpha, const d_real_vector& x, dd_real_vector& y);
+/** @brief xpay: y = x+ay **/
 	void xpay(const d_real& alpha, const dd_real_vector& x, d_real_vector& y);
+/** @brief xpay: y = x+ay **/
 	void xpay(const d_real& alpha, const d_real_vector& x, d_real_vector& y);
 
-	//scale
+
+
+/** @brief scale: x = ax **/
 	void scale(const dd_real& alpha, dd_real_vector& x);
+/** @brief scale: x = ax **/
 	void scale(const d_real& alpha, dd_real_vector& x);
+/** @brief scale: x = ax **/
 	void scale(const dd_real& alpha, d_real_vector& x);
+/** @brief scale: x = ax **/
 	void scale(const d_real& alpha, d_real_vector& x);
 
-	//dot
+
+
+/** @brief nrm2: ans = ||x|| **/
 	dd_real nrm2(const dd_real_vector& x);
+/** @brief nrm2: ans = ||x|| **/
 	dd_real nrm2(const d_real_vector& x);
 
-	//nrm2
+
+
+/** @brief dot: ans = (x,y) **/
 	dd_real dot(const dd_real_vector& x, const dd_real_vector& y);
+/** @brief dot: ans = (x,y) **/
 	dd_real dot(const d_real_vector& x, const dd_real_vector& y);
+/** @brief dot: ans = (x,y) **/
 	dd_real dot(const dd_real_vector& x, const d_real_vector& y);
+/** @brief dot: ans = (x,y) **/
 	dd_real dot(const d_real_vector& x, const d_real_vector& y);
 
-	//SpMV
+/** @brief matvec: y = Ax **/
 	void matvec(const d_real_SpMat& A, const dd_real_vector& x, dd_real_vector& y);
+/** @brief matvec: y = Ax **/
 	void matvec(const d_real_SpMat& A, const d_real_vector& x, dd_real_vector& y);
+/** @brief matvec: y = Ax **/
 	void matvec(const d_real_SpMat& A, const dd_real_vector& x, d_real_vector& y);
+/** @brief matvec: y = Ax **/
 	void matvec(const d_real_SpMat& A, const d_real_vector& x, d_real_vector& y);
-
-// 	void tmatvec(const d_real_SpMat& A, const dd_real_vector& x, dd_real_vector& y);
-// 	void tmatvec(const d_real_SpMat& A, const d_real_vector& x, dd_real_vector& y);
-// 	void tmatvec(const d_real_SpMat& A, const dd_real_vector& x, d_real_vector& y);
-// 	void tmatvec(const d_real_SpMat& A, const d_real_vector& x, d_real_vector& y);
 }
 
 #endif
