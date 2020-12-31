@@ -25,7 +25,7 @@ Unreleased
 - add generate doxygen in github actions https://github.com/t-hishinuma/DD-AVX_v3/issues/31
 
 ### Changed
-- change MIT -> apache 2.0 LICENSE
+- change MIT -> apache 2.0 license
 
 ### Fixed
 - delete unnecessary cast https://github.com/t-hishinuma/DD-AVX_v3/pull/30
