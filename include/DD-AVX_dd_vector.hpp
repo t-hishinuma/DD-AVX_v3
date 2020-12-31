@@ -137,7 +137,7 @@ class dd_real_vector{
 		void print_all(){ for(int i=0; i<N; i++) std::cout << hi[i] << ", " << lo[i] << std::endl; }
 /** @brief output vec[i] to standard I/O **/
 		void print(int i){ std::cout << hi[i] << ", " << lo[i] << std::endl;}
-O
+
 /** @brief create vector from file **/
 		void input(const char* filename);
 /** @brief create vector from matrix market file **/
