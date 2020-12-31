@@ -23,6 +23,7 @@ Unreleased
 2.1.0 - 2020/12/31
 -----------
 ### Added
+- create CRS from CRS or COO vectors https://github.com/t-hishinuma/DD-AVX_v3/issues/19
 - add doxygen comment https://github.com/t-hishinuma/DD-AVX_v3/issues/36
 - add changelog https://github.com/t-hishinuma/DD-AVX_v3/issues/32
 - add generate doxygen in github actions https://github.com/t-hishinuma/DD-AVX_v3/issues/31
