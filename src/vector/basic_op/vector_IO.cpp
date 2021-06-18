@@ -93,7 +93,7 @@
 //       abort();
 //    }
 //
-//    /* check size */
+//    /* check size */		
 //    do
 //    {
 //       if( fgets(buf, 1024, file) == NULL )
@@ -192,8 +192,7 @@
 //       abort();
 //    }
 //
-//    fprintf(file,"%s %s %s %s
-//    %s\n",MM_BANNER,MM_VEC,MM_FMT,MM_TYPE_REAL,MM_TYPE_GENERAL);
+//    fprintf(file,"%s %s %s %s %s\n",MM_BANNER,MM_VEC,MM_FMT,MM_TYPE_REAL,MM_TYPE_GENERAL);
 //    for(i=0;i<N;i++)
 //    {
 //       fprintf(file,"%d %20.20e\n",i,hi[i]);
@@ -310,7 +309,7 @@
 //       abort();
 //    }
 //
-//    /* check size */
+//    /* check size */		
 //    do
 //    {
 //       if( fgets(buf, 1024, file) == NULL )
@@ -409,8 +408,7 @@
 //       abort();
 //    }
 //
-//    fprintf(file,"%s %s %s %s
-//    %s\n",MM_BANNER,MM_VEC,MM_FMT,MM_TYPE_REAL,MM_TYPE_GENERAL);
+//    fprintf(file,"%s %s %s %s %s\n",MM_BANNER,MM_VEC,MM_FMT,MM_TYPE_REAL,MM_TYPE_GENERAL);
 //    for(i=0;i<N;i++)
 //    {
 //       fprintf(file,"%d %20.20e\n",i,hi[i]);

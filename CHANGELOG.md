@@ -19,14 +19,6 @@ https://keepachangelog.com/ja/1.0.0/ に基づいて記述していく
 
 Unreleased
 -----------
-### Added
-- apply clang-format  https://github.com/t-hishinuma/DD-AVX_v3/issues/40
-
-### Changed
-
-### Fixed
-- fix doxygen typo https://github.com/t-hishinuma/DD-AVX_v3/issues/39
-
 
 2.1.0 - 2020/12/31
 -----------

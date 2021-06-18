@@ -1,15 +1,17 @@
-#include <DD-AVX.hpp>
-#include <iostream>
-#include <vector>
+#include<DD-AVX.hpp>
+#include<vector>
+#include<iostream>
 
-int main(int argc, char **argv) {
-  d_real_SpMat IN;
-  IN.input_mm("./test.mtx");
+int main(int argc, char** argv){
+	d_real_SpMat IN;
+	IN.input_mm("./test.mtx");
 
-  d_real_SpMat A = IN;
 
-  A.output();
-  A.output_mm("./input_test.log");
+	d_real_SpMat A = IN;
 
-  return 0;
+	A.output();
+	A.output_mm("./input_test.log");
+
+	return 0;
 }
+
