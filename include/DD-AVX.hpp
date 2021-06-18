@@ -50,40 +50,40 @@ namespace dd_avx{
 
 
 
-/** @brief axpyz: y = ax+y **/
+/** @brief axpyz: z = ax+y **/
 	void axpyz(const dd_real& alpha, const dd_real_vector& x, const dd_real_vector& y, dd_real_vector& z);
-/** @brief axpyz: y = ax+y **/
+/** @brief axpyz: z = ax+y **/
 	void axpyz(const dd_real& alpha, const d_real_vector& x, const dd_real_vector& y, dd_real_vector& z);
-/** @brief axpyz: y = ax+y **/
+/** @brief axpyz: z = ax+y **/
 	void axpyz(const dd_real& alpha, const dd_real_vector& x, const d_real_vector& y, dd_real_vector& z);
-/** @brief axpyz: y = ax+y **/
+/** @brief axpyz: z = ax+y **/
 	void axpyz(const dd_real& alpha, const d_real_vector& x, const d_real_vector& y, dd_real_vector& z);
 
-/** @brief axpyz: y = ax+y **/
+/** @brief axpyz: z = ax+y **/
 	void axpyz(const d_real& alpha, const dd_real_vector& x, const dd_real_vector& y, dd_real_vector& z);
-/** @brief axpyz: y = ax+y **/
+/** @brief axpyz: z = ax+y **/
 	void axpyz(const d_real& alpha, const d_real_vector& x, const dd_real_vector& y, dd_real_vector& z);
-/** @brief axpyz: y = ax+y **/
+/** @brief axpyz: z = ax+y **/
 	void axpyz(const d_real& alpha, const dd_real_vector& x, const d_real_vector& y, dd_real_vector& z);
-/** @brief axpyz: y = ax+y **/
+/** @brief axpyz: z = ax+y **/
 	void axpyz(const d_real& alpha, const d_real_vector& x, const d_real_vector& y, dd_real_vector& z);
 
-/** @brief axpyz: y = ax+y **/
+/** @brief axpyz: z = ax+y **/
 	void axpyz(const dd_real& alpha, const dd_real_vector& x, const dd_real_vector& y, d_real_vector& z);
-/** @brief axpyz: y = ax+y **/
+/** @brief axpyz: z = ax+y **/
 	void axpyz(const dd_real& alpha, const d_real_vector& x, const dd_real_vector& y, d_real_vector& z);
-/** @brief axpyz: y = ax+y **/
+/** @brief axpyz: z = ax+y **/
 	void axpyz(const dd_real& alpha, const dd_real_vector& x, const d_real_vector& y, d_real_vector& z);
-/** @brief axpyz: y = ax+y **/
+/** @brief axpyz: z = ax+y **/
 	void axpyz(const dd_real& alpha, const d_real_vector& x, const d_real_vector& y, d_real_vector& z);
 
-/** @brief axpyz: y = ax+y **/
+/** @brief axpyz: z = ax+y **/
 	void axpyz(const dd_real& alpha, const dd_real_vector& x, const dd_real_vector& y, d_real_vector& z);
-/** @brief axpyz: y = ax+y **/
+/** @brief axpyz: z = ax+y **/
 	void axpyz(const dd_real& alpha, const d_real_vector& x, const dd_real_vector& y, d_real_vector& z);
-/** @brief axpyz: y = ax+y **/
+/** @brief axpyz: z = ax+y **/
 	void axpyz(const dd_real& alpha, const dd_real_vector& x, const d_real_vector& y, d_real_vector& z);
-/** @brief axpyz: y = ax+y **/
+/** @brief axpyz: z = ax+y **/
 	void axpyz(const dd_real& alpha, const d_real_vector& x, const d_real_vector& y, d_real_vector& z);
 
 
