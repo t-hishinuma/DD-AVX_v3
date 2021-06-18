@@ -1,0 +1,27 @@
+<map id="dd_real_vector::size" name="dd_real_vector::size">
+<area shape="rect" id="node1" title="get size" alt="" coords="445,487,581,513"/>
+<area shape="rect" id="node2" href="$classd__real__vector.html#ae60cb50e8b15cecb831c7d3c2b87115b" title="all elemetnt arithmetic function" alt="" coords="246,5,373,32"/>
+<area shape="rect" id="node3" href="$classdd__real__vector.html#af250c4169309518007845099e1461c48" title="all elemetnt arithmetic function" alt="" coords="242,56,377,83"/>
+<area shape="rect" id="node4" href="$namespacedd__avx.html#a29f48bfcf73c5a17c52c37294c2fed33" title="axpy: y = ax+y" alt="" coords="262,107,357,133"/>
+<area shape="rect" id="node5" href="$namespacedd__avx.html#a4a8dc92fae78c971c4997080e5df0d5f" title="axpyz: z = ax+y" alt="" coords="259,157,360,184"/>
+<area shape="rect" id="node6" href="$classd__real__vector.html#a4f97ccc213ee57d506414be30cf9e631" title="copy from dd_real_vector" alt="" coords="243,208,376,235"/>
+<area shape="rect" id="node8" href="$classdd__real__vector.html#a089e736bd948278bffa17d566f8f9d25" title="copy from dd_real_vector" alt="" coords="239,259,379,285"/>
+<area shape="rect" id="node10" href="$classd__real__vector.html#a9a3609be0f57a261336fd80c848b59f8" title="all elemetnt arithmetic function" alt="" coords="248,309,371,336"/>
+<area shape="rect" id="node11" href="$classdd__real__vector.html#a82e1e4907f3b918b34ce023870b1656f" title="all elemetnt arithmetic function" alt="" coords="244,360,375,387"/>
+<area shape="rect" id="node12" href="$namespacedd__avx.html#a878855397b4c064516cb00b6214ab824" title="dot: ans = (x,y)" alt="" coords="266,411,353,437"/>
+<area shape="rect" id="node15" href="$classd__real__vector.html#af149eec65522375460f257af18bcfbc5" title="return DD&#39;s lo array (return zero vector)" alt="" coords="247,461,371,488"/>
+<area shape="rect" id="node16" href="$namespacedd__avx.html#a48926d0baed66e2d140f4b5dc86a02dd" title="matvec: y = Ax" alt="" coords="253,512,365,539"/>
+<area shape="rect" id="node17" href="$classd__real__vector.html#a7a0c0639cdcbc7547bee99c5c56f883d" title="all elemetnt arithmetic function" alt="" coords="246,563,373,589"/>
+<area shape="rect" id="node18" href="$classdd__real__vector.html#a5b69a4499c1e2463b50ff0b59f1bf9c2" title="all elemetnt arithmetic function" alt="" coords="242,613,377,640"/>
+<area shape="rect" id="node19" href="$classd__real__vector.html#a11743e27e1dcd89cafafdbfd06cd11bb" title="comparision" alt="" coords="225,664,394,691"/>
+<area shape="rect" id="node20" href="$classdd__real__vector.html#ac283734860dbcd78e8b7b4c7cdb47cbe" title="comparision function" alt="" coords="221,715,397,741"/>
+<area shape="rect" id="node21" href="$classd__real__vector.html#a70352d706d99deb5c99134fb017a9235" title="output vector elements to standard I/O" alt="" coords="234,765,385,792"/>
+<area shape="rect" id="node22" href="$namespacedd__avx.html#a0bff439fceba6c1eaec7a4281b019f2b" title="scale: x = ax" alt="" coords="259,816,359,843"/>
+<area shape="rect" id="node23" href="$classd__real__vector.html#a02beafddfd48e7d94ea6b47fde9d731d" title="all elemetnt arithmetic function" alt="" coords="246,867,373,893"/>
+<area shape="rect" id="node24" href="$classdd__real__vector.html#a8fd69cf37133e347145fdaa938163f00" title="all elemetnt arithmetic function" alt="" coords="242,917,377,944"/>
+<area shape="rect" id="node25" href="$namespacedd__avx.html#aa09421370abccf441c8304ca809c7639" title="xpay: y = x+ay" alt="" coords="262,968,357,995"/>
+<area shape="rect" id="node7" href="$classd__real__vector.html#a8b7128abf75b25a33fd92959b6367543" title="copy from dd_real_vector" alt="" coords="9,208,170,235"/>
+<area shape="rect" id="node9" href="$classdd__real__vector.html#aab916322a8f83b6116981ec5f4d4cda6" title="copy from dd_real_vector" alt="" coords="5,259,173,285"/>
+<area shape="rect" id="node13" href="$namespacedd__avx.html#a4075983859a838c60dfd882716461411" title="dot: ans = (x,y)" alt="" coords="46,385,133,412"/>
+<area shape="rect" id="node14" href="$namespacedd__avx.html#a4b7747cbd02b865b73bd39620635a2b6" title="nrm2: ans = ||x||" alt="" coords="40,436,139,463"/>
+</map>
