@@ -19,6 +19,12 @@ https://keepachangelog.com/ja/1.0.0/ に基づいて記述していく
 
 Unreleased
 -----------
+### Added
+
+### Changed
+
+### Fixed
+- fix doxygen typo https://github.com/t-hishinuma/DD-AVX_v3/pull/39
 
 2.1.0 - 2020/12/31
 -----------
