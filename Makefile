@@ -1,3 +1,5 @@
+ALLGEBRA_IMAGE := ghcr.io/ricosjp/allgebra
+ALLGEBRA_TAG   := 21.05.0
 DD_AVX_DIR?=$(HOME)/lib/dd_avx/
 
 all: avx2
@@ -43,3 +45,10 @@ clean_lib:
 	- rm -rf ./lib/libdd-avx.so
 	- rm -rf  $(DD_AVX_DIR)/lib/
 	- rm -rf  $(DD_AVX_DIR)/include/
+
+format:
+	docker run -it --rm  \
+		-u `id -u`:`id -g` \
+		-v $(PWD):$(PWD)   \
+		-w $(PWD)          \
+		$(ALLGEBRA_IMAGE)/clang-format:$(ALLGEBRA_TAG) /usr/bin/check_format.sh
